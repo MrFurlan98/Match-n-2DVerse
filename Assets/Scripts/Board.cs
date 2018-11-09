@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour {
 
@@ -12,11 +13,13 @@ public class Board : MonoBehaviour {
     public GameObject[] icons;
     public GameObject[,] allicons;
     public float score;
+	public Text pointText;
 
     // Use this for initialization
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
+		pointText.text= "Points: " + score;
         SetUp();
 	}
 
@@ -107,6 +110,6 @@ public class Board : MonoBehaviour {
     }
     private void UpdateScore()
     {
-
+		pointText.text= "Points: " + score;
     }
 }
