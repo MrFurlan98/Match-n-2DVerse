@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BackgroundTile.cs" />
      <Compile Include="Assets\Scripts\Board.cs" />
+     <Compile Include="Assets\Scripts\GameOverScreen.cs" />
      <Compile Include="Assets\Scripts\Icon.cs" />
      <Compile Include="Assets\Scripts\PauseScreen.cs" />
      <Compile Include="Assets\Scripts\SelectLevel.cs" />

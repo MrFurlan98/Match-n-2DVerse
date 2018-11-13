@@ -12,14 +12,17 @@ public class Board : MonoBehaviour {
     private BackgroundTile[,] allTiles;
     public GameObject[] icons;
     public GameObject[,] allicons;
-    public float score;
+	public float moves;
+	public float score = 0;
 	public Text pointText;
+	public Text moveText;
 
     // Use this for initialization
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
 		pointText.text= "Points: " + score;
+		moveText.text= "Moves left: " + moves;
         SetUp();
 	}
 
@@ -108,8 +111,16 @@ public class Board : MonoBehaviour {
         RefillBoard();
         yield return new WaitForSeconds(.5f);
     }
-    private void UpdateScore()
+
+    public void UpdateMove()
     {
 		pointText.text= "Points: " + score;
-    }
+		moves--;
+
+		if (moves >= 0) {
+			moveText.text= "Moves left: " + moves;
+		} 
+	}
+
+
 }
