@@ -11,7 +11,7 @@ public class PauseScreen : MonoBehaviour {
 
 	public GameObject thePauseScreen;
 	public GameObject theConfirmationScreen;
-
+	
 	// Use this for initialization
 	void Start () {
 		board = FindObjectOfType<Board> ();
@@ -28,11 +28,13 @@ public class PauseScreen : MonoBehaviour {
 	private void OnMouseDown()
     {
 		thePauseScreen.SetActive (true);
+		//boardGO.SetActive(false);
 	}
 
 
 	public void Resume()
 	{
+		//boardGO.SetActive(true);
 		thePauseScreen.SetActive (false);
 	}
 

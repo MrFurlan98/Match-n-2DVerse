@@ -66,6 +66,7 @@ public class Board : MonoBehaviour {
         }
         StartCoroutine(DropColumns());
     }
+    
     private IEnumerator DropColumns()
     {
         int nullCount = 0;
