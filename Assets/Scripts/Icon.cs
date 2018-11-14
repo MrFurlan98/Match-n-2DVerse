@@ -13,6 +13,10 @@ public class Icon : MonoBehaviour {
     private Vector2 tempPosition;
 	int nrmTitle = 0;
 	int scoreInst = 0;
+	public bool medused=false;
+
+	private SpriteRenderer theSpriteRenderer;
+	public Sprite medusaTitle;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +25,7 @@ public class Icon : MonoBehaviour {
         targetY = (int)transform.position.y;
         row = targetX;
         colunm = targetY;*/
+		theSpriteRenderer = GetComponent<SpriteRenderer> ();
     }
     void Update()
     {
@@ -60,6 +65,8 @@ public class Icon : MonoBehaviour {
         else
         {
             SetIsMatchFalse();
+			theSpriteRenderer.sprite = medusaTitle;
+			medused = true;
 
         }
     }
@@ -130,7 +137,7 @@ public class Icon : MonoBehaviour {
             {
                 if(board.allicons[i,j]!=null)
                 {
-                    if (board.allicons[i, j].GetComponent<Icon>().isMatch)
+					if (board.allicons[i, j].GetComponent<Icon>().isMatch && !medused)
                     {
                         nrmTitle++;
                     }

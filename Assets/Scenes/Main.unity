@@ -222,26 +222,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114997067462605522, guid: b1df05d68dfe0f04ebacd02eb842ec6c,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1665529216}
-    - target: {fileID: 114997067462605522, guid: b1df05d68dfe0f04ebacd02eb842ec6c,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: toWorldMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288410089806334, guid: b1df05d68dfe0f04ebacd02eb842ec6c, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1df05d68dfe0f04ebacd02eb842ec6c, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1665529216 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114578302385794826, guid: b1df05d68dfe0f04ebacd02eb842ec6c,
-    type: 2}
-  m_PrefabInternal: {fileID: 810599485}
-  m_Script: {fileID: 11500000, guid: 77bcf74e9aa301c45ad912cde424e324, type: 3}

@@ -56,7 +56,7 @@ public class Board : MonoBehaviour {
             {
                 if(allicons[i,j]!=null)
                 {
-                    if (allicons[i, j].GetComponent<Icon>().isMatch)
+					if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().medused))
                     {
                         Destroy(allicons[i, j]);
                         allicons[i, j] = null;
