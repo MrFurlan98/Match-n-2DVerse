@@ -10,6 +10,8 @@ TagManager:
   - Skull
   - Spider
   - Destroying
+  - poison
+  - Medused
   layers:
   - Default
   - TransparentFX

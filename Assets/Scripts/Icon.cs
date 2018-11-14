@@ -67,6 +67,7 @@ public class Icon : MonoBehaviour {
             SetIsMatchFalse();
 			theSpriteRenderer.sprite = medusaTitle;
 			medused = true;
+			gameObject.tag = "Medused";
 
         }
     }
@@ -137,7 +138,7 @@ public class Icon : MonoBehaviour {
             {
                 if(board.allicons[i,j]!=null)
                 {
-					if (board.allicons[i, j].GetComponent<Icon>().isMatch && !medused)
+					if (board.allicons[i, j].GetComponent<Icon>().isMatch && (!medused))
                     {
                         nrmTitle++;
                     }
