@@ -21,8 +21,8 @@ public class Board : MonoBehaviour {
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
-		pointText.text= "Points: " + score;
-		moveText.text= "Moves left: " + moves;
+		pointText.text= " " + score;
+		moveText.text= " " + moves;
         SetUp();
 	}
 
@@ -33,9 +33,9 @@ public class Board : MonoBehaviour {
             for(int j=0;j<height;j++)
             {
                 Vector2 tempPosition = new Vector2(i, j+offSet);
-                GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
+                /*GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
                 backgroundTile.transform.parent = this.transform;
-                backgroundTile.name = "( " + i + ", " + j + " )";
+                backgroundTile.name = "( " + i + ", " + j + " )";*/
                 int iconToUse = Random.Range(0, icons.Length);
 
 
@@ -43,7 +43,7 @@ public class Board : MonoBehaviour {
                 icon.GetComponent<Icon>().colunm = j;
                 icon.GetComponent<Icon>().row= i;
                 icon.transform.parent = this.transform;
-                icon.name = "( " + i + ", " + j + " )";
+                //icon.name = "( " + i + ", " + j + " )";
                 allicons[i, j] = icon;
             }
         }
@@ -102,6 +102,7 @@ public class Board : MonoBehaviour {
                     allicons[i, j] = newIcon;
                     newIcon.GetComponent<Icon>().colunm = j;
                     newIcon.GetComponent<Icon>().row = i;
+                    newIcon.transform.parent = transform;
                 }
             }
         }
@@ -114,11 +115,11 @@ public class Board : MonoBehaviour {
 
     public void UpdateMove()
     {
-		pointText.text= "Points: " + score;
+		pointText.text= " " + score;
 		moves--;
 
 		if (moves >= 0) {
-			moveText.text= "Moves left: " + moves;
+			moveText.text= " " + moves;
 		} 
 	}
 

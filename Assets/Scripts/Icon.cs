@@ -70,7 +70,8 @@ public class Icon : MonoBehaviour {
 			gameObject.tag = "Medused";
 
         }
-    }
+    }   
+
     void FindMatch()
     {
         if (targetX > 0)

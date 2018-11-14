@@ -18,10 +18,10 @@ public class GameOverScreen : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (board.GetComponent<Board>().moves ==  -1) 
+		if (board.GetComponent<Board>().moves ==  0) 
 		{
 			gameOverScreen.SetActive (true);
-			txtPoints.text= "Points: " + board.score;
+			txtPoints.text= " " + board.score;
 		}
 	}
 		

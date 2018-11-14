@@ -25,6 +25,12 @@ public class PauseScreen : MonoBehaviour {
 		}
 	}
 
+	private void OnMouseDown()
+    {
+		thePauseScreen.SetActive (true);
+	}
+
+
 	public void Resume()
 	{
 		thePauseScreen.SetActive (false);
