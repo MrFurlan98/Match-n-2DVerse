@@ -11,7 +11,12 @@ public class Icon : MonoBehaviour {
     public int targetY;
     public bool isMatch = false;
     private Vector2 tempPosition;
+	int nrmTitle = 0;
+	int scoreInst = 0;
+	public bool medused=false;
 
+	private SpriteRenderer theSpriteRenderer;
+	public Sprite medusaTitle;
 
     // Use this for initialization
     void Start () {
@@ -20,6 +25,7 @@ public class Icon : MonoBehaviour {
         targetY = (int)transform.position.y;
         row = targetX;
         colunm = targetY;*/
+		theSpriteRenderer = GetComponent<SpriteRenderer> ();
     }
     void Update()
     {
@@ -59,9 +65,13 @@ public class Icon : MonoBehaviour {
         else
         {
             SetIsMatchFalse();
+			theSpriteRenderer.sprite = medusaTitle;
+			medused = true;
+			gameObject.tag = "Medused";
 
         }
-    }
+    }   
+
     void FindMatch()
     {
         if (targetX > 0)
@@ -122,21 +132,21 @@ public class Icon : MonoBehaviour {
     }
     public bool CheckIfCanDestroy()
     {
-        int k = 0;
+        nrmTitle = 0;
         for(int i=0; i <board.width;i++)
         {
             for(int j=0; j<board.height;j++)
             {
                 if(board.allicons[i,j]!=null)
                 {
-                    if (board.allicons[i, j].GetComponent<Icon>().isMatch)
+					if (board.allicons[i, j].GetComponent<Icon>().isMatch && (!medused))
                     {
-                        k++;
+                        nrmTitle++;
                     }
                 }
             }
         }
-        if(k>=3)
+		if(nrmTitle>=3)
         {
             return true;
         }
@@ -176,21 +186,14 @@ public class Icon : MonoBehaviour {
     }
     public void Scoring ()
     {
-
-        float k = 0;
-        for (int i = 0; i < board.width; i++)
-        {
-            for (int j = 0; j < board.height; j++)
-            {
-                if (board.allicons[i, j] != null)
-                {
-                    if (board.allicons[i, j].GetComponent<Icon>().isMatch)
-                    {
-                        k++;
-                    }
-                }
-            }
-        }
-        board.score += k;
+		if (nrmTitle == 3) {
+			scoreInst = 100;
+		} else 
+		{
+			scoreInst = 100 * (nrmTitle - 2);
+		}
+			
+		board.score += scoreInst;
+		board.UpdateMove();
     }
 }

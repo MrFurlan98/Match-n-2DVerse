@@ -10,6 +10,8 @@ TagManager:
   - Skull
   - Spider
   - Destroying
+  - poison
+  - Medused
   layers:
   - Default
   - TransparentFX
@@ -46,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1732389001
     locked: 0

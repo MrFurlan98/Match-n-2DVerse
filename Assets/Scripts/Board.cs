@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour {
 
@@ -11,12 +12,17 @@ public class Board : MonoBehaviour {
     private BackgroundTile[,] allTiles;
     public GameObject[] icons;
     public GameObject[,] allicons;
-    public float score;
+	public float moves;
+	public float score = 0;
+	public Text pointText;
+	public Text moveText;
 
     // Use this for initialization
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
+		pointText.text= " " + score;
+		moveText.text= " " + moves;
         SetUp();
 	}
 
@@ -27,9 +33,9 @@ public class Board : MonoBehaviour {
             for(int j=0;j<height;j++)
             {
                 Vector2 tempPosition = new Vector2(i, j+offSet);
-                GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
+                /*GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
                 backgroundTile.transform.parent = this.transform;
-                backgroundTile.name = "( " + i + ", " + j + " )";
+                backgroundTile.name = "( " + i + ", " + j + " )";*/
                 int iconToUse = Random.Range(0, icons.Length);
 
 
@@ -37,7 +43,7 @@ public class Board : MonoBehaviour {
                 icon.GetComponent<Icon>().colunm = j;
                 icon.GetComponent<Icon>().row= i;
                 icon.transform.parent = this.transform;
-                icon.name = "( " + i + ", " + j + " )";
+                //icon.name = "( " + i + ", " + j + " )";
                 allicons[i, j] = icon;
             }
         }
@@ -50,7 +56,7 @@ public class Board : MonoBehaviour {
             {
                 if(allicons[i,j]!=null)
                 {
-                    if (allicons[i, j].GetComponent<Icon>().isMatch)
+					if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().medused))
                     {
                         Destroy(allicons[i, j]);
                         allicons[i, j] = null;
@@ -60,6 +66,7 @@ public class Board : MonoBehaviour {
         }
         StartCoroutine(DropColumns());
     }
+    
     private IEnumerator DropColumns()
     {
         int nullCount = 0;
@@ -96,6 +103,7 @@ public class Board : MonoBehaviour {
                     allicons[i, j] = newIcon;
                     newIcon.GetComponent<Icon>().colunm = j;
                     newIcon.GetComponent<Icon>().row = i;
+                    newIcon.transform.parent = transform;
                 }
             }
         }
@@ -105,8 +113,16 @@ public class Board : MonoBehaviour {
         RefillBoard();
         yield return new WaitForSeconds(.5f);
     }
-    private void UpdateScore()
-    {
 
-    }
+    public void UpdateMove()
+    {
+		pointText.text= " " + score;
+		moves--;
+
+		if (moves >= 0) {
+			moveText.text= " " + moves;
+		} 
+	}
+
+
 }
