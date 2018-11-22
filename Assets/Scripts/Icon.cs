@@ -53,14 +53,14 @@ public class Icon : MonoBehaviour {
     }
     private void OnMouseDown()
     {
-        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
         {
             isMatch = true;
         }
     }
     private void OnMouseUp()
     {
-        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
         {
             if (CheckIfCanDestroy())
             {
