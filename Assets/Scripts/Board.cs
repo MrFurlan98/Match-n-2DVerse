@@ -10,7 +10,7 @@ public class Board : MonoBehaviour {
     public int offSet;
     public GameObject tilePrefab;
     private BackgroundTile[,] allTiles;
-    public GameObject[] icons;
+    public GameObject[] icons = new GameObject[0];
     public GameObject[,] allicons;
 	public float moves;
 	public float score = 0;
