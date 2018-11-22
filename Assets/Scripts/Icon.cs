@@ -53,22 +53,28 @@ public class Icon : MonoBehaviour {
     }
     private void OnMouseDown()
     {
-        isMatch = true;
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            isMatch = true;
+        }
     }
     private void OnMouseUp()
     {
-        if (CheckIfCanDestroy())
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            Scoring();
-            board.DestroyMatch();
-        }
-        else
-        {
-            SetIsMatchFalse();
-			theSpriteRenderer.sprite = medusaTitle;
-			medused = true;
-			gameObject.tag = "Medused";
+            if (CheckIfCanDestroy())
+            {
+                Scoring();
+                board.DestroyMatch();
+            }
+            else
+            {
+                SetIsMatchFalse();
+                theSpriteRenderer.sprite = medusaTitle;
+                medused = true;
+                gameObject.tag = "Medused";
 
+            }
         }
     }   
 
