@@ -10,6 +10,7 @@ public class Icon : MonoBehaviour {
     public int targetX;
     public int targetY;
     public bool isMatch = false;
+    public bool isIndestructable = false;
     private Vector2 tempPosition;
 	int nrmTitle = 0;
 	int scoreInst = 0;
@@ -64,7 +65,8 @@ public class Icon : MonoBehaviour {
         {
             if (CheckIfCanDestroy())
             {
-                Scoring();
+                if(!isIndestructable)
+                    Scoring();
                 board.DestroyMatch();
             }
             else

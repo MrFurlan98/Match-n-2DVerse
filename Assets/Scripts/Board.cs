@@ -11,6 +11,7 @@ public class Board : MonoBehaviour {
     public GameObject tilePrefab;
     private BackgroundTile[,] allTiles;
     public GameObject[] icons = new GameObject[0];
+    public GameObject blockIcon;
     public GameObject[,] allicons;
 	public float moves;
 	public float score = 0;
@@ -39,7 +40,16 @@ public class Board : MonoBehaviour {
                 int iconToUse = Random.Range(0, icons.Length);
 
 
-                GameObject icon = Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
+                GameObject icon = null;
+                if (j == height/2 || i == width/2)
+                {
+                    icon = Instantiate(blockIcon, tempPosition, Quaternion.identity);
+                }
+                else
+                {
+                  icon =  Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
+
+                }
                 icon.GetComponent<Icon>().colunm = j;
                 icon.GetComponent<Icon>().row= i;
                 icon.transform.parent = this.transform;
@@ -56,7 +66,7 @@ public class Board : MonoBehaviour {
             {
                 if(allicons[i,j]!=null)
                 {
-					if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().medused))
+					if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().medused) && !(allicons[i, j].GetComponent<Icon>().isIndestructable))
                     {
                         Destroy(allicons[i, j]);
                         allicons[i, j] = null;
@@ -70,6 +80,7 @@ public class Board : MonoBehaviour {
     private IEnumerator DropColumns()
     {
         int nullCount = 0;
+        int indestructable = 0;
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -80,10 +91,23 @@ public class Board : MonoBehaviour {
                 }
                 else if(nullCount>0)
                 {
-                    allicons[i, j].GetComponent<Icon>().colunm -= nullCount;
-                    allicons[i, j] = null;
+                    if (allicons[i, j].GetComponent<Icon>().isIndestructable)
+                    {
+                        indestructable++;
+                    }
+                    else { 
+                     // GAMBIARRA DO KRL
+                       if((j - (nullCount + indestructable)) >= 0 && (j - (nullCount + indestructable)) < height && allicons[i, j - (nullCount + indestructable) ] != null && allicons[i, j - (nullCount + indestructable) ].GetComponent<Icon>().isIndestructable)
+                        {
+                          
+                            indestructable = 0;
+                        }
+                        allicons[i, j].GetComponent<Icon>().colunm -= nullCount + indestructable;
+                        allicons[i, j] = null;
+                    }
                 }
             }
+            indestructable = 0;
             nullCount = 0;
         }
         yield return new WaitForSeconds(.4f);
@@ -91,6 +115,7 @@ public class Board : MonoBehaviour {
     }
     private void RefillBoard()
     {
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
