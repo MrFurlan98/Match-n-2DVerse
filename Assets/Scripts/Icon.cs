@@ -72,10 +72,7 @@ public class Icon : MonoBehaviour {
             else
             {
                 SetIsMatchFalse();
-                theSpriteRenderer.sprite = medusaTitle;
-                medused = true;
-                gameObject.tag = "Medused";
-
+                SetMeduse();
             }
         }
     }   
@@ -191,6 +188,8 @@ public class Icon : MonoBehaviour {
                 board.allicons[targetX, targetY - 1].GetComponent<Icon>().isMatch = false;
             }
         }
+
+        SetMeduse();
     }
     public void Scoring ()
     {
@@ -203,5 +202,11 @@ public class Icon : MonoBehaviour {
 			
 		board.score += scoreInst;
 		board.UpdateMove();
+    }
+
+    public void SetMeduse()
+    {
+        theSpriteRenderer.sprite = medusaTitle;
+        medused = true;
     }
 }
