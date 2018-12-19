@@ -22,18 +22,21 @@ public class Board : MonoBehaviour {
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
-		pointText.text= " " + score;
-		moveText.text= " " + moves;
+        UpdateText();
         SetUp();
 	}
-
+    public void UpdateText()
+    {
+        pointText.text= " " + score;
+        moveText.text= " " + moves;
+    }
     private void SetUp()
     {
         for(int i=0;i<width;i++)
         {
             for(int j=0;j<height;j++)
             {
-                Vector2 tempPosition = new Vector2(i, j+offSet);
+                Vector2 tempPosition = new Vector2(i, j);
                 /*GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
                 backgroundTile.transform.parent = this.transform;
                 backgroundTile.name = "( " + i + ", " + j + " )";*/
@@ -41,15 +44,11 @@ public class Board : MonoBehaviour {
 
 
                 GameObject icon = null;
-                if (j == height/2 || i == width/2)
-                {
-                    icon = Instantiate(blockIcon, tempPosition, Quaternion.identity);
-                }
-                else
-                {
-                  icon =  Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
+          
+            
+                 icon =  Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
 
-                }
+                
                 icon.GetComponent<Icon>().colunm = j;
                 icon.GetComponent<Icon>().row= i;
                 icon.transform.parent = this.transform;
@@ -122,7 +121,7 @@ public class Board : MonoBehaviour {
             {
                 if(allicons[i,j]==null)
                 {
-                    Vector2 tempoPosition = new Vector2(i, j+offSet);
+                    Vector2 tempoPosition = new Vector2(i, j);
                     int iconToUse = Random.Range(0, icons.Length);
                     GameObject newIcon = Instantiate(icons[iconToUse], tempoPosition, Quaternion.identity);
                     allicons[i, j] = newIcon;

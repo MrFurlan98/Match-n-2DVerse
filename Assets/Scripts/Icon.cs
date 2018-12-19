@@ -34,11 +34,11 @@ public class Icon : MonoBehaviour {
         {
             FindMatch();
         }
-        targetY = colunm;
+        targetY = colunm; //+ board.offSet;
         targetX = row;
-        if(Mathf.Abs(targetY-transform.position.y)>.1)
+        if(Mathf.Abs(targetY-transform.position.y - board.offSet) >.1)
         {
-            tempPosition = new Vector2(transform.position.x, targetY);
+            tempPosition = new Vector2(transform.position.x, targetY + board.offSet);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
             if(board.allicons[row,colunm]!=this.gameObject)
             {
@@ -47,7 +47,7 @@ public class Icon : MonoBehaviour {
         }
         else
         {
-            tempPosition = new Vector2(transform.position.x, targetY);
+            tempPosition = new Vector2(transform.position.x, targetY + board.offSet);
             transform.position = tempPosition;
             
         }

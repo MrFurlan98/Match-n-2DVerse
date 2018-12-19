@@ -11,6 +11,11 @@ TagManager:
   - Spider
   - Destroying
   - poison
+  - Medused
+  - YellowPotion
+  - GreenPotion
+  - RedPotion
+  - BluePotion
   layers:
   - Default
   - TransparentFX
