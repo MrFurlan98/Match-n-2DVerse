@@ -17,7 +17,7 @@ public class Board : MonoBehaviour {
 	public float score = 0;
 	public Text pointText;
 	public Text moveText;
-
+    int scoreInst = 0;
     // Use this for initialization
     void Start () {
         allTiles = new BackgroundTile[width, height];
@@ -25,11 +25,13 @@ public class Board : MonoBehaviour {
         UpdateText();
         SetUp();
 	}
+
     public void UpdateText()
     {
         pointText.text= " " + score;
         moveText.text= " " + moves;
     }
+
     private void SetUp()
     {
         for(int i=0;i<width;i++)
@@ -57,25 +59,89 @@ public class Board : MonoBehaviour {
             }
         }
     }
-    public void DestroyMatch()
+
+    public bool DestroyMatch()
     {
+        if (CheckIfCanDestroy())
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (allicons[i, j] != null)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().isIndestructable))
+                        {
+                            Destroy(allicons[i, j]);
+                            allicons[i, j] = null;
+                        }
+                    }
+                }
+            }
+            StartCoroutine(DropColumns());
+            return true;
+        }
+        return false;
+    }
+
+    public void SetIsMatchFalse(int targetX, int targetY)
+    {
+        allicons[targetX, targetY].GetComponent<Icon>().isMatch = false;
+
+        if (targetX > 0)
+        {
+            if (allicons[targetX - 1, targetY] != null)
+            {
+                allicons[targetX - 1, targetY].GetComponent<Icon>().isMatch = false;
+            }
+        }
+        if (targetX < width - 1)
+        {
+            if (allicons[targetX + 1, targetY] != null)
+            {
+                allicons[targetX + 1, targetY].GetComponent<Icon>().isMatch = false;
+            }
+        }
+        if (targetY < height - 1)
+        {
+            if (allicons[targetX, targetY + 1] != null)
+            {
+                allicons[targetX, targetY + 1].GetComponent<Icon>().isMatch = false;
+            }
+        }
+        if (targetY > 0)
+        {
+            if (allicons[targetX, targetY - 1] != null)
+            {
+                allicons[targetX, targetY - 1].GetComponent<Icon>().isMatch = false;
+            }
+        }
+
+    }
+
+    public bool CheckIfCanDestroy()
+    {
+        int nrmTitle = 0;
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if(allicons[i,j]!=null)
+                if (allicons[i, j] != null)
                 {
-					if (allicons[i, j].GetComponent<Icon>().isMatch && !(allicons[i, j].GetComponent<Icon>().medused) && !(allicons[i, j].GetComponent<Icon>().isIndestructable))
+                    if (allicons[i, j].GetComponent<Icon>().isMatch)
                     {
-                        Destroy(allicons[i, j]);
-                        allicons[i, j] = null;
+                        nrmTitle++;
                     }
                 }
             }
         }
-        StartCoroutine(DropColumns());
+        if (nrmTitle >= 3)
+        {
+            return true;
+        }
+        return false;
     }
-    
+
     private IEnumerator DropColumns()
     {
         int nullCount = 0;
@@ -112,6 +178,7 @@ public class Board : MonoBehaviour {
         yield return new WaitForSeconds(.4f);
         StartCoroutine(FillBoard());
     }
+
     private void RefillBoard()
     {
 
@@ -132,6 +199,7 @@ public class Board : MonoBehaviour {
             }
         }
     }
+
     private IEnumerator FillBoard()
     {
         RefillBoard();
@@ -148,5 +216,78 @@ public class Board : MonoBehaviour {
 		} 
 	}
 
+    public void FindMatch(int targetX, int targetY)
+    {
+        GameObject tCurrentIcon = allicons[targetX, targetY];
+        if (targetX > 0)
+        {
+            if (allicons[targetX - 1, targetY] != null)
+            {
+                GameObject leftIcon1 = allicons[targetX - 1, targetY];
 
+
+                if (leftIcon1.tag == tCurrentIcon.tag)
+                {
+                    leftIcon1.GetComponent<Icon>().isMatch = true;
+                    //FindMatch(leftIcon1);
+
+                }
+            }
+        }
+        if (targetX < width - 1)
+        {
+            if (allicons[targetX + 1, targetY] != null)
+            {
+                GameObject rightIcon1 = allicons[targetX + 1, targetY];
+                if (rightIcon1.tag == tCurrentIcon.tag)
+                {
+                    rightIcon1.GetComponent<Icon>().isMatch = true;
+                    //FindMatch(rightIcon1);
+                }
+            }
+        }
+        if (targetY < height - 1)
+        {
+            if (allicons[targetX, targetY + 1] != null)
+            {
+                GameObject upIcon1 = allicons[targetX, targetY + 1];
+
+                if (upIcon1.tag == tCurrentIcon.tag)
+                {
+                    upIcon1.GetComponent<Icon>().isMatch = true;
+                    //FindMatch(upIcon1);
+
+                }
+
+            }
+        }
+        if (targetY > 0)
+        {
+            if (allicons[targetX, targetY - 1] != null)
+            {
+                GameObject downIcon1 = allicons[targetX, targetY - 1];
+                if (downIcon1.tag == tCurrentIcon.tag)
+                {
+                    downIcon1.GetComponent<Icon>().isMatch = true;
+                    //FindMatch(downIcon1);
+
+                }
+            }
+        }
+    }
+
+    public void Scoring(int pTitles)
+    {
+        if (pTitles == 3)
+        {
+            scoreInst = 100;
+        }
+        else
+        {
+            scoreInst = 100 * (pTitles - 2);
+        }
+
+        score += scoreInst;
+        UpdateMove();
+    }
 }
