@@ -14,9 +14,8 @@ public class ScenaryItemUI : MonoBehaviour {
         GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
         tGamePlayUI.SetBackground(m_pScenaryImage.sprite);
 
-        // Reset Board
-        tGamePlayUI.PBoard.moves = 14;
-        tGamePlayUI.PBoard.UpdateText();
+        GameManager.Instance.ResetBoard();
+
         //Open UI game play and close menu UI
         UIManager.Instance.OpenScreen(UIManager.SCREEN.GAMEPLAY);
 

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour {
 
+    [SerializeField]
+    private GamePlayUI m_pGamePlayUI;
+
     public int height;
     public int width;
     public int offSet;
@@ -13,24 +16,21 @@ public class Board : MonoBehaviour {
     public GameObject[] icons = new GameObject[0];
     public GameObject blockIcon;
     public GameObject[,] allicons;
+
 	public float moves;
 	public float score = 0;
-	public Text pointText;
-	public Text moveText;
+
     int scoreInst = 0;
+
+    public System.Action TriggerMatch;
+
     // Use this for initialization
     void Start () {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
-        UpdateText();
+        UpdateMoveScore();
         SetUp();
 	}
-
-    public void UpdateText()
-    {
-        pointText.text= " " + score;
-        moveText.text= " " + moves;
-    }
 
     private void SetUp()
     {
@@ -64,6 +64,7 @@ public class Board : MonoBehaviour {
     {
         if (CheckIfCanDestroy())
         {
+            TriggerMatch.Invoke();
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
@@ -137,6 +138,7 @@ public class Board : MonoBehaviour {
         }
         if (nrmTitle >= 3)
         {
+            Scoring(nrmTitle);
             return true;
         }
         return false;
@@ -206,13 +208,13 @@ public class Board : MonoBehaviour {
         yield return new WaitForSeconds(.5f);
     }
 
-    public void UpdateMove()
+    public void UpdateMoveScore()
     {
-		pointText.text= " " + score;
+		m_pGamePlayUI.TScore.text= " " + score;
 		moves--;
 
 		if (moves >= 0) {
-			moveText.text= " " + moves;
+            m_pGamePlayUI.TMoves.text= " " + moves;
 		} 
 	}
 
@@ -288,6 +290,9 @@ public class Board : MonoBehaviour {
         }
 
         score += scoreInst;
-        UpdateMove();
+        UpdateMoveScore();
     }
+
+
+   
 }

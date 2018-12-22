@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c63a146b1c8134ca7f61dd7e247ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pGamePlayUI: {fileID: 0}
   height: 10
   width: 7
   offSet: -2
@@ -63,5 +64,3 @@ MonoBehaviour:
   blockIcon: {fileID: 1887795357582394, guid: 6bef2564ef976ac49bb91b8feeeb98db, type: 2}
   moves: 15
   score: 0
-  pointText: {fileID: 0}
-  moveText: {fileID: 0}

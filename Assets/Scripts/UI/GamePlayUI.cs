@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class GamePlayUI : MonoBehaviour {
+
     [SerializeField]
     private Image m_iBackground;
 
@@ -10,7 +11,16 @@ public class GamePlayUI : MonoBehaviour {
     private Button m_bPause;
 
     [SerializeField]
+    private Text m_tScore;
+
+    [SerializeField]
+    private Text m_tMoves;
+
+    [SerializeField]
     private Board m_pBoard;
+
+    [SerializeField]
+    private MonsterAnimation m_pMonsterAnimation;
 
     private void Start()
     {
@@ -33,16 +43,38 @@ public class GamePlayUI : MonoBehaviour {
         m_iBackground.sprite = pBackground;
     }
 
-    public Board PBoard
+    public Text TMoves
     {
         get
         {
-            return m_pBoard;
+            return m_tMoves;
         }
 
         set
         {
-            m_pBoard = value;
+            m_tMoves = value;
         }
     }
+
+    public Text TScore
+    {
+        get
+        {
+            return m_tScore;
+        }
+
+        set
+        {
+            m_tScore = value;
+        }
+    }
+
+    // set all events when has a match
+    public void SetEvents()
+    {
+        m_pMonsterAnimation.TryReviveMonster(true);
+    }
+
+
+
 }
