@@ -23,6 +23,9 @@ public class Board : MonoBehaviour {
     int scoreInst = 0;
 
     public System.Action TriggerMatch;
+    // create a queue to realize actions before the next match 
+    [SerializeField]
+    public List<System.Action> m_pActions = new List<System.Action>();
 
     // Use this for initialization
     void Start () {
@@ -43,7 +46,6 @@ public class Board : MonoBehaviour {
                 backgroundTile.transform.parent = this.transform;
                 backgroundTile.name = "( " + i + ", " + j + " )";*/
                 int iconToUse = Random.Range(0, icons.Length);
-
 
                 GameObject icon = null;
           
@@ -79,7 +81,7 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
-            StartCoroutine(DropColumns());
+            StartCoroutine(FinishMatch());
             return true;
         }
         return false;
@@ -87,7 +89,8 @@ public class Board : MonoBehaviour {
 
     public void SetIsMatchFalse(int targetX, int targetY)
     {
-        allicons[targetX, targetY].GetComponent<Icon>().isMatch = false;
+        if(allicons[targetX, targetY] != null)
+            allicons[targetX, targetY].GetComponent<Icon>().isMatch = false;
 
         if (targetX > 0)
         {
@@ -144,6 +147,33 @@ public class Board : MonoBehaviour {
         return false;
     }
 
+    private IEnumerator FinishMatch()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return RunActions();
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                SetIsMatchFalse(i, j);
+            }
+        }
+        yield return DropColumns();
+    }
+
+    private IEnumerator RunActions()
+    {
+        if (m_pActions == null)
+            yield break;
+
+        foreach(System.Action tAction in m_pActions)
+        {
+            tAction.Invoke();
+        }
+        m_pActions = new List<System.Action>();
+    }
+
     private IEnumerator DropColumns()
     {
         int nullCount = 0;
@@ -191,7 +221,8 @@ public class Board : MonoBehaviour {
                 if(allicons[i,j]==null)
                 {
                     Vector2 tempoPosition = new Vector2(i, j);
-                    int iconToUse = Random.Range(0, icons.Length);
+                    int iconToUse = Random.Range(0, icons.Length );
+    
                     GameObject newIcon = Instantiate(icons[iconToUse], tempoPosition, Quaternion.identity);
                     allicons[i, j] = newIcon;
                     newIcon.GetComponent<Icon>().colunm = j;
@@ -221,14 +252,14 @@ public class Board : MonoBehaviour {
     public void FindMatch(int targetX, int targetY)
     {
         GameObject tCurrentIcon = allicons[targetX, targetY];
+        // check if  has a match in left of current icon
         if (targetX > 0)
         {
             if (allicons[targetX - 1, targetY] != null)
             {
                 GameObject leftIcon1 = allicons[targetX - 1, targetY];
 
-
-                if (leftIcon1.tag == tCurrentIcon.tag)
+                if (leftIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
                 {
                     leftIcon1.GetComponent<Icon>().isMatch = true;
                     //FindMatch(leftIcon1);
@@ -236,25 +267,27 @@ public class Board : MonoBehaviour {
                 }
             }
         }
+        // check if  has a match in right of current icon
         if (targetX < width - 1)
         {
             if (allicons[targetX + 1, targetY] != null)
             {
                 GameObject rightIcon1 = allicons[targetX + 1, targetY];
-                if (rightIcon1.tag == tCurrentIcon.tag)
+                if (rightIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
                 {
                     rightIcon1.GetComponent<Icon>().isMatch = true;
                     //FindMatch(rightIcon1);
                 }
             }
         }
+        // check if  has a match in upward of current icon
         if (targetY < height - 1)
         {
             if (allicons[targetX, targetY + 1] != null)
             {
                 GameObject upIcon1 = allicons[targetX, targetY + 1];
 
-                if (upIcon1.tag == tCurrentIcon.tag)
+                if (upIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
                 {
                     upIcon1.GetComponent<Icon>().isMatch = true;
                     //FindMatch(upIcon1);
@@ -263,12 +296,13 @@ public class Board : MonoBehaviour {
 
             }
         }
+        // check if  has a match in downward of current icon
         if (targetY > 0)
         {
             if (allicons[targetX, targetY - 1] != null)
             {
                 GameObject downIcon1 = allicons[targetX, targetY - 1];
-                if (downIcon1.tag == tCurrentIcon.tag)
+                if (downIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
                 {
                     downIcon1.GetComponent<Icon>().isMatch = true;
                     //FindMatch(downIcon1);
@@ -293,6 +327,48 @@ public class Board : MonoBehaviour {
         UpdateMoveScore();
     }
 
+    public void DestroyRow(int pRow)
+    {
+        for(int j = 0; j < height; j++)
+        {
+            if(allicons[pRow, j] != null)
+            {
+                allicons[pRow, j].GetComponent<Icon>().isMatch = true;
+            }
+        }
+    }
 
-   
+    public void DestroyCollum(int pCollum)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            if (allicons[i, pCollum] != null)
+            {
+                allicons[i, pCollum].GetComponent<Icon>().isMatch = true;
+            }
+        }
+    }
+
+    // destroy a area by a position and um integer pArea ex: pArea = 3 then 3x3 in originx, originy was been destroyed 
+    public void DestroyArea(int pOriginX, int pOriginY, int pArea)
+    {
+        for(int i = pOriginX - pArea; i < pOriginX + pArea; i++)
+        {
+            for(int j = pOriginY - pArea; j < pOriginY + pArea; j++)
+            {
+                if (IsOutOfBoardRange(i, j))
+                    continue; //go to next interation 
+
+                if(allicons[i, j] != null)
+                {
+                    allicons[i, j].GetComponent<Icon>().isMatch = true;
+                }
+            }
+        }
+    }
+
+    public bool IsOutOfBoardRange(int pPositionX, int pPositionY)
+    {
+       return !(pPositionX >= 0 && pPositionX < width && pPositionY >= 0 && pPositionY < height);
+    }
 }

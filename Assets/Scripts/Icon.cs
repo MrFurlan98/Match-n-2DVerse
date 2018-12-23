@@ -11,7 +11,8 @@ public class Icon : MonoBehaviour {
     public int targetY;
     public bool isMatch = false;
     public bool isIndestructable = false;
-
+    [SerializeField]
+    private string m_sTag;
     private Vector2 tempPosition;
 
 	private SpriteRenderer theSpriteRenderer;
@@ -63,14 +64,34 @@ public class Icon : MonoBehaviour {
     {
         if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
         {
-            if (!board.DestroyMatch()) {
-                board.SetIsMatchFalse(targetX, targetY);
+            board.DestroyMatch();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        IDestroyAction[] tActions = GetComponentsInChildren<IDestroyAction>();
+        if(tActions != null)
+        {
+            foreach(IDestroyAction tAction in tActions)
+            {
+                // added to queue of actions to trigger when match has finish
+               GameManager.Instance.PBoard.m_pActions.Add(delegate { tAction.Invoke(targetX, targetY); });
             }
         }
-    }   
+    }
 
+    public string STag
+    {
+        get
+        {
+            return m_sTag;
+        }
 
- 
+        set
+        {
+            m_sTag = value;
+        }
+    }
 
-   
 }

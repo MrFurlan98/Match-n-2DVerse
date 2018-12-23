@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour {
         GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
 
         // Reset Board
-        m_pBoard.moves = 14;
+        PBoard.moves = 14;
 
-        m_pBoard.UpdateMoveScore();
+        PBoard.UpdateMoveScore();
 
         //set all events to invoke when player do a match
-        m_pBoard.TriggerMatch = new System.Action(tGamePlayUI.SetEvents);
+        PBoard.TriggerMatch = new System.Action(tGamePlayUI.SetEvents);
     }
 
     public static GameManager Instance
@@ -36,6 +36,19 @@ public class GameManager : MonoBehaviour {
         set
         {
             instance = value;
+        }
+    }
+
+    public Board PBoard
+    {
+        get
+        {
+            return m_pBoard;
+        }
+
+        set
+        {
+            m_pBoard = value;
         }
     }
 }

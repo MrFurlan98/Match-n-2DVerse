@@ -61,6 +61,8 @@ MonoBehaviour:
   - {fileID: 1919518714426714, guid: 61ff572573e11b842897307c76dafc01, type: 2}
   - {fileID: 1573195181725776, guid: 8e0984da48f1dfc44b2664716011884b, type: 2}
   - {fileID: 1932124298280248, guid: 8641096f833a7af49aa2e2dddb878fe1, type: 2}
+  - {fileID: 1721676403340768, guid: 8e459f022e4197c4987ba1d88109fdda, type: 2}
+  - {fileID: 1656991454737636, guid: f37ee1328b6c3a947a6bade023020b1e, type: 2}
   blockIcon: {fileID: 1887795357582394, guid: 6bef2564ef976ac49bb91b8feeeb98db, type: 2}
-  moves: 15
+  moves: 2
   score: 0

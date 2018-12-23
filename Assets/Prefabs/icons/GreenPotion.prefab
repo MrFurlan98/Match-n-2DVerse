@@ -74,8 +74,7 @@ MonoBehaviour:
   targetY: 0
   isMatch: 0
   isIndestructable: 0
-  medused: 0
-  medusaTitle: {fileID: 21300000, guid: 9d4acf021c98ca64eb30410f431f3cdf, type: 3}
+  m_sTag: GreenPotion
 --- !u!212 &212716661291695616
 SpriteRenderer:
   m_ObjectHideFlags: 1
