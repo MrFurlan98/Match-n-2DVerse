@@ -444,11 +444,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114045707877762462, guid: 8c205904893a4684a885a92e4e30380a,
-        type: 2}
-      propertyPath: icons.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4167134594866902, guid: 8c205904893a4684a885a92e4e30380a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.61
@@ -486,18 +481,6 @@ Prefab:
       propertyPath: m_pGamePlayUI
       value: 
       objectReference: {fileID: 723174759}
-    - target: {fileID: 114045707877762462, guid: 8c205904893a4684a885a92e4e30380a,
-        type: 2}
-      propertyPath: icons.Array.data[5]
-      value: 
-      objectReference: {fileID: 1656991454737636, guid: f37ee1328b6c3a947a6bade023020b1e,
-        type: 2}
-    - target: {fileID: 114045707877762462, guid: 8c205904893a4684a885a92e4e30380a,
-        type: 2}
-      propertyPath: icons.Array.data[4]
-      value: 
-      objectReference: {fileID: 1656991454737636, guid: f37ee1328b6c3a947a6bade023020b1e,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c205904893a4684a885a92e4e30380a, type: 2}
   m_IsPrefabAsset: 0
