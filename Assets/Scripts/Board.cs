@@ -16,14 +16,18 @@ public class Board : MonoBehaviour {
     public GameObject[] icons = new GameObject[0];
     public GameObject blockIcon;
     public GameObject[,] allicons;
+    public int currentX;
+    public int currentY;
+    public int currentDestroyed;
 
-	public float moves;
+
+    public float moves;
 	public float score = 0;
 
     int scoreInst = 0;
 
     public System.Action TriggerMatch;
-    // create a queue to realize actions before the next match 
+    // create a queue to do actions before the next match 
     [SerializeField]
     public List<System.Action> m_pActions = new List<System.Action>();
 
@@ -45,7 +49,7 @@ public class Board : MonoBehaviour {
                 /*GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
                 backgroundTile.transform.parent = this.transform;
                 backgroundTile.name = "( " + i + ", " + j + " )";*/
-                int iconToUse = Random.Range(0, icons.Length);
+                int iconToUse = Random.Range(0, 4);
 
                 GameObject icon = null;
           
@@ -66,6 +70,23 @@ public class Board : MonoBehaviour {
     {
         if (CheckIfCanDestroy())
         {
+            int tempIconToUse = 6;
+            if (allicons[currentX, currentY].GetComponent<Icon>().m_sTag == "BluePotion")
+            {
+                tempIconToUse = 6;
+            }
+            if (allicons[currentX, currentY].GetComponent<Icon>().m_sTag == "GreenPotion")
+            {
+                tempIconToUse = 7;
+            }
+            if (allicons[currentX, currentY].GetComponent<Icon>().m_sTag == "RedPotion")
+            {
+                tempIconToUse = 8;
+            }
+            if (allicons[currentX, currentY].GetComponent<Icon>().m_sTag == "YellowPotion")
+            {
+                tempIconToUse = 9;
+            }
             TriggerMatch.Invoke();
             for (int i = 0; i < width; i++)
             {
@@ -81,9 +102,38 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
+            if (currentDestroyed == 6)
+            {
+                Vector2 tempPosition = new Vector2(currentX, currentY);
+                GameObject newIcon = Instantiate(icons[4], tempPosition, Quaternion.identity);
+                allicons[currentX, currentY] = newIcon;
+                newIcon.GetComponent<Icon>().colunm = currentY;
+                newIcon.GetComponent<Icon>().row = currentX;
+                newIcon.transform.parent = transform;
+            }
+            if (currentDestroyed == 7)
+            {
+                Vector2 tempPosition = new Vector2(currentX, currentY);
+                GameObject newIcon = Instantiate(icons[5], tempPosition, Quaternion.identity);
+                allicons[currentX, currentY] = newIcon;
+                newIcon.GetComponent<Icon>().colunm = currentY;
+                newIcon.GetComponent<Icon>().row = currentX;
+                newIcon.transform.parent = transform;
+            }
+            if (currentDestroyed >=8)
+            {
+                Vector2 tempPosition = new Vector2(currentX, currentY);
+                GameObject newIcon = Instantiate(icons[tempIconToUse], tempPosition, Quaternion.identity);
+                allicons[currentX, currentY] = newIcon;
+                newIcon.GetComponent<Icon>().colunm = currentY;
+                newIcon.GetComponent<Icon>().row = currentX;
+                newIcon.transform.parent = transform;
+            }
+            
             StartCoroutine(FinishMatch());
             return true;
         }
+        StartCoroutine(FinishMatch());
         return false;
     }
 
@@ -134,11 +184,12 @@ public class Board : MonoBehaviour {
                 {
                     if (allicons[i, j].GetComponent<Icon>().isMatch)
                     {
-                        nrmTitle++;
+                        nrmTitle++;   
                     }
                 }
             }
         }
+        currentDestroyed = nrmTitle;
         if (nrmTitle >= 3)
         {
             Scoring(nrmTitle);
@@ -193,7 +244,7 @@ public class Board : MonoBehaviour {
                         indestructable++;
                     }
                     else { 
-                     // GAMBIARRA DO KRL
+                       // GAMBIARRA DO KRL
                        if((j - (nullCount + indestructable)) >= 0 && (j - (nullCount + indestructable)) < height && allicons[i, j - (nullCount + indestructable) ] != null && allicons[i, j - (nullCount + indestructable) ].GetComponent<Icon>().isIndestructable)
                         {
                           
@@ -213,7 +264,6 @@ public class Board : MonoBehaviour {
 
     private void RefillBoard()
     {
-
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -221,7 +271,7 @@ public class Board : MonoBehaviour {
                 if(allicons[i,j]==null)
                 {
                     Vector2 tempoPosition = new Vector2(i, j);
-                    int iconToUse = Random.Range(0, icons.Length );
+                    int iconToUse = Random.Range(0, 4);
     
                     GameObject newIcon = Instantiate(icons[iconToUse], tempoPosition, Quaternion.identity);
                     allicons[i, j] = newIcon;
@@ -252,64 +302,74 @@ public class Board : MonoBehaviour {
     public void FindMatch(int targetX, int targetY)
     {
         GameObject tCurrentIcon = allicons[targetX, targetY];
+        
         // check if  has a match in left of current icon
-        if (targetX > 0)
+        if(!CheckSpecialTiles(targetX,targetY))
         {
-            if (allicons[targetX - 1, targetY] != null)
+            if (targetX > 0)
             {
-                GameObject leftIcon1 = allicons[targetX - 1, targetY];
-
-                if (leftIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                if (allicons[targetX - 1, targetY] != null)
                 {
-                    leftIcon1.GetComponent<Icon>().isMatch = true;
-                    //FindMatch(leftIcon1);
+                    GameObject leftIcon1 = allicons[targetX - 1, targetY];
+
+                    if (leftIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                    {
+                        leftIcon1.GetComponent<Icon>().isMatch = true;
+                        //FindMatch(leftIcon1);
+
+                    }
+                }
+            }
+            // check if  has a match in right of current icon
+            if (targetX < width - 1)
+            {
+                if (allicons[targetX + 1, targetY] != null)
+                {
+                    GameObject rightIcon1 = allicons[targetX + 1, targetY];
+                    if (rightIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                    {
+                        rightIcon1.GetComponent<Icon>().isMatch = true;
+                        //FindMatch(rightIcon1);
+                    }
+                }
+            }
+            // check if  has a match in upward of current icon
+            if (targetY < height - 1)
+            {
+                if (allicons[targetX, targetY + 1] != null)
+                {
+                    GameObject upIcon1 = allicons[targetX, targetY + 1];
+
+                    if (upIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                    {
+                        upIcon1.GetComponent<Icon>().isMatch = true;
+                        //FindMatch(upIcon1);
+
+                    }
 
                 }
             }
-        }
-        // check if  has a match in right of current icon
-        if (targetX < width - 1)
-        {
-            if (allicons[targetX + 1, targetY] != null)
+            // check if  has a match in downward of current icon
+            if (targetY > 0)
             {
-                GameObject rightIcon1 = allicons[targetX + 1, targetY];
-                if (rightIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                if (allicons[targetX, targetY - 1] != null)
                 {
-                    rightIcon1.GetComponent<Icon>().isMatch = true;
-                    //FindMatch(rightIcon1);
+                    GameObject downIcon1 = allicons[targetX, targetY - 1];
+                    if (downIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
+                    {
+                        downIcon1.GetComponent<Icon>().isMatch = true;
+                        //FindMatch(downIcon1);
+
+                    }
                 }
             }
         }
-        // check if  has a match in upward of current icon
-        if (targetY < height - 1)
+        if(CheckSpecialTiles(targetX,targetY))
         {
-            if (allicons[targetX, targetY + 1] != null)
-            {
-                GameObject upIcon1 = allicons[targetX, targetY + 1];
-
-                if (upIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
-                {
-                    upIcon1.GetComponent<Icon>().isMatch = true;
-                    //FindMatch(upIcon1);
-
-                }
-
-            }
+            Destroy(allicons[currentX, currentY]);
+            StartCoroutine(FinishMatch());
         }
-        // check if  has a match in downward of current icon
-        if (targetY > 0)
-        {
-            if (allicons[targetX, targetY - 1] != null)
-            {
-                GameObject downIcon1 = allicons[targetX, targetY - 1];
-                if (downIcon1.GetComponent<Icon>().STag == tCurrentIcon.GetComponent<Icon>().STag)
-                {
-                    downIcon1.GetComponent<Icon>().isMatch = true;
-                    //FindMatch(downIcon1);
-
-                }
-            }
-        }
+       
     }
 
     public void Scoring(int pTitles)
@@ -333,7 +393,7 @@ public class Board : MonoBehaviour {
         {
             if(allicons[pRow, j] != null)
             {
-                allicons[pRow, j].GetComponent<Icon>().isMatch = true;
+                Destroy(allicons[pRow, j]);
             }
         }
     }
@@ -344,7 +404,7 @@ public class Board : MonoBehaviour {
         {
             if (allicons[i, pCollum] != null)
             {
-                allicons[i, pCollum].GetComponent<Icon>().isMatch = true;
+                Destroy(allicons[i, pCollum]);
             }
         }
     }
@@ -361,7 +421,7 @@ public class Board : MonoBehaviour {
 
                 if(allicons[i, j] != null)
                 {
-                    allicons[i, j].GetComponent<Icon>().isMatch = true;
+                    Destroy(allicons[i, j]);
                 }
             }
         }
@@ -370,5 +430,78 @@ public class Board : MonoBehaviour {
     public bool IsOutOfBoardRange(int pPositionX, int pPositionY)
     {
        return !(pPositionX >= 0 && pPositionX < width && pPositionY >= 0 && pPositionY < height);
+    }
+
+    public bool CheckSpecialTiles(int targetX, int targetY)
+    {
+        GameObject tCurrentIcon = allicons[targetX, targetY];
+        if(tCurrentIcon.GetComponent<Icon>().STag=="6Bomb")
+        {
+            DestroyRow(targetX);
+            DestroyCollum(targetY);
+            return true;
+        }
+        if (tCurrentIcon.GetComponent<Icon>().STag == "7Bomb")
+        {
+            DestroyArea(targetX,targetY,3);
+            return true;
+        }
+        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombBlue")
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if(allicons[i,j].GetComponent<Icon>().STag == "BluePotion")
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+            return true;
+        }
+        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombGreen")
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+            return true;
+        }
+        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombRed")
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+            return true;
+        }
+        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombYellow")
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

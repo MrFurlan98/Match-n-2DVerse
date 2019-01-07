@@ -12,7 +12,7 @@ public class Icon : MonoBehaviour {
     public bool isMatch = false;
     public bool isIndestructable = false;
     [SerializeField]
-    private string m_sTag;
+    public string m_sTag;
     private Vector2 tempPosition;
 
 	private SpriteRenderer theSpriteRenderer;
@@ -57,6 +57,8 @@ public class Icon : MonoBehaviour {
         if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
         {
             isMatch = true;
+            board.currentX = targetX;
+            board.currentY = targetY;
         }
     }
 

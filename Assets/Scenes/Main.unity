@@ -160,8 +160,16 @@ MonoBehaviour:
   - {fileID: 1919518714426714, guid: 61ff572573e11b842897307c76dafc01, type: 2}
   - {fileID: 1573195181725776, guid: 8e0984da48f1dfc44b2664716011884b, type: 2}
   - {fileID: 1932124298280248, guid: 8641096f833a7af49aa2e2dddb878fe1, type: 2}
-  - {fileID: 1656991454737636, guid: f37ee1328b6c3a947a6bade023020b1e, type: 2}
+  - {fileID: 1513624233220380, guid: a93f3cc9a238bdc4fb51d72ac477e1e5, type: 2}
+  - {fileID: 1151379733165532, guid: 741ea46d5c496bb4fada763e82c88097, type: 2}
+  - {fileID: 1176982519771628, guid: 9e36a9654f1a8a14f879a8297a8131e0, type: 2}
+  - {fileID: 1471670826069130, guid: b58679ae3a18b704cb522b8b03058043, type: 2}
+  - {fileID: 1854012571049574, guid: 4c8c0dce843884b40a4aaca7808485dd, type: 2}
+  - {fileID: 1707404909606250, guid: 223fa98e0adf93b40b411b52eb50c98c, type: 2}
   blockIcon: {fileID: 1887795357582394, guid: 6bef2564ef976ac49bb91b8feeeb98db, type: 2}
+  currentX: 0
+  currentY: 0
+  currentDestroyed: 0
   moves: 2
   score: 0
 --- !u!4 &365801187
