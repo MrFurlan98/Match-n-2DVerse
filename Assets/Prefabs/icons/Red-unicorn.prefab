@@ -74,6 +74,7 @@ MonoBehaviour:
   targetY: 0
   isMatch: 0
   isIndestructable: 0
+  isSpecial: 1
   m_sTag: 8BombRed
 --- !u!212 &212664049189875396
 SpriteRenderer:

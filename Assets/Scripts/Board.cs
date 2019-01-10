@@ -10,7 +10,7 @@ public class Board : MonoBehaviour {
 
     public int height;
     public int width;
-    public int offSet;
+    public int offSet = 0;
     public GameObject tilePrefab;
     private BackgroundTile[,] allTiles;
     public GameObject[] icons = new GameObject[0];
@@ -198,7 +198,7 @@ public class Board : MonoBehaviour {
         return false;
     }
 
-    private IEnumerator FinishMatch()
+    public IEnumerator FinishMatch()
     {
         yield return new WaitForEndOfFrame();
         yield return RunActions();
@@ -255,6 +255,7 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
+            
             indestructable = 0;
             nullCount = 0;
         }
@@ -279,9 +280,15 @@ public class Board : MonoBehaviour {
                     newIcon.GetComponent<Icon>().row = i;
                     newIcon.transform.parent = transform;
                 }
+                else
+                {
+                    allicons[i, j].GetComponent<Icon>().previousColunm = j;
+                    allicons[i, j].GetComponent<Icon>().previousRow = i;
+                }
             }
         }
     }
+    
 
     private IEnumerator FillBoard()
     {
@@ -304,7 +311,7 @@ public class Board : MonoBehaviour {
         GameObject tCurrentIcon = allicons[targetX, targetY];
         
         // check if  has a match in left of current icon
-        if(!CheckSpecialTiles(targetX,targetY))
+        if(!allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
         {
             if (targetX > 0)
             {
@@ -364,9 +371,9 @@ public class Board : MonoBehaviour {
                 }
             }
         }
-        if(CheckSpecialTiles(targetX,targetY))
+        if(allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
         {
-            Destroy(allicons[currentX, currentY]);
+            SpecialEffect(targetX, targetY);
             StartCoroutine(FinishMatch());
         }
        
@@ -387,24 +394,48 @@ public class Board : MonoBehaviour {
         UpdateMoveScore();
     }
 
-    public void DestroyRow(int pRow)
+    public void DestroyRow(int pRow,int targetY)
     {
-        for(int j = 0; j < height; j++)
+        allicons[pRow, targetY].GetComponent<Icon>().isSpecial = false;
+        for (int j = 0; j < height; j++)
         {
             if(allicons[pRow, j] != null)
             {
-                Destroy(allicons[pRow, j]);
+                if (allicons[pRow, j] == allicons[pRow, targetY])
+                {
+                    Destroy(allicons[pRow, j]);
+                }
+                else if (allicons[pRow, j].GetComponent<Icon>().isSpecial)
+                {
+                    SpecialEffect(pRow, j);
+                }
+                else
+                {
+                    Destroy(allicons[pRow, j]);
+                }
             }
         }
     }
 
-    public void DestroyCollum(int pCollum)
+    public void DestroyCollum(int targetX,int pCollum)
     {
+        allicons[targetX, pCollum].GetComponent<Icon>().isSpecial = false;
         for (int i = 0; i < width; i++)
         {
             if (allicons[i, pCollum] != null)
             {
-                Destroy(allicons[i, pCollum]);
+                if (allicons[i, pCollum] == allicons[targetX, pCollum])
+                {
+                    Destroy(allicons[i, pCollum]);
+                }
+                else if (allicons[i, pCollum].GetComponent<Icon>().isSpecial)
+                {
+                    SpecialEffect(i, pCollum);
+                }
+                else
+                {
+                    Destroy(allicons[i, pCollum]);
+                }
             }
         }
     }
@@ -412,16 +443,30 @@ public class Board : MonoBehaviour {
     // destroy a area by a position and um integer pArea ex: pArea = 3 then 3x3 in originx, originy was been destroyed 
     public void DestroyArea(int pOriginX, int pOriginY, int pArea)
     {
-        for(int i = pOriginX - pArea; i < pOriginX + pArea; i++)
+        allicons[pOriginX, pOriginY].GetComponent<Icon>().isSpecial = false;
+        for (int i = pOriginX - pArea; i <= pOriginX + pArea; i++)
         {
-            for(int j = pOriginY - pArea; j < pOriginY + pArea; j++)
+            for(int j = pOriginY - pArea; j <= pOriginY + pArea; j++)
             {
                 if (IsOutOfBoardRange(i, j))
-                    continue; //go to next interation 
-
-                if(allicons[i, j] != null)
                 {
-                    Destroy(allicons[i, j]);
+                    continue; //go to next interation 
+                } 
+
+                if (allicons[i, j] != null)
+                {
+                    if (allicons[i, j] == allicons[pOriginX, pOriginY])
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                    else if (allicons[i, j].GetComponent<Icon>().isSpecial)
+                    {
+                        SpecialEffect(i, j);
+                    }
+                    else
+                    {
+                        Destroy(allicons[i, j]);
+                    }
                 }
             }
         }
@@ -432,76 +477,460 @@ public class Board : MonoBehaviour {
        return !(pPositionX >= 0 && pPositionX < width && pPositionY >= 0 && pPositionY < height);
     }
 
-    public bool CheckSpecialTiles(int targetX, int targetY)
+
+    public void DoCombo(int targetX, int targetY, int originX, int originY)
+    {
+        GameObject origin = allicons[originX, originY];
+        GameObject second = allicons[targetX, targetY];
+        origin.GetComponent<Icon>().isSpecial = false;
+        second.GetComponent<Icon>().isSpecial = false;
+        if (origin.GetComponent<Icon>().STag == "6Bomb")
+        {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
+                DestroyRow(originX, originY);
+                DestroyCollum(originX, originY);
+            }
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                DestroyRow(originX+1, originY);
+                DestroyRow(originX, originY);
+                DestroyRow(originX-1, originY);
+                DestroyCollum(originX, originY+1);
+                DestroyCollum(originX, originY);
+                DestroyCollum(originX, originY-1);
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombGreen")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombRed")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (origin.GetComponent<Icon>().STag == "7Bomb")
+        {
+               if (second.GetComponent<Icon>().STag == "6Bomb")
+                {
+                DestroyRow(originX + 1, originY);
+                DestroyRow(originX, originY);
+                DestroyRow(originX - 1, originY);
+                DestroyCollum(originX, originY + 1);
+                DestroyCollum(originX, originY);
+                DestroyCollum(originX, originY - 1);
+            }
+                else if (second.GetComponent<Icon>().STag == "7Bomb")
+                {
+                    DestroyArea(originX, originY, 3);
+                }
+                else if (second.GetComponent<Icon>().STag == "8BombBlue")
+                {
+                    for (int i = 0; i < width; i++)
+                    {
+                        for (int j = 0; j < height; j++)
+                        {
+                            if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
+                            {
+                                DestroyArea(i, j, 1);
+                            }
+                        }
+                    }
+                }
+                else if (second.GetComponent<Icon>().STag == "8BombGreen")
+                {
+                    for (int i = 0; i < width; i++)
+                    {
+                        for (int j = 0; j < height; j++)
+                        {
+                            if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                            {
+                                DestroyArea(i, j, 1);
+                            }
+                        }
+                    }
+                }
+                else if (second.GetComponent<Icon>().STag == "8BombRed")
+                {
+                    for (int i = 0; i < width; i++)
+                    {
+                        for (int j = 0; j < height; j++)
+                        {
+                            if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                            {
+                                DestroyArea(i, j, 1);
+                            }
+                        }
+                    }
+                }
+                else if (second.GetComponent<Icon>().STag == "8BombYellow")
+                {
+                    for (int i = 0; i < width; i++)
+                    {
+                        for (int j = 0; j < height; j++)
+                        {
+                            if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                            {
+                                DestroyArea(i, j, 1);
+                            }
+                        }
+                    }
+                }
+        }
+        if (origin.GetComponent<Icon>().STag == "8BombBlue")
+        {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
+                        {
+                            DestroyArea(i, j, 1);
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue" || second.GetComponent<Icon>().STag == "8BombGreen" || second.GetComponent<Icon>().STag == "8BombRed" || second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+        }
+        if (origin.GetComponent<Icon>().STag == "8BombGreen")
+        {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                        {
+                            DestroyArea(i, j, 1);
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue" || second.GetComponent<Icon>().STag == "8BombGreen" || second.GetComponent<Icon>().STag == "8BombRed" || second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+        }
+        if (origin.GetComponent<Icon>().STag == "8BombRed")
+        {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                        {
+                            DestroyArea(i, j, 1);
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue" || second.GetComponent<Icon>().STag == "8BombGreen" || second.GetComponent<Icon>().STag == "8BombRed" || second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+        }
+        if (origin.GetComponent<Icon>().STag == "8BombYellow")
+        {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                        {
+                            int direction = Random.Range(0, 2);
+                            if (direction == 1)
+                            {
+                                DestroyRow(i, j);
+                            }
+                            else if (direction == 0)
+                            {
+                                DestroyCollum(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                        {
+                            DestroyArea(i, j, 1);
+                        }
+                    }
+                }
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue" || second.GetComponent<Icon>().STag == "8BombGreen" || second.GetComponent<Icon>().STag == "8BombRed" || second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        Destroy(allicons[i, j]);
+                    }
+                }
+            }
+        }
+        if (origin != null)
+        {
+            Destroy(allicons[originX, originY]);
+        }
+        if (second != null)
+        {
+            Destroy(allicons[targetX, targetY]);
+        }
+        StartCoroutine(FinishMatch());
+    }
+
+    public void SpecialEffect(int targetX, int targetY)
     {
         GameObject tCurrentIcon = allicons[targetX, targetY];
-        if(tCurrentIcon.GetComponent<Icon>().STag=="6Bomb")
+        if(tCurrentIcon!=null)
         {
-            DestroyRow(targetX);
-            DestroyCollum(targetY);
-            return true;
-        }
-        if (tCurrentIcon.GetComponent<Icon>().STag == "7Bomb")
-        {
-            DestroyArea(targetX,targetY,3);
-            return true;
-        }
-        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombBlue")
-        {
-            for (int i = 0; i < width; i++)
+            if (tCurrentIcon.GetComponent<Icon>().STag == "6Bomb")
             {
-                for (int j = 0; j < height; j++)
+                //Destroy(allicons[targetX,targetY]);
+                int direction = Random.Range(0, 2);
+                if (direction == 1)
                 {
-                    if(allicons[i,j].GetComponent<Icon>().STag == "BluePotion")
+                    DestroyRow(targetX, targetY);
+                }
+                else if (direction == 0)
+                {
+                    DestroyCollum(targetX, targetY);
+                }
+            }
+            else if (tCurrentIcon.GetComponent<Icon>().STag == "7Bomb")
+            {
+                //Destroy(allicons[targetX, targetY]);
+                DestroyArea(targetX, targetY, 1);
+            }
+            else if (tCurrentIcon.GetComponent<Icon>().STag == "8BombBlue")
+            {
+                Destroy(allicons[targetX, targetY]);
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
                     {
-                        Destroy(allicons[i, j]);
+                        if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
+                        {
+                            Destroy(allicons[i, j]);
+                        }
                     }
                 }
             }
-            return true;
-        }
-        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombGreen")
-        {
-            for (int i = 0; i < width; i++)
+            else if (tCurrentIcon.GetComponent<Icon>().STag == "8BombGreen")
             {
-                for (int j = 0; j < height; j++)
+                Destroy(allicons[targetX, targetY]);
+                for (int i = 0; i < width; i++)
                 {
-                    if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                    for (int j = 0; j < height; j++)
                     {
-                        Destroy(allicons[i, j]);
+                        if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
+                        {
+                            Destroy(allicons[i, j]);
+                        }
                     }
                 }
             }
-            return true;
-        }
-        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombRed")
-        {
-            for (int i = 0; i < width; i++)
+            else if (tCurrentIcon.GetComponent<Icon>().STag == "8BombRed")
             {
-                for (int j = 0; j < height; j++)
+                Destroy(allicons[targetX, targetY]);
+                for (int i = 0; i < width; i++)
                 {
-                    if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                    for (int j = 0; j < height; j++)
                     {
-                        Destroy(allicons[i, j]);
+                        if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
+                        {
+                            Destroy(allicons[i, j]);
+                        }
                     }
                 }
             }
-            return true;
-        }
-        if (tCurrentIcon.GetComponent<Icon>().STag == "8BombYellow")
-        {
-            for (int i = 0; i < width; i++)
+            else if (tCurrentIcon.GetComponent<Icon>().STag == "8BombYellow")
             {
-                for (int j = 0; j < height; j++)
+                Destroy(allicons[targetX, targetY]);
+                for (int i = 0; i < width; i++)
                 {
-                    if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                    for (int j = 0; j < height; j++)
                     {
-                        Destroy(allicons[i, j]);
+                        if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
+                        {
+                            Destroy(allicons[i, j]);
+                        }
                     }
                 }
             }
-            return true;
-        }
-        return false;
+        } 
     }
 }
