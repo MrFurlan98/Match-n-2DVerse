@@ -6,16 +6,12 @@ public class Icon : MonoBehaviour {
 
     private Vector2 firstTouchPosition;
     private Vector2 finalTouchPosition;
-    public float swipeAngle = 0;
     public float distance = 0;
     public int colunm;
     public int row;
     public int previousColunm;
     public int previousRow;
-    public int swapX;
-    public int swapY;
     private Board board;
-    private GameObject swapingIcon;
     public int targetX;
     public int targetY;
     public bool isMatch = false;
@@ -82,27 +78,31 @@ public class Icon : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
+        if(board.m_CurrentState == GameState.RUNNING)
         {
-            if(!isSpecial)
+            firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
             {
-                isMatch = true;
+                if (!isSpecial)
+                {
+                    isMatch = true;
+                }
+                board.currentX = targetX;
+                board.currentY = targetY;
             }
-            board.currentX = targetX;
-            board.currentY = targetY;
-        }
+        } 
     }
 
     private void OnMouseUp()
     {
+    
         finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180/Mathf.PI;
+       // swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
         distance = Vector2.Distance(firstTouchPosition, finalTouchPosition);
-        Debug.Log(distance);
-        if(distance<0.5)
+  
+        if (distance < 0.5)
         {
-            if(isSpecial)
+            if (isSpecial)
             {
                 board.SpecialEffect(targetX, targetY);
             }
@@ -113,56 +113,38 @@ public class Icon : MonoBehaviour {
         }
         else
         {
-            SwapIcons();
+            if (board.m_CurrentState == GameState.RUNNING)
+            {
+                board.m_CurrentState = GameState.STANDBY;
+               // SwapIcons();
+            }
         }
-    }
-
-    public void SwapIcons()
-    {
-        if(swipeAngle >-45 && swipeAngle <= 45 && row < board.width-1)//right swap
-        {
-            swapingIcon = board.allicons[row + 1,colunm];
-            swapingIcon.GetComponent<Icon>().row -= 1;
-            row += 1;
-        }
-        else if (swipeAngle > 45 && swipeAngle <= 135 && colunm < board.height-1)//up swap
-        {
-            swapingIcon = board.allicons[row, colunm +1];
-            swapingIcon.GetComponent<Icon>().colunm -= 1;
-            colunm += 1;
-        }
-        else if ((swipeAngle > 135 || swipeAngle <= -135) && row > 0)//left swap
-        {
-            swapingIcon = board.allicons[row -1, colunm];
-            swapingIcon.GetComponent<Icon>().row += 1;
-            row -= 1;
-        }
-        else if(swipeAngle < -45 && swipeAngle >= -135 && colunm > 0)//down swap
-        {
-            swapingIcon = board.allicons[row, colunm-1];
-            swapingIcon.GetComponent<Icon>().colunm += 1;
-            colunm -= 1;
-        }
-        StartCoroutine(CheckCombo());
+        
+      
     }
 
     public IEnumerator CheckCombo()
     {
-        yield return new WaitForSeconds(.4f);
-        if(swapingIcon!=null)
-        {
-            if(!isSpecial || !swapingIcon.GetComponent<Icon>().isSpecial)
-            {
-                swapingIcon.GetComponent<Icon>().row = row;
-                swapingIcon.GetComponent<Icon>().colunm = colunm;
-                row = previousRow;
-                colunm = previousColunm;
-            }
-            if(isSpecial && swapingIcon.GetComponent<Icon>().isSpecial)
-            {
-                board.DoCombo(swapingIcon.GetComponent<Icon>().row, swapingIcon.GetComponent<Icon>().colunm,targetX,targetY);
-            }
-        }
+        yield return new WaitForSeconds(.2f);
+        //if(swapingIcon!=null)
+        //{
+        //    if(!isSpecial || !swapingIcon.GetComponent<Icon>().isSpecial)
+        //    {
+        //        swapingIcon.GetComponent<Icon>().row = swapingIcon.GetComponent<Icon>().previousRow;
+        //        swapingIcon.GetComponent<Icon>().colunm = swapingIcon.GetComponent<Icon>().previousColunm;
+
+        //        row = previousRow;
+        //        colunm = previousColunm;
+      
+        //    }
+        //    if(isSpecial && swapingIcon.GetComponent<Icon>().isSpecial)
+        //    {
+        //       board.m_CurrentState = GameState.onMatch;
+        //       board.DoCombo(swapingIcon.GetComponent<Icon>().row, swapingIcon.GetComponent<Icon>().colunm,targetX,targetY);
+        //    }
+        //}
+        //yield return new WaitUntil(() => board.m_CurrentState != GameState.onMatch);
+        //board.m_CurrentState = GameState.RUNNING;
     }
     private void OnDestroy()
     {

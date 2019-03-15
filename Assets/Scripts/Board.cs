@@ -3,11 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState
+{
+    STANDBY,
+    RUNNING,
+    onMatch,
+    finishMatch
+}
+
+public enum E_Direction
+{
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN,
+    STAY
+}
+
 public class Board : MonoBehaviour {
+
+    
 
     [SerializeField]
     private GamePlayUI m_pGamePlayUI;
 
+    public GameState m_CurrentState;
+    public int level = 1;
     public int height;
     public int width;
     public int offSet = 0;
@@ -16,13 +37,16 @@ public class Board : MonoBehaviour {
     public GameObject[] icons = new GameObject[0];
     public GameObject blockIcon;
     public GameObject[,] allicons;
+    public Icon[,] m_Icons;
     public int currentX;
     public int currentY;
     public int currentDestroyed;
+    public float swipeAngle = 0;
+    private GameObject swapingIcon;
 
 
     public float moves;
-	public float score = 0;
+    public float score = 0;
 
     int scoreInst = 0;
 
@@ -31,19 +55,52 @@ public class Board : MonoBehaviour {
     [SerializeField]
     public List<System.Action> m_pActions = new List<System.Action>();
 
+
+    public Vector2 m_InitPosition;
+    
+
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
+        m_CurrentState = GameState.RUNNING;
         UpdateMoveScore();
         SetUp();
-	}
+    }
+
+    private void Update()
+    {
+        if (OnMouseDown())
+        {
+            m_InitPosition = MousePosition();
+        }
+        if (OnMouseUp())
+        {
+            Vector2 tEndPosi = MousePosition();
+
+            Vector2Int tIconPosition = FindIcon(m_InitPosition);
+
+            if(tIconPosition.x > -1)
+            {
+                // swipe 
+                E_Direction tDirection = GetDirection(m_InitPosition, tEndPosi);
+
+                if(tDirection == E_Direction.STAY)
+                {
+
+                }
+            }
+          
+        }
+
+    }
 
     private void SetUp()
     {
-        for(int i=0;i<width;i++)
+        for (int i = 0; i < width; i++)
         {
-            for(int j=0;j<height;j++)
+            for (int j = 0; j < height; j++)
             {
                 Vector2 tempPosition = new Vector2(i, j);
                 /*GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
@@ -52,13 +109,13 @@ public class Board : MonoBehaviour {
                 int iconToUse = Random.Range(0, 4);
 
                 GameObject icon = null;
-          
-            
-                 icon =  Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
 
-                
+
+                icon = Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
+
+
                 icon.GetComponent<Icon>().colunm = j;
-                icon.GetComponent<Icon>().row= i;
+                icon.GetComponent<Icon>().row = i;
                 icon.transform.parent = this.transform;
                 //icon.name = "( " + i + ", " + j + " )";
                 allicons[i, j] = icon;
@@ -120,7 +177,7 @@ public class Board : MonoBehaviour {
                 newIcon.GetComponent<Icon>().row = currentX;
                 newIcon.transform.parent = transform;
             }
-            if (currentDestroyed >=8)
+            if (currentDestroyed >= 8)
             {
                 Vector2 tempPosition = new Vector2(currentX, currentY);
                 GameObject newIcon = Instantiate(icons[tempIconToUse], tempPosition, Quaternion.identity);
@@ -129,7 +186,7 @@ public class Board : MonoBehaviour {
                 newIcon.GetComponent<Icon>().row = currentX;
                 newIcon.transform.parent = transform;
             }
-            
+
             StartCoroutine(FinishMatch());
             return true;
         }
@@ -139,7 +196,7 @@ public class Board : MonoBehaviour {
 
     public void SetIsMatchFalse(int targetX, int targetY)
     {
-        if(allicons[targetX, targetY] != null)
+        if (allicons[targetX, targetY] != null)
             allicons[targetX, targetY].GetComponent<Icon>().isMatch = false;
 
         if (targetX > 0)
@@ -170,7 +227,6 @@ public class Board : MonoBehaviour {
                 allicons[targetX, targetY - 1].GetComponent<Icon>().isMatch = false;
             }
         }
-
     }
 
     public bool CheckIfCanDestroy()
@@ -184,7 +240,7 @@ public class Board : MonoBehaviour {
                 {
                     if (allicons[i, j].GetComponent<Icon>().isMatch)
                     {
-                        nrmTitle++;   
+                        nrmTitle++;
                     }
                 }
             }
@@ -211,6 +267,8 @@ public class Board : MonoBehaviour {
             }
         }
         yield return DropColumns();
+
+
     }
 
     private IEnumerator RunActions()
@@ -218,7 +276,7 @@ public class Board : MonoBehaviour {
         if (m_pActions == null)
             yield break;
 
-        foreach(System.Action tAction in m_pActions)
+        foreach (System.Action tAction in m_pActions)
         {
             tAction.Invoke();
         }
@@ -237,17 +295,17 @@ public class Board : MonoBehaviour {
                 {
                     nullCount++;
                 }
-                else if(nullCount>0)
+                else if (nullCount > 0)
                 {
                     if (allicons[i, j].GetComponent<Icon>().isIndestructable)
                     {
                         indestructable++;
                     }
-                    else { 
-                       // GAMBIARRA DO KRL
-                       if((j - (nullCount + indestructable)) >= 0 && (j - (nullCount + indestructable)) < height && allicons[i, j - (nullCount + indestructable) ] != null && allicons[i, j - (nullCount + indestructable) ].GetComponent<Icon>().isIndestructable)
+                    else {
+                        // GAMBIARRA DO KRL
+                        if ((j - (nullCount + indestructable)) >= 0 && (j - (nullCount + indestructable)) < height && allicons[i, j - (nullCount + indestructable)] != null && allicons[i, j - (nullCount + indestructable)].GetComponent<Icon>().isIndestructable)
                         {
-                          
+
                             indestructable = 0;
                         }
                         allicons[i, j].GetComponent<Icon>().colunm -= nullCount + indestructable;
@@ -255,7 +313,7 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
-            
+
             indestructable = 0;
             nullCount = 0;
         }
@@ -269,11 +327,11 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < height; j++)
             {
-                if(allicons[i,j]==null)
+                if (allicons[i, j] == null)
                 {
                     Vector2 tempoPosition = new Vector2(i, j);
                     int iconToUse = Random.Range(0, 4);
-    
+
                     GameObject newIcon = Instantiate(icons[iconToUse], tempoPosition, Quaternion.identity);
                     allicons[i, j] = newIcon;
                     newIcon.GetComponent<Icon>().colunm = j;
@@ -288,30 +346,30 @@ public class Board : MonoBehaviour {
             }
         }
     }
-    
 
     private IEnumerator FillBoard()
     {
         RefillBoard();
         yield return new WaitForSeconds(.5f);
+
     }
 
     public void UpdateMoveScore()
     {
-		m_pGamePlayUI.TScore.text= " " + score;
-		moves--;
+        m_pGamePlayUI.TScore.text = " " + score;
+        moves--;
 
-		if (moves >= 0) {
-            m_pGamePlayUI.TMoves.text= " " + moves;
-		} 
-	}
+        if (moves >= 0) {
+            m_pGamePlayUI.TMoves.text = " " + moves;
+        }
+    }
 
     public void FindMatch(int targetX, int targetY)
     {
         GameObject tCurrentIcon = allicons[targetX, targetY];
-        
+
         // check if  has a match in left of current icon
-        if(!allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
+        if (!allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
         {
             if (targetX > 0)
             {
@@ -371,12 +429,12 @@ public class Board : MonoBehaviour {
                 }
             }
         }
-        if(allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
+        if (allicons[targetX, targetY].GetComponent<Icon>().isSpecial)
         {
             SpecialEffect(targetX, targetY);
             StartCoroutine(FinishMatch());
         }
-       
+
     }
 
     public void Scoring(int pTitles)
@@ -394,12 +452,12 @@ public class Board : MonoBehaviour {
         UpdateMoveScore();
     }
 
-    public void DestroyRow(int pRow,int targetY)
+    public void DestroyRow(int pRow, int targetY)
     {
         allicons[pRow, targetY].GetComponent<Icon>().isSpecial = false;
         for (int j = 0; j < height; j++)
         {
-            if(allicons[pRow, j] != null)
+            if (allicons[pRow, j] != null)
             {
                 if (allicons[pRow, j] == allicons[pRow, targetY])
                 {
@@ -417,7 +475,7 @@ public class Board : MonoBehaviour {
         }
     }
 
-    public void DestroyCollum(int targetX,int pCollum)
+    public void DestroyCollum(int targetX, int pCollum)
     {
         allicons[targetX, pCollum].GetComponent<Icon>().isSpecial = false;
         for (int i = 0; i < width; i++)
@@ -446,12 +504,12 @@ public class Board : MonoBehaviour {
         allicons[pOriginX, pOriginY].GetComponent<Icon>().isSpecial = false;
         for (int i = pOriginX - pArea; i <= pOriginX + pArea; i++)
         {
-            for(int j = pOriginY - pArea; j <= pOriginY + pArea; j++)
+            for (int j = pOriginY - pArea; j <= pOriginY + pArea; j++)
             {
                 if (IsOutOfBoardRange(i, j))
                 {
                     continue; //go to next interation 
-                } 
+                }
 
                 if (allicons[i, j] != null)
                 {
@@ -474,7 +532,7 @@ public class Board : MonoBehaviour {
 
     public bool IsOutOfBoardRange(int pPositionX, int pPositionY)
     {
-       return !(pPositionX >= 0 && pPositionX < width && pPositionY >= 0 && pPositionY < height);
+        return !(pPositionX >= 0 && pPositionX < width && pPositionY >= 0 && pPositionY < height);
     }
 
 
@@ -493,12 +551,12 @@ public class Board : MonoBehaviour {
             }
             else if (second.GetComponent<Icon>().STag == "7Bomb")
             {
-                DestroyRow(originX+1, originY);
+                DestroyRow(originX + 1, originY);
                 DestroyRow(originX, originY);
-                DestroyRow(originX-1, originY);
-                DestroyCollum(originX, originY+1);
+                DestroyRow(originX - 1, originY);
+                DestroyCollum(originX, originY + 1);
                 DestroyCollum(originX, originY);
-                DestroyCollum(originX, originY-1);
+                DestroyCollum(originX, originY - 1);
             }
             else if (second.GetComponent<Icon>().STag == "8BombBlue")
             {
@@ -587,8 +645,8 @@ public class Board : MonoBehaviour {
         }
         if (origin.GetComponent<Icon>().STag == "7Bomb")
         {
-               if (second.GetComponent<Icon>().STag == "6Bomb")
-                {
+            if (second.GetComponent<Icon>().STag == "6Bomb")
+            {
                 DestroyRow(originX + 1, originY);
                 DestroyRow(originX, originY);
                 DestroyRow(originX - 1, originY);
@@ -596,62 +654,62 @@ public class Board : MonoBehaviour {
                 DestroyCollum(originX, originY);
                 DestroyCollum(originX, originY - 1);
             }
-                else if (second.GetComponent<Icon>().STag == "7Bomb")
+            else if (second.GetComponent<Icon>().STag == "7Bomb")
+            {
+                DestroyArea(originX, originY, 3);
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombBlue")
+            {
+                for (int i = 0; i < width; i++)
                 {
-                    DestroyArea(originX, originY, 3);
-                }
-                else if (second.GetComponent<Icon>().STag == "8BombBlue")
-                {
-                    for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
                     {
-                        for (int j = 0; j < height; j++)
+                        if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
                         {
-                            if (allicons[i, j].GetComponent<Icon>().STag == "BluePotion")
-                            {
-                                DestroyArea(i, j, 1);
-                            }
+                            DestroyArea(i, j, 1);
                         }
                     }
                 }
-                else if (second.GetComponent<Icon>().STag == "8BombGreen")
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombGreen")
+            {
+                for (int i = 0; i < width; i++)
                 {
-                    for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
                     {
-                        for (int j = 0; j < height; j++)
+                        if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
                         {
-                            if (allicons[i, j].GetComponent<Icon>().STag == "GreenPotion")
-                            {
-                                DestroyArea(i, j, 1);
-                            }
+                            DestroyArea(i, j, 1);
                         }
                     }
                 }
-                else if (second.GetComponent<Icon>().STag == "8BombRed")
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombRed")
+            {
+                for (int i = 0; i < width; i++)
                 {
-                    for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
                     {
-                        for (int j = 0; j < height; j++)
+                        if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
                         {
-                            if (allicons[i, j].GetComponent<Icon>().STag == "RedPotion")
-                            {
-                                DestroyArea(i, j, 1);
-                            }
+                            DestroyArea(i, j, 1);
                         }
                     }
                 }
-                else if (second.GetComponent<Icon>().STag == "8BombYellow")
+            }
+            else if (second.GetComponent<Icon>().STag == "8BombYellow")
+            {
+                for (int i = 0; i < width; i++)
                 {
-                    for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
                     {
-                        for (int j = 0; j < height; j++)
+                        if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
                         {
-                            if (allicons[i, j].GetComponent<Icon>().STag == "YellowPotion")
-                            {
-                                DestroyArea(i, j, 1);
-                            }
+                            DestroyArea(i, j, 1);
                         }
                     }
                 }
+            }
         }
         if (origin.GetComponent<Icon>().STag == "8BombBlue")
         {
@@ -855,7 +913,7 @@ public class Board : MonoBehaviour {
     public void SpecialEffect(int targetX, int targetY)
     {
         GameObject tCurrentIcon = allicons[targetX, targetY];
-        if(tCurrentIcon!=null)
+        if (tCurrentIcon != null)
         {
             if (tCurrentIcon.GetComponent<Icon>().STag == "6Bomb")
             {
@@ -931,6 +989,74 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
-        } 
+        }
+    }
+
+    bool OnMouseDown()
+    {
+        return Input.GetKeyDown(KeyCode.Mouse0);
+    }
+
+    bool OnMouseUp()
+    {
+        return Input.GetKeyUp(KeyCode.Mouse0);
+    }
+
+    Vector2 MousePosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    Vector2Int FindIcon(Vector2 pPosi)
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                Vector2 tCurrentPosition = Vector2.one;
+                tCurrentPosition.x *= i;
+                tCurrentPosition.y *= j;
+                float tDistance = Vector2.Distance(tCurrentPosition, pPosi);
+                if (tDistance < 0.5)
+                    return new Vector2Int(i, j);
+            }
+        }
+        return new Vector2Int(-1, -1);
+    }
+
+    public E_Direction GetDirection(Vector2 pInitPosi, Vector2 pEndPosi)
+    {
+        if (Vector2.Distance(pInitPosi, pEndPosi) < 0.5)
+            return E_Direction.STAY;
+
+        float tAngle = Mathf.Atan2(pEndPosi.y - pInitPosi.y, pEndPosi.x - pInitPosi.x) * 180 / Mathf.PI;
+
+        if (tAngle > -45 && tAngle <= 45)//right swap
+        {
+            return E_Direction.RIGHT;
+        }
+        else if (tAngle > 45 && tAngle <= 135)//up swap
+        {
+            return E_Direction.UP;
+        }
+        else if ((tAngle > 135 || tAngle <= -135))//left swap
+        {
+            return E_Direction.LEFT;
+        }
+        else //if (swipeAngle < -45 && swipeAngle >= -135 && colunm > 0)//down swap
+        {
+            return E_Direction.DOWN;
+        }
+        
+    }
+
+    public IEnumerator BoardRunning(Vector2Int pInitPosi, E_Direction pDirection)
+    {
+        m_CurrentState = GameState.RUNNING;
+
+
+        yield return 0;
+
+        m_CurrentState = GameState.STANDBY;
     }
 }
