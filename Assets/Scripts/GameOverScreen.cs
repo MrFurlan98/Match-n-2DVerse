@@ -18,11 +18,11 @@ public class GameOverScreen : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (board.GetComponent<Board>().moves ==  0) 
-		{
-			gameOverScreen.SetActive (true);
-			txtPoints.text= " " + board.score;
-		}
+		//if (board.GetComponent<Board>().moves ==  0) 
+		//{
+		//	gameOverScreen.SetActive (true);
+		//	txtPoints.text= " " + board.score;
+		//}
 	}
 		
 	public void toWorldMenu()

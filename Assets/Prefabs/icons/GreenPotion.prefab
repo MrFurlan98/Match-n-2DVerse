@@ -68,12 +68,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf3d762c4e6d5d40bb3974975813f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_StateIcon: 0
+  distance: 0
   colunm: 0
   row: 0
+  previousColunm: 0
+  previousRow: 0
   targetX: 0
   targetY: 0
   isMatch: 0
   isIndestructable: 0
+  isSpecial: 0
   m_sTag: GreenPotion
 --- !u!212 &212716661291695616
 SpriteRenderer:

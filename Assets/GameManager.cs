@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour {
         GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
 
         // Reset Board
-        PBoard.moves = 14;
+        //PBoard.moves = 14;
 
-        PBoard.UpdateMoveScore();
+        //PBoard.UpdateMoveScore();
 
         //set all events to invoke when player do a match
         PBoard.TriggerMatch = new System.Action(tGamePlayUI.SetEvents);

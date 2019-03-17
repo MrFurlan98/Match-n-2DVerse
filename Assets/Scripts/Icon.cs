@@ -9,7 +9,7 @@ public class Icon : MonoBehaviour {
         CANT_DESTROY
       
     }
-
+    [SerializeField]
     private E_State m_StateIcon = E_State.STAND_BY;
 
     private Vector2 firstTouchPosition;
@@ -41,48 +41,48 @@ public class Icon : MonoBehaviour {
 
     void Update()
     {
-        if(isMatch)
-        {
-            board.FindMatch(targetX, targetY);
-        }
-        if(isMatch && distance >=0.5)
-        {
-            StartCoroutine(board.FinishMatch());
-            distance = 0;
-        }
+        //if(isMatch)
+        //{
+        //    board.FindMatch(targetX, targetY);
+        //}
+        //if(isMatch && distance >=0.5)
+        //{
+        //    StartCoroutine(board.FinishMatch());
+        //    distance = 0;
+        //}
 
 
         targetY = colunm; //+ board.offSet;
         targetX = row;
-        if(Mathf.Abs(targetX-transform.position.x - board.offSet) >.1)
+        if(Mathf.Abs(targetX-transform.position.x - board.OffSet) >.1)
         {
-            tempPosition = new Vector2(targetX, transform.position.y + board.offSet);
+            tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
-            if(board.allicons[row,colunm]!=this.gameObject)
-            {
-                board.allicons[row, colunm] = this.gameObject;
-            }
+            //if(board.allicons[row,colunm]!=this.gameObject)
+            //{
+            //    board.allicons[row, colunm] = this.gameObject;
+            //}
         }
         else
         {
-            tempPosition = new Vector2(targetX, transform.position.y + board.offSet);
+            tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
             transform.position = tempPosition;
-            board.allicons[row, colunm] = this.gameObject;
+            //board.allicons[row, colunm] = this.gameObject;
         }
-        if (Mathf.Abs(targetY - transform.position.y - board.offSet) > .1)
+        if (Mathf.Abs(targetY - transform.position.y - board.OffSet) > .1)
         {
-            tempPosition = new Vector2(transform.position.x,targetY + board.offSet);
+            tempPosition = new Vector2(transform.position.x,targetY + board.OffSet);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
-            if(board.allicons[row, colunm] != this.gameObject)
-            {
-                board.allicons[row, colunm] = this.gameObject;
-            }
+            //if(board.allicons[row, colunm] != this.gameObject)
+            //{
+            //    board.allicons[row, colunm] = this.gameObject;
+            //}
         }
         else
         {
-            tempPosition = new Vector2(transform.position.x, targetY + board.offSet);
+            tempPosition = new Vector2(transform.position.x, targetY + board.OffSet);
             transform.position = tempPosition;
-            board.allicons[row, colunm] = this.gameObject;
+            //board.allicons[row, colunm] = this.gameObject;
         }
     }
 
@@ -164,7 +164,7 @@ public class Icon : MonoBehaviour {
             foreach(IDestroyAction tAction in tActions)
             {
                 // added to queue of actions to trigger when match has finish
-               GameManager.Instance.PBoard.m_pActions.Add(delegate { tAction.Invoke(targetX, targetY); });
+               GameManager.Instance.PBoard.Actions.Add(delegate { tAction.Invoke(targetX, targetY); });
             }
         }
     }
