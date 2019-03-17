@@ -64,6 +64,7 @@ public class Board : MonoBehaviour {
     void Start() {
         allTiles = new BackgroundTile[width, height];
         allicons = new GameObject[width, height];
+        m_Icons = new Icon[width, height];
         m_CurrentState = GameState.RUNNING;
         UpdateMoveScore();
         SetUp();
@@ -71,6 +72,20 @@ public class Board : MonoBehaviour {
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < m_Icons.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_Icons.GetLength(1); j++)
+                {
+                    if(m_Icons[i, j] != null)
+                        Destroy(m_Icons[i, j].gameObject);
+                    m_Icons[i, j] = null;
+                    
+                }
+            }
+            Start();
+        }
         if (OnMouseDown())
         {
             m_InitPosition = MousePosition();
@@ -79,17 +94,16 @@ public class Board : MonoBehaviour {
         {
             Vector2 tEndPosi = MousePosition();
 
-            Vector2Int tIconPosition = FindIcon(m_InitPosition);
+            Vector2Int tIconIndex = FindIcon(m_InitPosition);
 
-            if(tIconPosition.x > -1)
+            if(tIconIndex.x > -1)
             {
                 // swipe 
                 E_Direction tDirection = GetDirection(m_InitPosition, tEndPosi);
 
-                if(tDirection == E_Direction.STAY)
-                {
+                StartCoroutine(BoardRunning(tIconIndex, tDirection));
 
-                }
+            //    Debug.Log("Mouse Clicked At Icon (" + tIconIndex +")" + " To direction "+ tDirection.ToString());
             }
           
         }
@@ -108,17 +122,20 @@ public class Board : MonoBehaviour {
                 backgroundTile.name = "( " + i + ", " + j + " )";*/
                 int iconToUse = Random.Range(0, 4);
 
-                GameObject icon = null;
+                GameObject tIconObject = null;
 
 
-                icon = Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
+                tIconObject = Instantiate(icons[iconToUse], tempPosition, Quaternion.identity);
 
+                Icon tIconItem = tIconObject.GetComponent<Icon>();
 
-                icon.GetComponent<Icon>().colunm = j;
-                icon.GetComponent<Icon>().row = i;
-                icon.transform.parent = this.transform;
+                tIconItem.colunm = j;
+                tIconItem.row = i;
+
+                tIconObject.transform.parent = this.transform;
                 //icon.name = "( " + i + ", " + j + " )";
-                allicons[i, j] = icon;
+                allicons[i, j] = tIconObject;
+                m_Icons[i, j] = tIconItem;
             }
         }
     }
@@ -992,6 +1009,134 @@ public class Board : MonoBehaviour {
         }
     }
 
+   
+
+    public IEnumerator BoardRunning(Vector2Int pIndexIcon, E_Direction pDirection)
+    {
+        m_CurrentState = GameState.RUNNING;
+        // first state mark all pieces with some tag
+        switch (pDirection)
+        {
+            case E_Direction.STAY:
+                // just click in icon
+                BoardStay(pIndexIcon);
+                break;
+            case E_Direction.LEFT:
+
+                break;
+            case E_Direction.DOWN:
+
+                break;
+            case E_Direction.UP:
+
+                break;
+            case E_Direction.RIGHT:
+
+                break;
+        }
+
+        // second state resolve tags 
+        // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
+        DestroyIcons();
+
+
+        yield return 0;
+
+        m_CurrentState = GameState.STANDBY;
+    }
+
+
+    bool IsAMatch(List<Vector2Int> pIcons)
+    {
+        return pIcons.Count >= 3;
+    }
+
+    void MarkToDestroy(List<Vector2Int> pIcons)
+    {
+        for (int i = 0; i < pIcons.Count; i++)
+        {
+            Vector2Int tIndex = pIcons[i];
+            Icon tIcon = m_Icons[tIndex.x, tIndex.y];
+
+            if (tIcon.StateIcon != Icon.E_State.CANT_DESTROY)
+                tIcon.StateIcon = Icon.E_State.MARK_TO_DESTROY;
+        }
+    }
+
+    void DestroyIcons()
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if(m_Icons[i,j].StateIcon == Icon.E_State.MARK_TO_DESTROY)
+                {
+                    Destroy(m_Icons[i, j].gameObject);
+                    m_Icons[i, j] = null;
+                }
+            }
+        }
+    }
+
+    #region Board Actions
+
+    void BoardStay(Vector2Int pIconIndex)
+    {
+        List<Vector2Int> tIcons = null;
+        GetRegionIcons(pIconIndex.x, pIconIndex.y, ref tIcons);
+
+        Debug.Log(tIcons.Count);
+
+        if (IsAMatch(tIcons))
+        {
+            MarkToDestroy(tIcons);
+        }
+        
+    }
+
+    #endregion
+
+    #region Board Utils 
+
+    List<Vector2Int> GetRegionIcons(int startX, int startY, ref List<Vector2Int> pIcons)
+    {
+        if (pIcons == null)
+            pIcons = new List<Vector2Int>();
+
+
+        if (!pIcons.Contains(new Vector2Int(startX, startY)))
+            pIcons.Add(new Vector2Int(startX, startY));
+        else
+            return new List<Vector2Int>();
+
+        Icon tIcon = m_Icons[startX, startY];
+
+        for (int i = startX - 1; i <= startX + 1; i++)
+        {
+            if(IsInBoardRange(i, startY) && i != startX && m_Icons[ i, startY].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(i, startY)))
+            {
+                GetRegionIcons(i, startY, ref pIcons) ;
+            
+            }
+        }
+
+        for (int j = startY - 1; j <= startY + 1; j++)
+        {
+            if (IsInBoardRange(startX, j) && j != startY  && m_Icons[startX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(startX, j)))
+            {
+                
+                GetRegionIcons(startX, j, ref pIcons);
+            }
+        }
+
+        return pIcons;
+    }
+
+    bool IsOverUI()
+    {
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
+    }
+
     bool OnMouseDown()
     {
         return Input.GetKeyDown(KeyCode.Mouse0);
@@ -1015,7 +1160,7 @@ public class Board : MonoBehaviour {
             {
                 Vector2 tCurrentPosition = Vector2.one;
                 tCurrentPosition.x *= i;
-                tCurrentPosition.y *= j;
+                tCurrentPosition.y *= (j + offSet - 1);
                 float tDistance = Vector2.Distance(tCurrentPosition, pPosi);
                 if (tDistance < 0.5)
                     return new Vector2Int(i, j);
@@ -1047,16 +1192,13 @@ public class Board : MonoBehaviour {
         {
             return E_Direction.DOWN;
         }
-        
+
     }
 
-    public IEnumerator BoardRunning(Vector2Int pInitPosi, E_Direction pDirection)
+    bool IsInBoardRange(int pX, int pY)
     {
-        m_CurrentState = GameState.RUNNING;
-
-
-        yield return 0;
-
-        m_CurrentState = GameState.STANDBY;
+        return pX >= 0 && pX < width && pY >= 0 && pY < height;
     }
+
+    #endregion
 }

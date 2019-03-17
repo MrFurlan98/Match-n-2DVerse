@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Icon : MonoBehaviour {
+    public enum E_State {
+        STAND_BY,
+        MARK_TO_DESTROY,
+        CANT_DESTROY
+      
+    }
+
+    private E_State m_StateIcon = E_State.STAND_BY;
 
     private Vector2 firstTouchPosition;
     private Vector2 finalTouchPosition;
@@ -42,6 +50,8 @@ public class Icon : MonoBehaviour {
             StartCoroutine(board.FinishMatch());
             distance = 0;
         }
+
+
         targetY = colunm; //+ board.offSet;
         targetX = row;
         if(Mathf.Abs(targetX-transform.position.x - board.offSet) >.1)
@@ -76,52 +86,52 @@ public class Icon : MonoBehaviour {
         }
     }
 
-    private void OnMouseDown()
-    {
-        if(board.m_CurrentState == GameState.RUNNING)
-        {
-            firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
-            {
-                if (!isSpecial)
-                {
-                    isMatch = true;
-                }
-                board.currentX = targetX;
-                board.currentY = targetY;
-            }
-        } 
-    }
+    //private void OnMouseDown()
+    //{
+    //    if(board.m_CurrentState == GameState.RUNNING)
+    //    {
+    //        firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
+    //        {
+    //            if (!isSpecial)
+    //            {
+    //                isMatch = true;
+    //            }
+    //            board.currentX = targetX;
+    //            board.currentY = targetY;
+    //        }
+    //    } 
+    //}
 
-    private void OnMouseUp()
-    {
+    //private void OnMouseUp()
+    //{
     
-        finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-       // swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
-        distance = Vector2.Distance(firstTouchPosition, finalTouchPosition);
+    //    finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //   // swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
+    //    distance = Vector2.Distance(firstTouchPosition, finalTouchPosition);
   
-        if (distance < 0.5)
-        {
-            if (isSpecial)
-            {
-                board.SpecialEffect(targetX, targetY);
-            }
-            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
-            {
-                board.DestroyMatch();
-            }
-        }
-        else
-        {
-            if (board.m_CurrentState == GameState.RUNNING)
-            {
-                board.m_CurrentState = GameState.STANDBY;
-               // SwapIcons();
-            }
-        }
+    //    if (distance < 0.5)
+    //    {
+    //        if (isSpecial)
+    //        {
+    //            board.SpecialEffect(targetX, targetY);
+    //        }
+    //        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
+    //        {
+    //            board.DestroyMatch();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (board.m_CurrentState == GameState.RUNNING)
+    //        {
+    //            board.m_CurrentState = GameState.STANDBY;
+    //           // SwapIcons();
+    //        }
+    //    }
         
       
-    }
+    //}
 
     public IEnumerator CheckCombo()
     {
@@ -172,4 +182,16 @@ public class Icon : MonoBehaviour {
         }
     }
 
+    public E_State StateIcon
+    {
+        get
+        {
+            return m_StateIcon;
+        }
+
+        set
+        {
+            m_StateIcon = value;
+        }
+    }
 }
