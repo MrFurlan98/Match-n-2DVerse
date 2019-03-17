@@ -56,6 +56,16 @@ MonoBehaviour:
   - {fileID: 1932124298280248, guid: 8641096f833a7af49aa2e2dddb878fe1, type: 2}
   - {fileID: 1919518714426714, guid: 61ff572573e11b842897307c76dafc01, type: 2}
   - {fileID: 1306732298296484, guid: b4c516fb3dcb63d4b87f14a2ed74840e, type: 2}
+  m_SpecialIcons:
+  - m_IconPrefab: {fileID: 1176982519771628, guid: 9e36a9654f1a8a14f879a8297a8131e0,
+      type: 2}
+    m_MatchValue: 4
+  - m_IconPrefab: {fileID: 1471670826069130, guid: b58679ae3a18b704cb522b8b03058043,
+      type: 2}
+    m_MatchValue: 5
+  - m_IconPrefab: {fileID: 1707404909606250, guid: 223fa98e0adf93b40b411b52eb50c98c,
+      type: 2}
+    m_MatchValue: 6
   m_Heigth: 10
   m_Width: 7
   m_RefillDelay: 0.38

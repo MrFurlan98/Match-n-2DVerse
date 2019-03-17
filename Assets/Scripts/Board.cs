@@ -22,11 +22,50 @@ public enum E_Direction
 }
 
 public class Board : MonoBehaviour {
+    [System.Serializable]
+    public class SpecialIcon
+    {
+        [SerializeField]
+        private GameObject m_IconPrefab;
+
+        [SerializeField]
+        private int m_MatchValue;
+
+        public GameObject IconPrefab
+        {
+            get
+            {
+                return m_IconPrefab;
+            }
+
+            set
+            {
+                m_IconPrefab = value;
+            }
+        }
+
+        public int MatchValue
+        {
+            get
+            {
+                return m_MatchValue;
+            }
+
+            set
+            {
+                m_MatchValue = value;
+            }
+        }
+        
+    }
 
     private GameState m_CurrentState = GameState.STANDBY;
 
     [SerializeField]
     private GameObject[] m_PrefabIcons = new GameObject[0];
+
+    [SerializeField]
+    private SpecialIcon[] m_SpecialIcons = new SpecialIcon[0];
 
     private Icon[,] m_Icons;
 
@@ -55,8 +94,6 @@ public class Board : MonoBehaviour {
 
     [SerializeField]
     private int m_OffSet = 0;
-
-  
 
     // Use this for initialization
     void Start() {
@@ -128,50 +165,78 @@ public class Board : MonoBehaviour {
         }
     }
 
-    private IEnumerator BoardRunning(Vector2Int pIndexIcon, E_Direction pDirection)
+    private IEnumerator BoardRunning(Vector2Int pOriginIndex, E_Direction pDirection)
     {
         m_CurrentState = GameState.RUNNING;
-        Vector2Int pTo;
+
+        int tOriginMatchAmount = 0;
+
+        int tToMatchAmount = 0;
+
+        Vector2Int pToIndex = new Vector2Int(-1,-1);
+
         // first state mark all pieces with some tag
         switch (pDirection)
         {
             case E_Direction.STAY:
                 // just click in icon
-                BoardStay(pIndexIcon);
+                BoardStay(pOriginIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
                 break;
             case E_Direction.LEFT:
 
-                pTo = new Vector2Int(pIndexIcon.x - 1, pIndexIcon.y);
+                pToIndex = new Vector2Int(pOriginIndex.x - 1, pOriginIndex.y);
 
-                yield return SwapRoutine(pIndexIcon, pTo);
+                yield return SwapRoutine(pOriginIndex, pToIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
 
                 break;
             case E_Direction.DOWN:
 
-                pTo = new Vector2Int(pIndexIcon.x, pIndexIcon.y - 1);
+                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y - 1);
 
-                yield return SwapRoutine(pIndexIcon, pTo);
+                yield return SwapRoutine(pOriginIndex, pToIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
 
                 break;
             case E_Direction.UP:
 
-                pTo = new Vector2Int(pIndexIcon.x, pIndexIcon.y + 1);
+                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y + 1);
 
-                yield return SwapRoutine(pIndexIcon, pTo);
+                yield return SwapRoutine(pOriginIndex, pToIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
 
                 break;
             case E_Direction.RIGHT:
 
-                pTo = new Vector2Int(pIndexIcon.x + 1, pIndexIcon.y);
+                pToIndex = new Vector2Int(pOriginIndex.x + 1, pOriginIndex.y);
 
-                yield return SwapRoutine(pIndexIcon, pTo);
+                yield return SwapRoutine(pOriginIndex, pToIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
 
                 break;
         }
 
+
         // second state resolve tags 
         // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
         DestroyIcons();
+
+        GenerateSpecialIcon(pOriginIndex, pToIndex, tOriginMatchAmount, tToMatchAmount);
 
         // the last state is refill board 
         DropCollumns();
@@ -188,9 +253,48 @@ public class Board : MonoBehaviour {
 
     #region Board Actions
 
+    void GenerateSpecialIcon(Vector2Int pOriginIndex, Vector2Int pToIndex, int pOriginAmount, int pToAmount)
+    {
+        List<SpecialIcon> tSpecialOriginIcons = new List<SpecialIcon>();
+
+        List<SpecialIcon> tSpecialToIcons = new List<SpecialIcon>();
+
+        if (pOriginAmount >= 3)
+        {
+            for (int i = 0; i < m_SpecialIcons.Length; i++)
+            {
+                if(pOriginAmount == m_SpecialIcons[i].MatchValue)
+                {
+                    tSpecialOriginIcons.Add(m_SpecialIcons[i]);
+                }
+            }
+
+            int tOriginRandonIndex = UnityEngine.Random.Range(0, tSpecialOriginIcons.Count);
+
+            if(tSpecialOriginIcons.Count > 0)
+                m_Icons[pOriginIndex.x, pOriginIndex.y] = GenerateIcon(pOriginIndex.x, pOriginIndex.y, tSpecialOriginIcons[tOriginRandonIndex].IconPrefab);
+        }
+        if(pToAmount >= 3)
+        {
+            for (int i = 0; i < m_SpecialIcons.Length; i++)
+            {
+                if (pToAmount == m_SpecialIcons[i].MatchValue)
+                {
+                    tSpecialToIcons.Add(m_SpecialIcons[i]);
+                }
+            }
+
+            int tToRandonIndex = UnityEngine.Random.Range(0, tSpecialToIcons.Count);
+
+            if (tSpecialToIcons.Count > 0)
+                m_Icons[pToIndex.x, pToIndex.y] = GenerateIcon(pToIndex.x, pToIndex.y, tSpecialToIcons[tToRandonIndex].IconPrefab);
+        }
+    }
+
     void BoardStay(Vector2Int pIconIndex)
     {
         List<Vector2Int> tIcons = null;
+
         GetRegionIcons(pIconIndex.x, pIconIndex.y, ref tIcons);
 
         //Debug.Log(tIcons.Count);
@@ -292,7 +396,32 @@ public class Board : MonoBehaviour {
 
             yield return new WaitForSeconds(m_SwapDelay);
 
-            SwapIcons(pTo, pFrom);
+            List<Vector2Int> tFromIcons = null;
+
+            GetRegionIcons(pFrom.x, pFrom.y, ref tFromIcons);
+
+            List<Vector2Int> tToIcons = null;
+
+            GetRegionIcons(pTo.x, pTo.y, ref tToIcons);
+
+            bool tReSwap = true;
+
+            if (IsAMatch(tFromIcons))
+            {
+                MarkToDestroy(tFromIcons);
+                tReSwap = false;
+            }
+
+            if (IsAMatch(tToIcons))
+            {
+                MarkToDestroy(tToIcons);
+                tReSwap = false;
+            }
+
+            if (tReSwap)
+            {
+                SwapIcons(pTo, pFrom);
+            }
         }
     }
 
@@ -315,6 +444,15 @@ public class Board : MonoBehaviour {
 
     #region Board Methods 
 
+    int CountIconsInMatch(Vector2Int pIconIndex)
+    {
+        List<Vector2Int> tIcons = null;
+
+        GetRegionIcons(pIconIndex.x, pIconIndex.y, ref tIcons);
+
+        return tIcons.Count;
+    }
+
     void MarkToDestroy(List<Vector2Int> pIcons)
     {
         for (int i = 0; i < pIcons.Count; i++)
@@ -333,6 +471,15 @@ public class Board : MonoBehaviour {
 
         GameObject tNewIcon = Instantiate(m_PrefabIcons[tRandoIndex], new Vector2(pX, pY), Quaternion.identity);
         return tNewIcon.GetComponent<Icon>();
+    }
+
+    Icon GenerateIcon(int pX, int pY, GameObject pIconPrefab)
+    {
+        GameObject tNewIcon = Instantiate(pIconPrefab, new Vector2(pX, pY), Quaternion.identity);
+        Icon tIcon = tNewIcon.GetComponent<Icon>();
+        tIcon.row = pX;
+        tIcon.colunm = pY;
+        return tIcon;
     }
 
     List<Vector2Int> GetRegionIcons(int startX, int startY, ref List<Vector2Int> pIcons)
