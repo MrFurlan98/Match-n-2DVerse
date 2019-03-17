@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyArea : MonoBehaviour, IDestroyAction
+public class DestroyArea : MonoBehaviour, IBoardAction
 {
-    public void Invoke(int pPositionX, int pPositionY)
+    public void Action(int pPositionX, int pPositionY, Icon[,] pIcons)
     {
         //GameManager.Instance.PBoard.DestroyArea(pPositionX, pPositionY, 5);
         //GameManager.Instance.PBoard.DestroyMatch();

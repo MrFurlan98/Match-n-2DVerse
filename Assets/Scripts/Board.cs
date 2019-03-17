@@ -74,6 +74,9 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private List<System.Action> m_Actions = new List<System.Action>();
 
+    [SerializeField]
+    private List<System.Action> m_BoardModifies = new List<System.Action>();
+
     private Vector2 m_InitPosition;
 
     [Header("Config Board Game")]
@@ -231,6 +234,7 @@ public class Board : MonoBehaviour {
                 break;
         }
 
+        yield return RunSpecialActions();
 
         // second state resolve tags 
         // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
@@ -252,6 +256,16 @@ public class Board : MonoBehaviour {
     }
 
     #region Board Actions
+
+    IEnumerator RunSpecialActions()
+    {
+        for (int i = 0; i < m_BoardModifies.Count; i++)
+        {
+            m_BoardModifies[i].Invoke();
+            yield return new WaitForEndOfFrame();
+        }
+        m_BoardModifies.Clear();
+    }
 
     void GenerateSpecialIcon(Vector2Int pOriginIndex, Vector2Int pToIndex, int pOriginAmount, int pToAmount)
     {
@@ -461,7 +475,18 @@ public class Board : MonoBehaviour {
             Icon tIcon = m_Icons[tIndex.x, tIndex.y];
 
             if (tIcon.StateIcon != Icon.E_State.CANT_DESTROY)
+            {
+                IBoardAction tBoardAction = tIcon.GetComponent<IBoardAction>();
+                if (tBoardAction != null)
+                {
+                    int tX = tIndex.x;
+                    int tY = tIndex.y;
+                    m_BoardModifies.Add(delegate {
+                        tBoardAction.Action(tX, tY, m_Icons);
+                    });
+                }
                 tIcon.StateIcon = Icon.E_State.MARK_TO_DESTROY;
+            }
         }
     }
 
@@ -482,34 +507,36 @@ public class Board : MonoBehaviour {
         return tIcon;
     }
 
-    List<Vector2Int> GetRegionIcons(int startX, int startY, ref List<Vector2Int> pIcons)
+    List<Vector2Int> GetRegionIcons(int pX, int pY, ref List<Vector2Int> pIcons)
     {
         if (pIcons == null)
             pIcons = new List<Vector2Int>();
 
+        if (!IsInBoardRange(pX, pY))
+            return new List<Vector2Int>();
 
-        if (!pIcons.Contains(new Vector2Int(startX, startY)))
-            pIcons.Add(new Vector2Int(startX, startY));
+        if (!pIcons.Contains(new Vector2Int(pX, pY)))
+            pIcons.Add(new Vector2Int(pX, pY));
         else
             return new List<Vector2Int>();
 
-        Icon tIcon = m_Icons[startX, startY];
+        Icon tIcon = m_Icons[pX, pY];
 
-        for (int i = startX - 1; i <= startX + 1; i++)
+        for (int i = pX - 1; i <= pX + 1; i++)
         {
-            if(IsInBoardRange(i, startY) && i != startX && m_Icons[ i, startY].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(i, startY)))
+            if(IsInBoardRange(i, pY) && i != pX && m_Icons[ i, pY].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(i, pY)))
             {
-                GetRegionIcons(i, startY, ref pIcons) ;
+                GetRegionIcons(i, pY, ref pIcons) ;
             
             }
         }
 
-        for (int j = startY - 1; j <= startY + 1; j++)
+        for (int j = pY - 1; j <= pY + 1; j++)
         {
-            if (IsInBoardRange(startX, j) && j != startY  && m_Icons[startX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(startX, j)))
+            if (IsInBoardRange(pX, j) && j != pY  && m_Icons[pX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(pX, j)))
             {
                 
-                GetRegionIcons(startX, j, ref pIcons);
+                GetRegionIcons(pX, j, ref pIcons);
             }
         }
 

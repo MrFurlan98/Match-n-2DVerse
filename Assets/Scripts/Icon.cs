@@ -158,13 +158,13 @@ public class Icon : MonoBehaviour {
     }
     private void OnDestroy()
     {
-        IDestroyAction[] tActions = GetComponentsInChildren<IDestroyAction>();
+        IBoardAction[] tActions = GetComponentsInChildren<IBoardAction>();
         if(tActions != null)
         {
-            foreach(IDestroyAction tAction in tActions)
+            foreach(IBoardAction tAction in tActions)
             {
                 // added to queue of actions to trigger when match has finish
-               GameManager.Instance.PBoard.Actions.Add(delegate { tAction.Invoke(targetX, targetY); });
+           //    GameManager.Instance.PBoard.Actions.Add(delegate { tAction.Invoke(targetX, targetY); });
             }
         }
     }
