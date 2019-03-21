@@ -21,7 +21,10 @@ GameObject:
   - component: {fileID: 4011211667055022}
   - component: {fileID: 212115853976572244}
   - component: {fileID: 58271643628966228}
+  - component: {fileID: 114539402382873110}
+  - component: {fileID: 114576148800826584}
   - component: {fileID: 114664455276875686}
+  - component: {fileID: 95041605304374984}
   m_Layer: 0
   m_Name: Yellow-unicorn
   m_TagString: Untagged
@@ -57,6 +60,49 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &95041605304374984
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707404909606250}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c191a5cfbd987db4fab4c233c82e80f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114539402382873110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707404909606250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c685ec4878a02141b657f9245d168ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tag: YellowPotion
+--- !u!114 &114576148800826584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707404909606250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93d89d26cc45ff4f82c8894d0cf777c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
 --- !u!114 &114664455276875686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,8 +114,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf3d762c4e6d5d40bb3974975813f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_StateIcon: 0
+  m_Type: 1
+  distance: 0
   colunm: 0
   row: 0
+  previousColunm: 0
+  previousRow: 0
   targetX: 0
   targetY: 0
   isMatch: 0
@@ -91,7 +142,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

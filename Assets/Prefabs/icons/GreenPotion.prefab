@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4599536003649996}
   - component: {fileID: 212716661291695616}
   - component: {fileID: 58835659672369426}
+  - component: {fileID: 114772071625214774}
   - component: {fileID: 114392082115279214}
+  - component: {fileID: 95753647158259856}
   m_Layer: 0
   m_Name: GreenPotion
   m_TagString: GreenPotion
@@ -57,6 +59,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &95753647158259856
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932124298280248}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c191a5cfbd987db4fab4c233c82e80f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114392082115279214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StateIcon: 0
+  m_Type: 0
   distance: 0
   colunm: 0
   row: 0
@@ -80,6 +101,19 @@ MonoBehaviour:
   isIndestructable: 0
   isSpecial: 0
   m_sTag: GreenPotion
+--- !u!114 &114772071625214774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932124298280248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93d89d26cc45ff4f82c8894d0cf777c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
 --- !u!212 &212716661291695616
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -95,7 +129,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

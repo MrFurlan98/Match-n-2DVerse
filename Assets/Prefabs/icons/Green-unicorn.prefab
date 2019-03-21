@@ -21,7 +21,10 @@ GameObject:
   - component: {fileID: 4353788491874530}
   - component: {fileID: 212137443487634958}
   - component: {fileID: 58539134809653620}
+  - component: {fileID: 114239010213933418}
+  - component: {fileID: 114841941447754108}
   - component: {fileID: 114340638215484396}
+  - component: {fileID: 95049073990942094}
   m_Layer: 0
   m_Name: Green-unicorn
   m_TagString: Untagged
@@ -57,6 +60,36 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &95049073990942094
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471670826069130}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c191a5cfbd987db4fab4c233c82e80f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114239010213933418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471670826069130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c685ec4878a02141b657f9245d168ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tag: GreenPotion
 --- !u!114 &114340638215484396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StateIcon: 0
+  m_Type: 1
   distance: 0
   colunm: 0
   row: 0
@@ -80,6 +114,19 @@ MonoBehaviour:
   isIndestructable: 0
   isSpecial: 1
   m_sTag: 8BombGreen
+--- !u!114 &114841941447754108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471670826069130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93d89d26cc45ff4f82c8894d0cf777c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
 --- !u!212 &212137443487634958
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -95,7 +142,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1b326d56af7669143b34f9e5559034f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

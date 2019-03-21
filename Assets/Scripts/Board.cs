@@ -236,6 +236,9 @@ public class Board : MonoBehaviour {
 
         yield return RunSpecialActions();
 
+
+        yield return RunIconsAnimations(0.3f);
+
         // second state resolve tags 
         // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
         DestroyIcons();
@@ -265,6 +268,24 @@ public class Board : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         m_BoardModifies.Clear();
+    }
+
+    IEnumerator RunIconsAnimations(float pAnimationTime)
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if (m_Icons[i, j].StateIcon == Icon.E_State.MARK_TO_DESTROY)
+                {
+              
+                    VisualIcon tVisualIcon =  m_Icons[i, j].GetComponent<VisualIcon>();
+                    if (tVisualIcon != null)
+                        tVisualIcon.ExplodeIcon();
+                }
+            }
+        }
+        yield return new WaitForSeconds(pAnimationTime);
     }
 
     void GenerateSpecialIcon(Vector2Int pOriginIndex, Vector2Int pToIndex, int pOriginAmount, int pToAmount)
@@ -311,9 +332,12 @@ public class Board : MonoBehaviour {
 
         GetRegionIcons(pIconIndex.x, pIconIndex.y, ref tIcons);
 
+        //Clicked Icon
+        Icon tIcon = m_Icons[pIconIndex.x, pIconIndex.y];
+
         //Debug.Log(tIcons.Count);
 
-        if (IsAMatch(tIcons))
+        if (IsAMatch(tIcons) || IsSpecialIcon(tIcon))
         {
             MarkToDestroy(tIcons);
         }
@@ -614,6 +638,11 @@ public class Board : MonoBehaviour {
     bool IsAMatch(List<Vector2Int> pIcons)
     {
         return pIcons.Count >= 3;
+    }
+
+    bool IsSpecialIcon(Icon pIcon)
+    {
+        return pIcon.Type == Icon.E_Type.SPECIAL;
     }
 
     #endregion

@@ -9,8 +9,16 @@ public class Icon : MonoBehaviour {
         CANT_DESTROY
       
     }
+    public enum E_Type
+    {
+        NORMAL,
+        SPECIAL
+    }
     [SerializeField]
     private E_State m_StateIcon = E_State.STAND_BY;
+    
+    [SerializeField]
+    private E_Type m_Type = E_Type.NORMAL;
 
     private Vector2 firstTouchPosition;
     private Vector2 finalTouchPosition;
@@ -192,6 +200,19 @@ public class Icon : MonoBehaviour {
         set
         {
             m_StateIcon = value;
+        }
+    }
+
+    public E_Type Type
+    {
+        get
+        {
+            return m_Type;
+        }
+
+        set
+        {
+            m_Type = value;
         }
     }
 }
