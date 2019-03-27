@@ -3,6 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Icon : MonoBehaviour {
+    [System.Serializable]
+    public class Action
+    {
+        [SerializeField]
+        private BaseAction.ACTION_TYPE m_Type;
+
+        private BaseAction m_Action;
+
+        public BaseAction.ACTION_TYPE Type
+        {
+            get
+            {
+                return m_Type;
+            }
+
+            set
+            {
+                ActionToRun = BaseAction.Actions(value);
+                m_Type = value;
+            }
+        }
+
+        public BaseAction ActionToRun
+        {
+            get
+            {
+                return m_Action;
+            }
+
+            set
+            {
+                m_Action = value;
+            }
+        }
+    }
+
     public enum E_State {
         STAND_BY,
         MARK_TO_DESTROY,
@@ -36,6 +72,9 @@ public class Icon : MonoBehaviour {
     [SerializeField]
     public string m_sTag;
     private Vector2 tempPosition;
+
+    [SerializeField]
+    private List<Action> m_Actions;
 
 	private SpriteRenderer theSpriteRenderer;
 

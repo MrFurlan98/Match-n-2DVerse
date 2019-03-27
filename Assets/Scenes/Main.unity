@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -168,6 +169,18 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33eb666281513fc4096cbd96f84d69e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -938,6 +951,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.61
@@ -969,6 +987,33 @@ Prefab:
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.data[1].m_IconPrefab
+      value: 
+      objectReference: {fileID: 1471670826069130, guid: b58679ae3a18b704cb522b8b03058043,
+        type: 2}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.data[1].m_MatchValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.data[2].m_IconPrefab
+      value: 
+      objectReference: {fileID: 1707404909606250, guid: 223fa98e0adf93b40b411b52eb50c98c,
+        type: 2}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.data[2].m_MatchValue
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SpecialIcons.Array.data[0].m_GeneratesTag
+      value: BluePotion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4bdf018635bf164a98d10489bb54609, type: 2}

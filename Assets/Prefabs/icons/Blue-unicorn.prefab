@@ -21,10 +21,11 @@ GameObject:
   - component: {fileID: 4358289851774084}
   - component: {fileID: 212541812618185538}
   - component: {fileID: 58228640503945068}
-  - component: {fileID: 114664955905800130}
   - component: {fileID: 114978481996216292}
   - component: {fileID: 114249012997234304}
   - component: {fileID: 95269947181028286}
+  - component: {fileID: 114048296211863242}
+  - component: {fileID: 114679950039102804}
   m_Layer: 0
   m_Name: Blue-unicorn
   m_TagString: Untagged
@@ -78,6 +79,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114048296211863242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176982519771628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6f595b7f1f83a49b0d1186b91ba8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114249012997234304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,7 +114,9 @@ MonoBehaviour:
   isIndestructable: 0
   isSpecial: 1
   m_sTag: BluePotion8
---- !u!114 &114664955905800130
+  m_Actions:
+  - m_Type: 2
+--- !u!114 &114679950039102804
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,10 +124,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1176982519771628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c685ec4878a02141b657f9245d168ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 78876e67e88960545b45054c9fc3ab5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Tag: BluePotion
 --- !u!114 &114978481996216292
 MonoBehaviour:
   m_ObjectHideFlags: 1

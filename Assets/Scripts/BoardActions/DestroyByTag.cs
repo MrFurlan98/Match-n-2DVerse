@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyByTag : MonoBehaviour,  IBoardAction
+[System.Serializable]
+public class DestroyByTag : BaseAction
 {
     [Header("Icons Tag to destroy")]
     [SerializeField]
     private string m_Tag;
 
-    public void Action(int pOriginX, int pOriginY, Icon[,] pIcons)
+    public override void Action(int pOriginX, int pOriginY, Icon[,] pIcons)
     {
         for (int i = 0; i < pIcons.GetLength(0); i++)
         {

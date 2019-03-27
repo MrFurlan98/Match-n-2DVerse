@@ -31,6 +31,9 @@ public class Board : MonoBehaviour {
         [SerializeField]
         private int m_MatchValue;
 
+        [SerializeField]
+        private string m_GeneratesTag;
+
         public GameObject IconPrefab
         {
             get
@@ -56,7 +59,19 @@ public class Board : MonoBehaviour {
                 m_MatchValue = value;
             }
         }
-        
+
+        public string GeneratesTag
+        {
+            get
+            {
+                return m_GeneratesTag;
+            }
+
+            set
+            {
+                m_GeneratesTag = value;
+            }
+        }
     }
 
     private GameState m_CurrentState = GameState.STANDBY;
@@ -176,74 +191,22 @@ public class Board : MonoBehaviour {
 
         int tToMatchAmount = 0;
 
-        Vector2Int pToIndex = new Vector2Int(-1,-1);
+        Vector2Int pToIndex = pOriginIndex;
 
-        // first state mark all pieces with some tag
-        switch (pDirection)
-        {
-            case E_Direction.STAY:
-                // just click in icon
-                BoardStay(pOriginIndex);
+        SwitchDirection(pOriginIndex, pDirection, ref tOriginMatchAmount, ref pToIndex, ref tToMatchAmount);
 
-                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
-
-                break;
-            case E_Direction.LEFT:
-
-                pToIndex = new Vector2Int(pOriginIndex.x - 1, pOriginIndex.y);
-
-                yield return SwapRoutine(pOriginIndex, pToIndex);
-
-                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
-
-                tToMatchAmount = CountIconsInMatch(pToIndex);
-
-                break;
-            case E_Direction.DOWN:
-
-                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y - 1);
-
-                yield return SwapRoutine(pOriginIndex, pToIndex);
-
-                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
-
-                tToMatchAmount = CountIconsInMatch(pToIndex);
-
-                break;
-            case E_Direction.UP:
-
-                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y + 1);
-
-                yield return SwapRoutine(pOriginIndex, pToIndex);
-
-                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
-
-                tToMatchAmount = CountIconsInMatch(pToIndex);
-
-                break;
-            case E_Direction.RIGHT:
-
-                pToIndex = new Vector2Int(pOriginIndex.x + 1, pOriginIndex.y);
-
-                yield return SwapRoutine(pOriginIndex, pToIndex);
-
-                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
-
-                tToMatchAmount = CountIconsInMatch(pToIndex);
-
-                break;
-        }
+        if(pToIndex != pOriginIndex)
+            yield return SwapRoutine(pOriginIndex, pToIndex);
 
         yield return RunSpecialActions();
 
-
         yield return RunIconsAnimations(0.3f);
+
+        GenerateSpecialIcon(pOriginIndex, tOriginMatchAmount);
 
         // second state resolve tags 
         // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
         DestroyIcons();
-
-        GenerateSpecialIcon(pOriginIndex, pToIndex, tOriginMatchAmount, tToMatchAmount);
 
         // the last state is refill board 
         DropCollumns();
@@ -259,6 +222,59 @@ public class Board : MonoBehaviour {
     }
 
     #region Board Actions
+
+  
+
+    void SwitchDirection(Vector2Int pOriginIndex, E_Direction pDirection, ref int tOriginMatchAmount, ref Vector2Int pToIndex, ref int tToMatchAmount)
+    {
+        // first state mark all pieces with some tag
+        switch (pDirection)
+        {
+            case E_Direction.STAY:
+                // just click in icon
+                BoardStay(pOriginIndex);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                break;
+            case E_Direction.LEFT:
+
+                pToIndex = new Vector2Int(pOriginIndex.x - 1, pOriginIndex.y);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
+
+                break;
+            case E_Direction.DOWN:
+
+                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y - 1);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
+
+                break;
+            case E_Direction.UP:
+
+                pToIndex = new Vector2Int(pOriginIndex.x, pOriginIndex.y + 1);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
+
+                break;
+            case E_Direction.RIGHT:
+
+                pToIndex = new Vector2Int(pOriginIndex.x + 1, pOriginIndex.y);
+
+                tOriginMatchAmount = CountIconsInMatch(pOriginIndex);
+
+                tToMatchAmount = CountIconsInMatch(pToIndex);
+
+                break;
+        }
+    }
 
     IEnumerator RunSpecialActions()
     {
@@ -288,42 +304,18 @@ public class Board : MonoBehaviour {
         yield return new WaitForSeconds(pAnimationTime);
     }
 
-    void GenerateSpecialIcon(Vector2Int pOriginIndex, Vector2Int pToIndex, int pOriginAmount, int pToAmount)
+    void GenerateSpecialIcon(Vector2Int pOriginIndex, int pOriginAmount)
     {
-        List<SpecialIcon> tSpecialOriginIcons = new List<SpecialIcon>();
-
-        List<SpecialIcon> tSpecialToIcons = new List<SpecialIcon>();
-
-        if (pOriginAmount >= 3)
+        Icon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
+        for (int i = 0; i < m_SpecialIcons.Length; i++)
         {
-            for (int i = 0; i < m_SpecialIcons.Length; i++)
+            if(pOriginAmount == m_SpecialIcons[i].MatchValue && m_SpecialIcons[i].GeneratesTag == tIcon.STag)
             {
-                if(pOriginAmount == m_SpecialIcons[i].MatchValue)
-                {
-                    tSpecialOriginIcons.Add(m_SpecialIcons[i]);
-                }
+                m_Icons[pOriginIndex.x, pOriginIndex.y] = GenerateIcon(pOriginIndex.x, pOriginIndex.y, m_SpecialIcons[i].IconPrefab);
             }
-
-            int tOriginRandonIndex = UnityEngine.Random.Range(0, tSpecialOriginIcons.Count);
-
-            if(tSpecialOriginIcons.Count > 0)
-                m_Icons[pOriginIndex.x, pOriginIndex.y] = GenerateIcon(pOriginIndex.x, pOriginIndex.y, tSpecialOriginIcons[tOriginRandonIndex].IconPrefab);
         }
-        if(pToAmount >= 3)
-        {
-            for (int i = 0; i < m_SpecialIcons.Length; i++)
-            {
-                if (pToAmount == m_SpecialIcons[i].MatchValue)
-                {
-                    tSpecialToIcons.Add(m_SpecialIcons[i]);
-                }
-            }
-
-            int tToRandonIndex = UnityEngine.Random.Range(0, tSpecialToIcons.Count);
-
-            if (tSpecialToIcons.Count > 0)
-                m_Icons[pToIndex.x, pToIndex.y] = GenerateIcon(pToIndex.x, pToIndex.y, tSpecialToIcons[tToRandonIndex].IconPrefab);
-        }
+        
+       
     }
 
     void BoardStay(Vector2Int pIconIndex)
@@ -434,27 +426,21 @@ public class Board : MonoBehaviour {
 
             yield return new WaitForSeconds(m_SwapDelay);
 
-            List<Vector2Int> tFromIcons = null;
 
-            GetRegionIcons(pFrom.x, pFrom.y, ref tFromIcons);
+            //Clicked Icon
+            Icon tIconFrom = m_Icons[pFrom.x, pFrom.y];
+            Icon tIconTo = m_Icons[pTo.x, pTo.y];
 
-            List<Vector2Int> tToIcons = null;
-
-            GetRegionIcons(pTo.x, pTo.y, ref tToIcons);
+            //Debug.Log(tIcons.Count);
 
             bool tReSwap = true;
 
-            if (IsAMatch(tFromIcons))
+            if (IsSpecialIcon(tIconFrom) && IsSpecialIcon(tIconTo))
             {
-                MarkToDestroy(tFromIcons);
+                MarkToDestroy(new List<Vector2Int> { pFrom, pTo });
                 tReSwap = false;
             }
 
-            if (IsAMatch(tToIcons))
-            {
-                MarkToDestroy(tToIcons);
-                tReSwap = false;
-            }
 
             if (tReSwap)
             {
@@ -500,14 +486,20 @@ public class Board : MonoBehaviour {
 
             if (tIcon.StateIcon != Icon.E_State.CANT_DESTROY)
             {
-                IBoardAction tBoardAction = tIcon.GetComponent<IBoardAction>();
-                if (tBoardAction != null)
+                IBoardAction[] tBoardActions = tIcon.GetComponents<IBoardAction>();
+                if (tBoardActions != null)
                 {
                     int tX = tIndex.x;
                     int tY = tIndex.y;
-                    m_BoardModifies.Add(delegate {
-                        tBoardAction.Action(tX, tY, m_Icons);
-                    });
+                    
+                    for (int k = 0; k < tBoardActions.Length; k++)
+                    {
+                        int tIndexAction = k;
+                        m_BoardModifies.Add(delegate
+                        {
+                            tBoardActions[tIndexAction].Action(tX, tY, m_Icons);
+                        });
+                    }
                 }
                 tIcon.StateIcon = Icon.E_State.MARK_TO_DESTROY;
             }
@@ -644,6 +636,7 @@ public class Board : MonoBehaviour {
     {
         return pIcon.Type == Icon.E_Type.SPECIAL;
     }
+
 
     #endregion
 
