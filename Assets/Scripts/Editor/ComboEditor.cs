@@ -34,10 +34,10 @@ public class ComboEditor : EditorWindow{
         if (m_IconObject1 == null || m_IconObject2 == null)
             return;
 
-        Icon m_Icon1 = m_IconObject1.GetComponent<Icon>();
+        BoardIcon m_Icon1 = m_IconObject1.GetComponent<BoardIcon>();
 
 
-        Icon m_Icon2 = m_IconObject2.GetComponent<Icon>();
+        BoardIcon m_Icon2 = m_IconObject2.GetComponent<BoardIcon>();
 
 
         // GUILayout.BeginArea(tRect, EditorStyles.helpBox);

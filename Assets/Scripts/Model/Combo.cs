@@ -5,8 +5,8 @@ using UnityEngine;
 public class Combo : MonoBehaviour {
 
     private List<IBoardAction> m_Actions;
-    private Icon m_Icon1;
-    private Icon m_Icon2;
+    private BoardIcon m_Icon1;
+    private BoardIcon m_Icon2;
 
     public List<IBoardAction> Actions
     {
@@ -21,7 +21,7 @@ public class Combo : MonoBehaviour {
         }
     }
 
-    public Icon Icon1
+    public BoardIcon Icon1
     {
         get
         {
@@ -34,7 +34,7 @@ public class Combo : MonoBehaviour {
         }
     }
 
-    public Icon Icon2
+    public BoardIcon Icon2
     {
         get
         {

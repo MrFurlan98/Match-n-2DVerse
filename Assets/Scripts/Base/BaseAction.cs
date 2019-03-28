@@ -25,7 +25,7 @@ public class BaseAction : IBoardAction{
         return new BaseAction();
     }
 
-    public virtual void Action(int pOriginX, int pOriginY, Icon[,] pIcons)
+    public virtual void Action(int pOriginX, int pOriginY, BoardIcon[,] pIcons)
     {
         throw new System.NotImplementedException();
     }

@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33eb666281513fc4096cbd96f84d69e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 5ccd3bb3046aaed4bb9b80226bbeaa2f, type: 2}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

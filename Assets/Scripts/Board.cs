@@ -82,7 +82,7 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private SpecialIcon[] m_SpecialIcons = new SpecialIcon[0];
 
-    private Icon[,] m_Icons;
+    private BoardIcon[,] m_Icons;
 
     private System.Action m_TriggerMatch;
     // create a queue to do actions before the next match 
@@ -115,7 +115,7 @@ public class Board : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        m_Icons = new Icon[m_Width, m_Heigth];
+        m_Icons = new BoardIcon[m_Width, m_Heigth];
         m_CurrentState = GameState.STANDBY;
         //UpdateMoveScore();
         InitBoard();
@@ -171,7 +171,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Heigth; j++)
             {
-                Icon tIconItem = GenerateRandomIcon(i, j);
+                BoardIcon tIconItem = GenerateRandomIcon(i, j);
 
                 tIconItem.colunm = j;
                 tIconItem.row = i;
@@ -292,7 +292,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == Icon.E_State.MARK_TO_DESTROY)
+                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
                 {
               
                     VisualIcon tVisualIcon =  m_Icons[i, j].GetComponent<VisualIcon>();
@@ -306,7 +306,7 @@ public class Board : MonoBehaviour {
 
     void GenerateSpecialIcon(Vector2Int pOriginIndex, int pOriginAmount)
     {
-        Icon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
+        BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
         for (int i = 0; i < m_SpecialIcons.Length; i++)
         {
             if(pOriginAmount == m_SpecialIcons[i].MatchValue && m_SpecialIcons[i].GeneratesTag == tIcon.STag)
@@ -325,7 +325,7 @@ public class Board : MonoBehaviour {
         GetRegionIcons(pIconIndex.x, pIconIndex.y, ref tIcons);
 
         //Clicked Icon
-        Icon tIcon = m_Icons[pIconIndex.x, pIconIndex.y];
+        BoardIcon tIcon = m_Icons[pIconIndex.x, pIconIndex.y];
 
         //Debug.Log(tIcons.Count);
 
@@ -366,7 +366,7 @@ public class Board : MonoBehaviour {
 
             int tAboveIndex = i + tDropCount;
 
-            Icon tIcon = m_Icons[pX, i];
+            BoardIcon tIcon = m_Icons[pX, i];
 
             m_Icons[pX, i] = m_Icons[pX, tAboveIndex];
 
@@ -386,7 +386,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == Icon.E_State.MARK_TO_DESTROY)
+                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
                 {
                     Destroy(m_Icons[i, j].gameObject);
                     m_Icons[i, j] = null;
@@ -403,7 +403,7 @@ public class Board : MonoBehaviour {
             {
                 if (m_Icons[i, j] == null)
                 {
-                    Icon tIcon = GenerateRandomIcon(i, j);
+                    BoardIcon tIcon = GenerateRandomIcon(i, j);
                     tIcon.colunm = j;
                     tIcon.row = i;
                     tIcon.transform.parent = transform;
@@ -428,8 +428,8 @@ public class Board : MonoBehaviour {
 
 
             //Clicked Icon
-            Icon tIconFrom = m_Icons[pFrom.x, pFrom.y];
-            Icon tIconTo = m_Icons[pTo.x, pTo.y];
+            BoardIcon tIconFrom = m_Icons[pFrom.x, pFrom.y];
+            BoardIcon tIconTo = m_Icons[pTo.x, pTo.y];
 
             //Debug.Log(tIcons.Count);
 
@@ -457,7 +457,7 @@ public class Board : MonoBehaviour {
         m_Icons[pTo.x, pTo.y].row = pFrom.x;
         m_Icons[pTo.x, pTo.y].colunm = pFrom.y;
 
-        Icon tIcon = m_Icons[pFrom.x, pFrom.y];
+        BoardIcon tIcon = m_Icons[pFrom.x, pFrom.y];
 
         m_Icons[pFrom.x, pFrom.y] = m_Icons[pTo.x, pTo.y];
 
@@ -482,9 +482,9 @@ public class Board : MonoBehaviour {
         for (int i = 0; i < pIcons.Count; i++)
         {
             Vector2Int tIndex = pIcons[i];
-            Icon tIcon = m_Icons[tIndex.x, tIndex.y];
+            BoardIcon tIcon = m_Icons[tIndex.x, tIndex.y];
 
-            if (tIcon.StateIcon != Icon.E_State.CANT_DESTROY)
+            if (tIcon.StateIcon != BoardIcon.E_State.CANT_DESTROY)
             {
                 IBoardAction[] tBoardActions = tIcon.GetComponents<IBoardAction>();
                 if (tBoardActions != null)
@@ -501,23 +501,23 @@ public class Board : MonoBehaviour {
                         });
                     }
                 }
-                tIcon.StateIcon = Icon.E_State.MARK_TO_DESTROY;
+                tIcon.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
             }
         }
     }
 
-    Icon GenerateRandomIcon(int pX, int pY)
+    BoardIcon GenerateRandomIcon(int pX, int pY)
     {
         int tRandoIndex = UnityEngine.Random.Range(0, 4);
 
         GameObject tNewIcon = Instantiate(m_PrefabIcons[tRandoIndex], new Vector2(pX, pY), Quaternion.identity);
-        return tNewIcon.GetComponent<Icon>();
+        return tNewIcon.GetComponent<BoardIcon>();
     }
 
-    Icon GenerateIcon(int pX, int pY, GameObject pIconPrefab)
+    BoardIcon GenerateIcon(int pX, int pY, GameObject pIconPrefab)
     {
         GameObject tNewIcon = Instantiate(pIconPrefab, new Vector2(pX, pY), Quaternion.identity);
-        Icon tIcon = tNewIcon.GetComponent<Icon>();
+        BoardIcon tIcon = tNewIcon.GetComponent<BoardIcon>();
         tIcon.row = pX;
         tIcon.colunm = pY;
         return tIcon;
@@ -536,7 +536,7 @@ public class Board : MonoBehaviour {
         else
             return new List<Vector2Int>();
 
-        Icon tIcon = m_Icons[pX, pY];
+        BoardIcon tIcon = m_Icons[pX, pY];
 
         for (int i = pX - 1; i <= pX + 1; i++)
         {
@@ -632,9 +632,9 @@ public class Board : MonoBehaviour {
         return pIcons.Count >= 3;
     }
 
-    bool IsSpecialIcon(Icon pIcon)
+    bool IsSpecialIcon(BoardIcon pIcon)
     {
-        return pIcon.Type == Icon.E_Type.SPECIAL;
+        return pIcon.Type == BoardIcon.E_Type.SPECIAL;
     }
 
 
