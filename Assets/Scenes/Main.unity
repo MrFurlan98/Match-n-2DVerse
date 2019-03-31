@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 1121741728}
   - component: {fileID: 1121741727}
   - component: {fileID: 1121741729}
+  - component: {fileID: 1121741730}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -504,6 +505,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pBoard: {fileID: 365801186}
+--- !u!114 &1121741730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1121741726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f932eabbe8853040ad227a4ba1f0bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Icons:
+  - {fileID: 11400000, guid: 6a68b8ecbe9efb44ca46cebeb15c98e6, type: 2}
+  - {fileID: 11400000, guid: 97ab3314312ae2c4fbed1fd2d2952641, type: 2}
+  - {fileID: 11400000, guid: 8c640fa1c51af5e4c8ebb1919adbb0e5, type: 2}
+  - {fileID: 11400000, guid: 2a737db7a7ee4b5439002ed208a4f32b, type: 2}
+  m_SpecialIcons:
+  - {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
 --- !u!1001 &1194057956
 Prefab:
   m_ObjectHideFlags: 0
@@ -1014,6 +1033,16 @@ Prefab:
         type: 2}
       propertyPath: m_SpecialIcons.Array.data[0].m_GeneratesTag
       value: BluePotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_SwapDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
+        type: 2}
+      propertyPath: m_RefillDelay
+      value: 0.18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4bdf018635bf164a98d10489bb54609, type: 2}

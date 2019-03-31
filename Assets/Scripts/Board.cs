@@ -76,12 +76,6 @@ public class Board : MonoBehaviour {
 
     private GameState m_CurrentState = GameState.STANDBY;
 
-    [SerializeField]
-    private GameObject[] m_PrefabIcons = new GameObject[0];
-
-    [SerializeField]
-    private SpecialIcon[] m_SpecialIcons = new SpecialIcon[0];
-
     private BoardIcon[,] m_Icons;
 
     private System.Action m_TriggerMatch;
@@ -171,7 +165,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Heigth; j++)
             {
-                BoardIcon tIconItem = GenerateRandomIcon(i, j);
+                BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j);
 
                 tIconItem.colunm = j;
                 tIconItem.row = i;
@@ -307,15 +301,15 @@ public class Board : MonoBehaviour {
     void GenerateSpecialIcon(Vector2Int pOriginIndex, int pOriginAmount)
     {
         BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
-        for (int i = 0; i < m_SpecialIcons.Length; i++)
+ 
+        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y, pOriginAmount, tIcon.m_sTag);
+
+        if (tGenerateBoardIcon != null)
         {
-            if(pOriginAmount == m_SpecialIcons[i].MatchValue && m_SpecialIcons[i].GeneratesTag == tIcon.STag)
-            {
-                m_Icons[pOriginIndex.x, pOriginIndex.y] = GenerateIcon(pOriginIndex.x, pOriginIndex.y, m_SpecialIcons[i].IconPrefab);
-            }
+            Destroy(tIcon.gameObject);
+            m_Icons[pOriginIndex.x, pOriginIndex.y] = tGenerateBoardIcon;
+
         }
-        
-       
     }
 
     void BoardStay(Vector2Int pIconIndex)
@@ -403,7 +397,7 @@ public class Board : MonoBehaviour {
             {
                 if (m_Icons[i, j] == null)
                 {
-                    BoardIcon tIcon = GenerateRandomIcon(i, j);
+                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j);
                     tIcon.colunm = j;
                     tIcon.row = i;
                     tIcon.transform.parent = transform;
@@ -486,18 +480,19 @@ public class Board : MonoBehaviour {
 
             if (tIcon.StateIcon != BoardIcon.E_State.CANT_DESTROY)
             {
-                IBoardAction[] tBoardActions = tIcon.GetComponents<IBoardAction>();
+                List<Icon.Action> tBoardActions = tIcon.Actions;
                 if (tBoardActions != null)
                 {
                     int tX = tIndex.x;
                     int tY = tIndex.y;
                     
-                    for (int k = 0; k < tBoardActions.Length; k++)
+                    for (int k = 0; k < tBoardActions.Count; k++)
                     {
                         int tIndexAction = k;
                         m_BoardModifies.Add(delegate
                         {
-                            tBoardActions[tIndexAction].Action(tX, tY, m_Icons);
+                            BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
+                            tBaseAction.Action(tX, tY, m_Icons);
                         });
                     }
                 }
@@ -506,22 +501,7 @@ public class Board : MonoBehaviour {
         }
     }
 
-    BoardIcon GenerateRandomIcon(int pX, int pY)
-    {
-        int tRandoIndex = UnityEngine.Random.Range(0, 4);
-
-        GameObject tNewIcon = Instantiate(m_PrefabIcons[tRandoIndex], new Vector2(pX, pY), Quaternion.identity);
-        return tNewIcon.GetComponent<BoardIcon>();
-    }
-
-    BoardIcon GenerateIcon(int pX, int pY, GameObject pIconPrefab)
-    {
-        GameObject tNewIcon = Instantiate(pIconPrefab, new Vector2(pX, pY), Quaternion.identity);
-        BoardIcon tIcon = tNewIcon.GetComponent<BoardIcon>();
-        tIcon.row = pX;
-        tIcon.colunm = pY;
-        return tIcon;
-    }
+   
 
     List<Vector2Int> GetRegionIcons(int pX, int pY, ref List<Vector2Int> pIcons)
     {

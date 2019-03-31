@@ -35,19 +35,29 @@ public class BoardIcon : MonoBehaviour {
     public bool isMatch = false;
     public bool isIndestructable = false;
     public bool isSpecial = false;
+
     [SerializeField]
     public string m_sTag;
+
     private Vector2 tempPosition;
 
     [SerializeField]
     private List<Icon.Action> m_Actions;
 
-	private SpriteRenderer theSpriteRenderer;
+	private SpriteRenderer m_SpriteRenderer;
+
+    public void SetBoardData(Icon pIcon)
+    {
+        STag = pIcon.Tag;
+
+        Actions = pIcon.Actions;
+
+        SpriteRenderer.sprite = pIcon.IconSprite;
+    }
 
     // Use this for initialization
     void Start () {
         board = FindObjectOfType<Board>();
-		theSpriteRenderer = GetComponent<SpriteRenderer> ();
         previousRow = row;
         previousColunm = colunm;
     }
@@ -218,6 +228,32 @@ public class BoardIcon : MonoBehaviour {
         set
         {
             m_Type = value;
+        }
+    }
+
+    public SpriteRenderer SpriteRenderer
+    {
+        get
+        {
+            return m_SpriteRenderer;
+        }
+
+        set
+        {
+            m_SpriteRenderer = value;
+        }
+    }
+
+    public List<Icon.Action> Actions
+    {
+        get
+        {
+            return m_Actions;
+        }
+
+        set
+        {
+            m_Actions = value;
         }
     }
 }

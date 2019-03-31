@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
+
 public class IconEditor : EditorWindow{
 
     private BaseAction.ACTION_TYPE m_CurrentActionType;
@@ -12,6 +14,9 @@ public class IconEditor : EditorWindow{
     static void Init()
     {
         IconEditor tIconEditor = GetWindow<IconEditor>();
+
+        tIconEditor.minSize = new Vector2(450, 600);
+        tIconEditor.maxSize = new Vector2(450, 600);
 
         tIconEditor.Show();
     }
@@ -24,14 +29,21 @@ public class IconEditor : EditorWindow{
         if (tIcon == null)
             return;
 
+
+
         EditorGUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
 
         EditorGUILayout.BeginVertical();
 
+
         DrawerSave(ref tIcon);
 
         DrawSprite(ref tIcon);
+
+
+        if (tIcon.GetType() == typeof(SpecialIcon))
+            DrawSpecialIconInfo(ref tIcon);
 
         DrawInfo(ref tIcon);
 
@@ -49,6 +61,7 @@ public class IconEditor : EditorWindow{
         
 
     }
+
 
     void DrawerSave(ref Icon pIcon)
     {
@@ -68,17 +81,38 @@ public class IconEditor : EditorWindow{
         GUILayout.Space(15);
     }
 
+    private void DrawSpecialIconInfo(ref Icon tIcon)
+    {
+        SpecialIcon tSpecialIcon = (SpecialIcon)tIcon;
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        GUILayout.Label("Amount Generates:");
+        tSpecialIcon.MatchValueToGenerate = EditorGUILayout.IntField(tSpecialIcon.MatchValueToGenerate, GUILayout.Width(35));
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.Label("Generates from Tag:");
+        tSpecialIcon.GeneratesTag = EditorGUILayout.TextField(tSpecialIcon.GeneratesTag);
+
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+    }
     void DrawInfo(ref Icon pIcon)
     {
         GUILayout.Space(15);
 
         GUILayout.BeginHorizontal();
 
-        GUILayout.Label("Tag Icon");
+        GUILayout.FlexibleSpace();
+
+        GUILayout.Label("Tag Icon:");
 
         GUILayout.Space(5);
 
         pIcon.Tag = EditorGUILayout.TextField(pIcon.Tag, GUILayout.Width(250));
+
+        GUILayout.FlexibleSpace();
 
         GUILayout.EndHorizontal();
 
@@ -97,7 +131,7 @@ public class IconEditor : EditorWindow{
                 pIcon.Actions = new List<Icon.Action>();
             Icon.Action tAction = new Icon.Action();
             tAction.Type = m_CurrentActionType;
-            tAction.m_Action = BaseAction.Actions(tAction.Type);
+            tAction.m_Action = BaseAction.GetActionObject(tAction.Type);
             pIcon.Actions.Add(tAction);
         }
 
@@ -109,7 +143,7 @@ public class IconEditor : EditorWindow{
         if (pIcon == null || pIcon.Actions == null)
             return;
 
-        EditorGUILayout.BeginVertical("Box");
+        EditorGUILayout.BeginVertical("Box", GUILayout.Width(440));
         m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
         for (int i = 0; i < pIcon.Actions.Count; i++)
         {
@@ -135,7 +169,7 @@ public class IconEditor : EditorWindow{
         BaseAction tBaseAction = null;
         if (tAction.ActionToRun == null)
         {
-            tBaseAction = BaseAction.Actions(tAction.Type);
+            tBaseAction = BaseAction.GetActionObject(tAction.Type);
         }
         else
         {
@@ -144,30 +178,10 @@ public class IconEditor : EditorWindow{
         switch (tAction.Type)
         {
             case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
-                DestroyByTag tDestroyByTag = tBaseAction as DestroyByTag;
+                DestroyByTagDrawer pDestroyByTagDrawer = new DestroyByTagDrawer();
 
-                DrawerDestroyByTag(ref tDestroyByTag);
-
-                tBaseAction = tDestroyByTag;
+                pDestroyByTagDrawer.Draw(ref tBaseAction);
                 break;
         }
-    }
-
-    void DrawerDestroyByTag(ref DestroyByTag pDestroyByTag)
-    {
-
-        GUILayout.Space(15);
-
-        GUILayout.BeginHorizontal("Box");
-
-        GUILayout.Label("Tag To Destroy");
-
-        GUILayout.Space(5);
-
-        pDestroyByTag.Tag = EditorGUILayout.TextField(pDestroyByTag.Tag, GUILayout.Width(250));
-
-        GUILayout.EndHorizontal();
-
-        GUILayout.Space(15);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-[CreateAssetMenu( fileName = "NewIcon", menuName = "Match N/ CreateIcon", order = 0)]
+[CreateAssetMenu( fileName = "NewIcon", menuName = "Match N/ Create Icon", order = 0)]
 public class Icon : ScriptableObject {
     [System.Serializable]
     public class Action
@@ -37,18 +37,19 @@ public class Icon : ScriptableObject {
                 m_Action = value;
             }
         }
+
     }
     [HideInInspector]
     [SerializeField]
-    private Sprite m_IconSprite;
+    protected Sprite m_IconSprite;
 
     [HideInInspector]
     [SerializeField]
-    private string m_Tag;
+    protected string m_Tag;
 
     [HideInInspector]
     [SerializeField]
-    private List<Action> m_Actions;
+    protected List<Action> m_Actions = new List<Action>();
 
     public Sprite IconSprite
     {
