@@ -22,58 +22,7 @@ public enum E_Direction
 }
 
 public class Board : MonoBehaviour {
-    [System.Serializable]
-    public class SpecialIcon
-    {
-        [SerializeField]
-        private GameObject m_IconPrefab;
-
-        [SerializeField]
-        private int m_MatchValue;
-
-        [SerializeField]
-        private string m_GeneratesTag;
-
-        public GameObject IconPrefab
-        {
-            get
-            {
-                return m_IconPrefab;
-            }
-
-            set
-            {
-                m_IconPrefab = value;
-            }
-        }
-
-        public int MatchValue
-        {
-            get
-            {
-                return m_MatchValue;
-            }
-
-            set
-            {
-                m_MatchValue = value;
-            }
-        }
-
-        public string GeneratesTag
-        {
-            get
-            {
-                return m_GeneratesTag;
-            }
-
-            set
-            {
-                m_GeneratesTag = value;
-            }
-        }
-    }
-
+   
     private GameState m_CurrentState = GameState.STANDBY;
 
     private BoardIcon[,] m_Icons;
@@ -432,6 +381,29 @@ public class Board : MonoBehaviour {
             if (IsSpecialIcon(tIconFrom) && IsSpecialIcon(tIconTo))
             {
                 MarkToDestroy(new List<Vector2Int> { pFrom, pTo });
+
+                Combo tCombo = IconManager.Instance.GetCombo(tIconFrom, tIconTo);
+
+                if(tCombo.Actions != null)
+                {
+                    List<Icon.Action> tBoardActions = tCombo.Actions;
+                    if (tBoardActions != null)
+                    {
+                        int tX = pFrom.x;
+                        int tY = pFrom.y;
+
+                        for (int k = 0; k < tBoardActions.Count; k++)
+                        {
+                            int tIndexAction = k;
+                            m_BoardModifies.Add(delegate
+                            {
+                                BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
+                                tBaseAction.Action(tX, tY, m_Icons);
+                            });
+                        }
+                    }
+                }
+
                 tReSwap = false;
             }
 

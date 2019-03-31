@@ -98,6 +98,7 @@ public class IconEditor : EditorWindow{
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
     }
+
     void DrawInfo(ref Icon pIcon)
     {
         GUILayout.Space(15);

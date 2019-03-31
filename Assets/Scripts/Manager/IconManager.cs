@@ -16,6 +16,9 @@ public class IconManager : MonoBehaviour {
     private List<SpecialIcon> m_SpecialIcons;
 
     [SerializeField]
+    private List<Combo> m_Combos;
+
+    [SerializeField]
     private Transform m_BoardRoot;
 
     private void Awake()
@@ -93,6 +96,16 @@ public class IconManager : MonoBehaviour {
         return null;
     }
 
+    public Combo GetCombo(BoardIcon pIcon1, BoardIcon pIcon2)
+    {
+        for (int i = 0; i < m_Combos.Count; i++)
+        {
+            if ((m_Combos[i].Icon1.Tag == pIcon1.STag && m_Combos[i].Icon2.Tag == pIcon2.STag) || (m_Combos[i].Icon2.Tag == pIcon1.STag && m_Combos[i].Icon1.Tag == pIcon2.STag))
+                return m_Combos[i];
+        }
+        return null;
+    }
+
     #endregion
 
     public static IconManager Instance
@@ -108,4 +121,16 @@ public class IconManager : MonoBehaviour {
         }
     }
 
+    public List<Combo> Combos
+    {
+        get
+        {
+            return m_Combos;
+        }
+
+        set
+        {
+            m_Combos = value;
+        }
+    }
 }

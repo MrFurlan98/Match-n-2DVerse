@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEditor;
 public class ComboEditor : EditorWindow{
 
-    bool hidden = true;
-    static ComboEditor m_ComboEditor;
+    private static ComboEditor m_ComboEditor;
 
-    GameObject m_IconObject1;
+    private Vector2 m_ActionView;
 
-    GameObject m_IconObject2;
-    
+    private BaseAction.ACTION_TYPE m_CurrentActionType;
+
     [MenuItem("Window/ Match N/ Combo Editor")]
     static void INIT()
     {
@@ -21,43 +20,142 @@ public class ComboEditor : EditorWindow{
     private void OnGUI()
     {
 
-        m_IconObject1 = (GameObject)EditorGUILayout.ObjectField(m_IconObject1, typeof(GameObject));
+        Combo tCombo = Selection.activeObject as Combo;
 
-        m_IconObject2 = (GameObject)EditorGUILayout.ObjectField(m_IconObject2, typeof(GameObject));
-        // Rect tRect = new Rect(100, 100, 50, 50);
-
-        // if(Event.current.type == EventType.MouseDown && tRect.Contains(Event.current.mousePosition))
-        // {
-        //     m_Icon1 = EditorGUILayout.ObjectField()
-        // }
-
-        if (m_IconObject1 == null || m_IconObject2 == null)
+        if (tCombo == null)
             return;
 
-        BoardIcon m_Icon1 = m_IconObject1.GetComponent<BoardIcon>();
+        DrawerSave(ref tCombo);
 
+        EditorGUILayout.BeginHorizontal();
 
-        BoardIcon m_Icon2 = m_IconObject2.GetComponent<BoardIcon>();
+        tCombo.Icon1 = (SpecialIcon)EditorGUILayout.ObjectField(tCombo.Icon1, typeof(SpecialIcon));
 
+        tCombo.Icon2 = (SpecialIcon)EditorGUILayout.ObjectField(tCombo.Icon2, typeof(SpecialIcon));
 
-        // GUILayout.BeginArea(tRect, EditorStyles.helpBox);
-        if (m_Icon1 != null)
-        {
-            Sprite tSprite = m_Icon1.GetComponent<SpriteRenderer>().sprite;
+        EditorGUILayout.EndHorizontal();
 
-            Texture2D tTexture = tSprite.texture;
+  
 
-            GUILayout.Label(tTexture, GUILayout.Width(50), GUILayout.Height(50));
+        EditorGUILayout.BeginHorizontal();
+        //Draw left icon info
+        EditorGUILayout.BeginVertical();
+        if (tCombo.Icon1 != null) {
+            DrawSpecialIconInfo(tCombo.Icon1);
         }
-        if (m_Icon2 != null)
+        EditorGUILayout.EndVertical();
+
+        //Draw right icon info
+        EditorGUILayout.BeginVertical();
+
+        if (tCombo.Icon2 != null)
         {
-            Sprite tSprite = m_Icon2.GetComponent<SpriteRenderer>().sprite;
-
-            Texture2D tTexture = tSprite.texture;
-
-            GUILayout.Label(tTexture, GUILayout.Width(50), GUILayout.Height(50));
+            DrawSpecialIconInfo(tCombo.Icon2);
         }
 
-        //GUILayout.EndArea();
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
+
+
+        DrawAddAction(ref tCombo);
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        DrawActions(ref tCombo);
+
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
     }
+
+    void DrawSpecialIconInfo(SpecialIcon pSpecialIcon)
+    {
+        Texture2D tTexture = pSpecialIcon.IconSprite.texture;
+
+        GUILayout.Label(tTexture, GUILayout.Width(50), GUILayout.Height(50));
+
+    }
+
+    void DrawerSave(ref Combo pCombo)
+    {
+        if (GUILayout.Button("Save", GUILayout.Width(45)))
+        {
+            EditorUtility.SetDirty(pCombo);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+    }
+
+    void DrawAddAction(ref Combo pCombo)
+    {
+        EditorGUILayout.BeginHorizontal();
+
+        m_CurrentActionType = (BaseAction.ACTION_TYPE)EditorGUILayout.EnumPopup(m_CurrentActionType);
+
+        if (GUILayout.Button("Add Action"))
+        {
+            if (pCombo.Actions == null)
+                pCombo.Actions = new List<Icon.Action>();
+            Icon.Action tAction = new Icon.Action();
+            tAction.Type = m_CurrentActionType;
+            tAction.m_Action = BaseAction.GetActionObject(tAction.Type);
+            pCombo.Actions.Add(tAction);
+        }
+
+        EditorGUILayout.EndHorizontal();
+    }
+
+    void DrawActions(ref Combo pCombo)
+    {
+        if (pCombo.Actions == null)
+            return;
+
+        EditorGUILayout.BeginVertical("Box", GUILayout.Width(440));
+        m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
+        for (int i = 0; i < pCombo.Actions.Count; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            CustomDrawer(ref pCombo, i);
+            if (GUILayout.Button("X", GUILayout.Width(20)))
+            {
+                pCombo.Actions.RemoveAt(i);
+
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
+    }
+
+    void CustomDrawer(ref Combo pCombo, int pIndex)
+    {
+
+        Icon.Action tAction = pCombo.Actions[pIndex];
+
+        BaseAction tBaseAction = null;
+        if (tAction.ActionToRun == null)
+        {
+            tBaseAction = BaseAction.GetActionObject(tAction.Type);
+        }
+        else
+        {
+            tBaseAction = tAction.ActionToRun;
+        }
+        switch (tAction.Type)
+        {
+            case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
+                DestroyByTagDrawer pDestroyByTagDrawer = new DestroyByTagDrawer();
+
+                pDestroyByTagDrawer.Draw(ref tBaseAction);
+                break;
+            case BaseAction.ACTION_TYPE.DESTROY_ALL_BOARD:
+                DestroyAllBoardDrawer pDestroyAllBoardDrawer = new DestroyAllBoardDrawer();
+
+                pDestroyAllBoardDrawer.Draw(ref tBaseAction);
+                break;
+        }
+    }
+
 }

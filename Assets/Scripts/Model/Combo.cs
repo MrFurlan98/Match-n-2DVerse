@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
+[CreateAssetMenu(fileName = "NewCombo", menuName = "Match N/ Create Combo", order = 2)]
+public class Combo : ScriptableObject {
+    [HideInInspector]
+    [SerializeField]
+    private List<Icon.Action> m_Actions = new List<Icon.Action>();
 
-public class Combo : MonoBehaviour {
+    [HideInInspector]
+    [SerializeField]
+    private SpecialIcon m_Icon1;
 
-    private List<IBoardAction> m_Actions;
-    private BoardIcon m_Icon1;
-    private BoardIcon m_Icon2;
+    [HideInInspector]
+    [SerializeField]
+    private SpecialIcon m_Icon2;
 
-    public List<IBoardAction> Actions
+    public List<Icon.Action> Actions
     {
         get
         {
@@ -21,7 +29,7 @@ public class Combo : MonoBehaviour {
         }
     }
 
-    public BoardIcon Icon1
+    public SpecialIcon Icon1
     {
         get
         {
@@ -34,7 +42,7 @@ public class Combo : MonoBehaviour {
         }
     }
 
-    public BoardIcon Icon2
+    public SpecialIcon Icon2
     {
         get
         {

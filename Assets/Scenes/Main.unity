@@ -530,6 +530,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a737db7a7ee4b5439002ed208a4f32b, type: 2}
   m_SpecialIcons:
   - {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
+  - {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
+  m_Combos:
+  - {fileID: 11400000, guid: 6a7f4e17f319ceb4aa7e08ba5d9d344f, type: 2}
   m_BoardRoot: {fileID: 707063989}
 --- !u!1001 &1194057956
 Prefab:

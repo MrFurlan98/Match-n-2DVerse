@@ -9,7 +9,8 @@ public class BaseAction : IBoardAction{
     {
         DESTROY_CROSS,
         DESTROY_BLOCK,
-        DESTROY_BY_TYPE
+        DESTROY_BY_TYPE,
+        DESTROY_ALL_BOARD
     }
 
     public BaseAction()
@@ -32,6 +33,8 @@ public class BaseAction : IBoardAction{
                 break;
             case ACTION_TYPE.DESTROY_BY_TYPE:
                 return new DestroyByTag();
+            case ACTION_TYPE.DESTROY_ALL_BOARD:
+                return new DestroyAllBoard();
         }
         return new BaseAction();
     }
@@ -45,6 +48,8 @@ public class BaseAction : IBoardAction{
                 break;
             case ACTION_TYPE.DESTROY_BY_TYPE:
                 return new DestroyByTag(pBaseAction.m_TargetTag);
+            case ACTION_TYPE.DESTROY_ALL_BOARD:
+                return new DestroyAllBoard();
         }
         return new BaseAction();
     }
