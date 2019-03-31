@@ -7,11 +7,16 @@ public class IconManager : MonoBehaviour {
     private static IconManager m_Instance;
 
     [SerializeField]
+    private GameObject m_PrefabBaseIconSetting;
+
+    [SerializeField]
     private List<Icon> m_Icons;
 
     [SerializeField]
     private List<SpecialIcon> m_SpecialIcons;
 
+    [SerializeField]
+    private Transform m_BoardRoot;
 
     private void Awake()
     {
@@ -29,9 +34,9 @@ public class IconManager : MonoBehaviour {
 
 
         //set sprite renderer configure
-        SpriteRenderer tSpriteRenderer = pIconGameObject.AddComponent<SpriteRenderer>();
+        SpriteRenderer tSpriteRenderer = pIconGameObject.GetComponent<SpriteRenderer>();
 
-        BoardIcon tBoardIcon = pIconGameObject.AddComponent<BoardIcon>();
+        BoardIcon tBoardIcon = pIconGameObject.GetComponent<BoardIcon>();
 
         tBoardIcon.SpriteRenderer = tSpriteRenderer;
 
@@ -49,7 +54,9 @@ public class IconManager : MonoBehaviour {
 
         Icon tIcon = m_Icons[tRandoIndex];
 
-        GameObject tNewIcon = new GameObject(tIcon.Tag);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+
+        tNewIcon.name = tIcon.Tag;
 
         BoardIcon tBoardIcon = InitBoardIcon(ref tNewIcon, pX, pY);
 
@@ -60,7 +67,9 @@ public class IconManager : MonoBehaviour {
 
     public BoardIcon GenerateIcon(int pX, int pY, Icon pIconData)
     {
-        GameObject tNewIcon = new GameObject(pIconData.Tag);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+
+        tNewIcon.name = pIconData.Tag;
 
         BoardIcon tBoardIcon = InitBoardIcon(ref tNewIcon, pX, pY);
 
