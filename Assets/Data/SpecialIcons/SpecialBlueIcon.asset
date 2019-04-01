@@ -19,3 +19,5 @@ MonoBehaviour:
       m_TargetTag: BluePotion
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
+  m_MatchValueToGenerate: 4
+  m_GeneratesTag: BluePotion

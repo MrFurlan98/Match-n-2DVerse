@@ -4,8 +4,12 @@ using UnityEngine;
 [System.Serializable]
 [CreateAssetMenu(fileName = "NewSpecialIcon", menuName = "Match N/ Create Special Icon", order = 1)]
 public class SpecialIcon : Icon {
+    [HideInInspector]
+    [SerializeField]
     private int m_MatchValueToGenerate;
 
+    [HideInInspector]
+    [SerializeField]
     private string m_GeneratesTag;
 
     public int MatchValueToGenerate

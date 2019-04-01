@@ -384,7 +384,7 @@ public class Board : MonoBehaviour {
 
                 Combo tCombo = IconManager.Instance.GetCombo(tIconFrom, tIconTo);
 
-                if(tCombo.Actions != null)
+                if(tCombo != null)
                 {
                     List<Icon.Action> tBoardActions = tCombo.Actions;
                     if (tBoardActions != null)

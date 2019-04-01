@@ -36,7 +36,6 @@ public class IconEditor : EditorWindow{
 
         EditorGUILayout.BeginVertical();
 
-
         DrawerSave(ref tIcon);
 
         DrawSprite(ref tIcon);
@@ -66,7 +65,15 @@ public class IconEditor : EditorWindow{
     void DrawerSave(ref Icon pIcon)
     {
         if(GUILayout.Button("Save", GUILayout.Width(45))){
-            EditorUtility.SetDirty(pIcon);
+
+            if (pIcon.GetType() == typeof(SpecialIcon))
+            {
+                SpecialIcon tSpecialIcon = pIcon as SpecialIcon;
+                EditorUtility.SetDirty(tSpecialIcon);
+            }
+            else
+                EditorUtility.SetDirty(pIcon);
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
