@@ -16,6 +16,10 @@ public class Combo : ScriptableObject {
     [SerializeField]
     private SpecialIcon m_Icon2;
 
+    [HideInInspector]
+    [SerializeField]
+    private List<Icon.Action> m_ActionsPowerUp = new List<Icon.Action>();
+
     public List<Icon.Action> Actions
     {
         get

@@ -11,9 +11,11 @@ public class IconEditor : EditorWindow{
     private Vector2 m_ActionView;
 
     [MenuItem("Window/ Match N/ Icon Editor")]
-    static void Init()
+    public static void Init(Icon pIcon)
     {
         IconEditor tIconEditor = GetWindow<IconEditor>();
+
+        Selection.activeObject = pIcon;
 
         tIconEditor.minSize = new Vector2(450, 600);
         tIconEditor.maxSize = new Vector2(450, 600);
@@ -183,18 +185,6 @@ public class IconEditor : EditorWindow{
         {
             tBaseAction = tAction.ActionToRun;
         }
-        switch (tAction.Type)
-        {
-            case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
-                DestroyByTagDrawer tDestroyByTagDrawer = new DestroyByTagDrawer();
-
-                tDestroyByTagDrawer.Draw(ref tBaseAction);
-                break;
-            case BaseAction.ACTION_TYPE.DESTROY_CROSS:
-                DestroyCrossDrawer tDestroyCrossDrawer = new DestroyCrossDrawer();
-
-                tDestroyCrossDrawer.Draw(ref tBaseAction);
-                break;
-        }
+        ActionDrawer.DrawTypeList(ref tBaseAction, tAction.m_Type);
     }
 }

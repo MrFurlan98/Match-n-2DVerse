@@ -67,6 +67,8 @@ public class ComboEditor : EditorWindow{
 
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
+
+        
     }
 
     void DrawSpecialIconInfo(SpecialIcon pSpecialIcon)
@@ -143,19 +145,12 @@ public class ComboEditor : EditorWindow{
         {
             tBaseAction = tAction.ActionToRun;
         }
-        switch (tAction.Type)
-        {
-            case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
-                DestroyByTagDrawer pDestroyByTagDrawer = new DestroyByTagDrawer();
-
-                pDestroyByTagDrawer.Draw(ref tBaseAction);
-                break;
-            case BaseAction.ACTION_TYPE.DESTROY_ALL_BOARD:
-                DestroyAllBoardDrawer pDestroyAllBoardDrawer = new DestroyAllBoardDrawer();
-
-                pDestroyAllBoardDrawer.Draw(ref tBaseAction);
-                break;
-        }
+        ActionDrawer.DrawTypeList(ref tBaseAction, tAction.m_Type);
     }
+    void DrawPowerUp(ref Combo pCombo, int tIndex)
+    {
+        Icon.Action tAction = pCombo.Actions[tIndex];
 
+        BaseAction
+    }
 }
