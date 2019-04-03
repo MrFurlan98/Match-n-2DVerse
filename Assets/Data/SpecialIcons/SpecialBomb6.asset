@@ -8,14 +8,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69570dbecbbe29c4689d8c1511e95d9d, type: 3}
-  m_Name: Combo2
+  m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
+  m_Name: SpecialBomb6
   m_EditorClassIdentifier: 
+  m_IconSprite: {fileID: 21300000, guid: 66f6a4de29f92db4d8eafc0f660a2d66, type: 3}
+  m_Tag: 6Bomb
   m_Actions:
-  - m_Type: 3
+  - m_Type: 0
     m_Action:
       m_TargetTag: 
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
-  m_Icon1: {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
-  m_Icon2: {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
+  m_MatchValueToGenerate: 6
+  m_GeneratesTag: RedPotion

@@ -186,9 +186,14 @@ public class IconEditor : EditorWindow{
         switch (tAction.Type)
         {
             case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
-                DestroyByTagDrawer pDestroyByTagDrawer = new DestroyByTagDrawer();
+                DestroyByTagDrawer tDestroyByTagDrawer = new DestroyByTagDrawer();
 
-                pDestroyByTagDrawer.Draw(ref tBaseAction);
+                tDestroyByTagDrawer.Draw(ref tBaseAction);
+                break;
+            case BaseAction.ACTION_TYPE.DESTROY_CROSS:
+                DestroyCrossDrawer tDestroyCrossDrawer = new DestroyCrossDrawer();
+
+                tDestroyCrossDrawer.Draw(ref tBaseAction);
                 break;
         }
     }
