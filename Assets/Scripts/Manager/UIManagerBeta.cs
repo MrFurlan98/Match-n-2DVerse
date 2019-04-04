@@ -3,20 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour {
-    public static UIManager Instance;
-    public enum SCREEN{
-        GAMEPLAY = 1,
-        MENU = 2,
-        PAUSE = 3,
-        GAMEOVER = 4
+public class UIManagerBeta : MonoBehaviour
+{
+    public static UIManagerBeta Instance;
+    public enum BUTTONS
+    {
+        CONFIGURATIONS = 1,
+        LAB = 2,
+        STORE = 3,
+        TOVORTEX = 4,
+        ROADMAP = 5,
+        CHANGEVORTEXMAP = 6
     }
 
     [System.Serializable]
     public class UIScreen
     {
         public GameObject m_pScreenObject;
-        public SCREEN m_pScreen;
+        public BUTTONS m_pScreen;
     }
 
     public void Awake()
@@ -27,18 +31,18 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private List<UIScreen> m_pScreens = new List<UIScreen>();
 
-    public void OpenScreen(SCREEN pScreen)
+    public void OpenScreen(BUTTONS pScreen)
     {
         GetScreenObject(pScreen).SetActive(true);
     }
 
-    public void CloseScreen(SCREEN pScreen)
+    public void CloseScreen(BUTTONS pScreen)
     {
 
         GetScreenObject(pScreen).SetActive(false);
     }
 
-    public GameObject GetScreenObject(SCREEN pScreen)
+    public GameObject GetScreenObject(BUTTONS pScreen)
     {
         UIScreen UI = m_pScreens.Find(screen => screen.m_pScreen == pScreen);
         return UI.m_pScreenObject;
