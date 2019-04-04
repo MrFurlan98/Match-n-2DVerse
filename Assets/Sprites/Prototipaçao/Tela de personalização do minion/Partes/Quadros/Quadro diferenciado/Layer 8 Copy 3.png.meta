@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: d34a60d55f6da314daa43be17abcf15e
+guid: 69a3047e67321e843ac4c17a3bd0cee1
 TextureImporter:
   fileIDToRecycleName:
-    21300000: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_0"
-    21300002: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_1"
-    21300004: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_2"
-    21300006: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_3"
-    21300008: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_4"
-    21300010: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_5"
-    21300012: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_6"
+    21300000: Layer 8 Copy 3_0
+    21300002: Layer 8 Copy 3_1
+    21300004: Layer 8 Copy 3_2
+    21300006: Layer 8 Copy 3_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -53,7 +50,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 67, y: 1048, z: 1876, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -91,133 +88,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_0"
+      name: Layer 8 Copy 3_0
       rect:
         serializedVersion: 2
-        x: 729
-        y: 2442
-        width: 76
-        height: 94
-      alignment: 9
-      pivot: {x: 0.48831877, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a24990f6434a38a49a1b508a88ae63a7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_1"
-      rect:
-        serializedVersion: 2
-        x: 351
-        y: 2436
-        width: 76
-        height: 104
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dafcf2091bc3d914e8d7ef0d19abbf5e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_2"
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 2067
-        width: 283
-        height: 200
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51e8571282c99784099391fd8ac14050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_3"
-      rect:
-        serializedVersion: 2
-        x: 307
-        y: 2736
-        width: 524
-        height: 190
-      alignment: 9
-      pivot: {x: 0.530457, y: 0.64119744}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ef499b521f93ab45b84b1b923a85596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_4"
-      rect:
-        serializedVersion: 2
-        x: 433
-        y: 2323
-        width: 289
-        height: 299
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f35a018069bf8246bea21cead770f07
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_5"
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 1061
-        width: 1059
-        height: 1890
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65763f00a21c74647a0a463f4d1d287c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_6"
-      rect:
-        serializedVersion: 2
-        x: 1189
-        y: 1981
-        width: 484
-        height: 950
+        x: 0
+        y: 319
+        width: 135
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,7 +102,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d646d89c3b28d94189e275bcddd22da
+      spriteID: 38f761c056c6dba40bf2ecd4ce87ec1d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Layer 8 Copy 3_1
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 316
+        width: 143
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f03ee70f643ff649b1a53d9a2eb8054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Layer 8 Copy 3_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 141
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1e302254c8be7489e486a7aac83787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Layer 8 Copy 3_3
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 0
+        width: 126
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e03dba0489d4459469bf3d803786144f
       vertices: []
       indices: 
       edges: []
@@ -233,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 297e05f9a654e3a4ba406d73ff60cb86
+    spriteID: 282338301d735b841b83cf9428dbc498
     vertices: []
     indices: 
     edges: []
