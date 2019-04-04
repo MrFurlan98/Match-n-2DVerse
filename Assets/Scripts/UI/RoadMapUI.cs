@@ -43,6 +43,7 @@ public class RoadMapUI : MonoBehaviour
         m_VortexButton.onClick.AddListener(
             delegate {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.TOVORTEX);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.ROADMAP);
             });
 
 

@@ -193,7 +193,6 @@ GameObject:
   - component: {fileID: 13775720}
   - component: {fileID: 13775719}
   - component: {fileID: 13775718}
-  - component: {fileID: 13775717}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -219,19 +218,6 @@ RectTransform:
   m_AnchoredPosition: {x: -34.664978, y: -28.075012}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &13775717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 13775715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 13775718}
-  m_pTypeButton: 7
 --- !u!114 &13775718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,6 +839,11 @@ Prefab:
       objectReference: {fileID: 1950825964}
     - target: {fileID: 114454709540445620, guid: 2993e3d3e76142748b2f38e07a5efc42,
         type: 2}
+      propertyPath: m_pScreens.Array.data[3].m_pScreenObject
+      value: 
+      objectReference: {fileID: 1808829782}
+    - target: {fileID: 114454709540445620, guid: 2993e3d3e76142748b2f38e07a5efc42,
+        type: 2}
       propertyPath: m_pScreens.Array.data[4].m_pScreenObject
       value: 
       objectReference: {fileID: 1388669105}
@@ -861,11 +852,6 @@ Prefab:
       propertyPath: m_pScreens.Array.data[5].m_pScreenObject
       value: 
       objectReference: {fileID: 1236401074}
-    - target: {fileID: 114454709540445620, guid: 2993e3d3e76142748b2f38e07a5efc42,
-        type: 2}
-      propertyPath: m_pScreens.Array.data[3].m_pScreenObject
-      value: 
-      objectReference: {fileID: 1808829782}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2993e3d3e76142748b2f38e07a5efc42, type: 2}
   m_IsPrefabAsset: 0
@@ -1801,7 +1787,6 @@ GameObject:
   - component: {fileID: 662356337}
   - component: {fileID: 662356336}
   - component: {fileID: 662356335}
-  - component: {fileID: 662356334}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1827,19 +1812,6 @@ RectTransform:
   m_AnchoredPosition: {x: -34.664978, y: -28.075012}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &662356334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 662356332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 662356335}
-  m_pTypeButton: 7
 --- !u!114 &662356335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,7 +2324,6 @@ GameObject:
   - component: {fileID: 908942134}
   - component: {fileID: 908942133}
   - component: {fileID: 908942132}
-  - component: {fileID: 908942131}
   m_Layer: 5
   m_Name: ChangeVortexMap
   m_TagString: Untagged
@@ -2378,19 +2349,6 @@ RectTransform:
   m_AnchoredPosition: {x: 30, y: -224}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &908942131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 908942129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 908942132}
-  m_pTypeButton: 6
 --- !u!114 &908942132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2694,7 +2652,6 @@ GameObject:
   - component: {fileID: 960193606}
   - component: {fileID: 960193605}
   - component: {fileID: 960193604}
-  - component: {fileID: 960193603}
   m_Layer: 5
   m_Name: ToRoadButton
   m_TagString: Untagged
@@ -2720,19 +2677,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -179}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &960193603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 960193601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 960193604}
-  m_pTypeButton: 5
 --- !u!114 &960193604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2819,7 +2763,6 @@ GameObject:
   - component: {fileID: 989181578}
   - component: {fileID: 989181577}
   - component: {fileID: 989181576}
-  - component: {fileID: 989181575}
   m_Layer: 5
   m_Name: LabButton
   m_TagString: Untagged
@@ -2845,19 +2788,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -92}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &989181575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 989181573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 989181576}
-  m_pTypeButton: 2
 --- !u!114 &989181576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2944,7 +2874,6 @@ GameObject:
   - component: {fileID: 1036795668}
   - component: {fileID: 1036795667}
   - component: {fileID: 1036795666}
-  - component: {fileID: 1036795665}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2970,19 +2899,6 @@ RectTransform:
   m_AnchoredPosition: {x: -34.66501, y: -28.075012}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1036795665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1036795663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1036795666}
-  m_pTypeButton: 7
 --- !u!114 &1036795666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3069,7 +2985,6 @@ GameObject:
   - component: {fileID: 1098822520}
   - component: {fileID: 1098822519}
   - component: {fileID: 1098822518}
-  - component: {fileID: 1098822517}
   m_Layer: 5
   m_Name: RoadMapButton
   m_TagString: Untagged
@@ -3095,19 +3010,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -179}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1098822517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1098822515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1098822518}
-  m_pTypeButton: 5
 --- !u!114 &1098822518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3263,7 +3165,6 @@ GameObject:
   - component: {fileID: 1184193047}
   - component: {fileID: 1184193046}
   - component: {fileID: 1184193045}
-  - component: {fileID: 1184193044}
   m_Layer: 5
   m_Name: StoreButton
   m_TagString: Untagged
@@ -3289,19 +3190,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -135}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1184193044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1184193042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1184193045}
-  m_pTypeButton: 3
 --- !u!114 &1184193045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3982,7 +3870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1388669106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4521,7 +4409,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d34a60d55f6da314daa43be17abcf15e, type: 3}
+  m_Sprite: {fileID: 21300010, guid: d34a60d55f6da314daa43be17abcf15e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4653,7 +4541,6 @@ GameObject:
   - component: {fileID: 1625297802}
   - component: {fileID: 1625297801}
   - component: {fileID: 1625297800}
-  - component: {fileID: 1625297799}
   m_Layer: 5
   m_Name: LabButton
   m_TagString: Untagged
@@ -4679,19 +4566,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -92}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1625297799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1625297797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1625297800}
-  m_pTypeButton: 2
 --- !u!114 &1625297800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4985,7 +4859,6 @@ GameObject:
   - component: {fileID: 1713226392}
   - component: {fileID: 1713226391}
   - component: {fileID: 1713226390}
-  - component: {fileID: 1713226389}
   m_Layer: 5
   m_Name: ConfigButton
   m_TagString: Untagged
@@ -5011,19 +4884,6 @@ RectTransform:
   m_AnchoredPosition: {x: -36, y: -49}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1713226389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1713226387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1713226390}
-  m_pTypeButton: 1
 --- !u!114 &1713226390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5110,7 +4970,6 @@ GameObject:
   - component: {fileID: 1759595605}
   - component: {fileID: 1759595604}
   - component: {fileID: 1759595603}
-  - component: {fileID: 1759595602}
   m_Layer: 5
   m_Name: ConfigButton
   m_TagString: Untagged
@@ -5136,19 +4995,6 @@ RectTransform:
   m_AnchoredPosition: {x: -36, y: -49}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1759595602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759595600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 1759595603}
-  m_pTypeButton: 1
 --- !u!114 &1759595603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5311,7 +5157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1808829783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5535,7 +5381,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d34a60d55f6da314daa43be17abcf15e, type: 3}
+  m_Sprite: {fileID: 21300010, guid: d34a60d55f6da314daa43be17abcf15e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5642,7 +5488,6 @@ GameObject:
   - component: {fileID: 2000081533}
   - component: {fileID: 2000081532}
   - component: {fileID: 2000081531}
-  - component: {fileID: 2000081530}
   m_Layer: 5
   m_Name: StoreButton
   m_TagString: Untagged
@@ -5668,19 +5513,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: -135}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2000081530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2000081528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 2000081531}
-  m_pTypeButton: 3
 --- !u!114 &2000081531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5913,7 +5745,6 @@ GameObject:
   - component: {fileID: 2116234151}
   - component: {fileID: 2116234150}
   - component: {fileID: 2116234149}
-  - component: {fileID: 2116234148}
   m_Layer: 5
   m_Name: ChangeVortexMap
   m_TagString: Untagged
@@ -5939,19 +5770,6 @@ RectTransform:
   m_AnchoredPosition: {x: 30, y: -224}
   m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2116234148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2116234146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13da632d277c2184e9e24ec132816a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pSelectButton: {fileID: 2116234149}
-  m_pTypeButton: 6
 --- !u!114 &2116234149
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,7 +29,6 @@ public class VortexMap1UI : MonoBehaviour
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CONFIGURATIONS);
             });
 
-
         m_LabButton.onClick = new Button.ButtonClickedEvent();
         m_LabButton.onClick.AddListener(
             delegate {
@@ -46,12 +45,14 @@ public class VortexMap1UI : MonoBehaviour
         m_RoadMapButton.onClick.AddListener(
             delegate {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
             });
 
         m_ChangeVortexMapButton.onClick = new Button.ButtonClickedEvent();
         m_ChangeVortexMapButton.onClick.AddListener(
             delegate {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
             });
 
 
