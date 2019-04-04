@@ -35,6 +35,8 @@ public class BaseAction : IBoardAction{
                 return new DestroyByTag();
             case ACTION_TYPE.DESTROY_ALL_BOARD:
                 return new DestroyAllBoard();
+            case ACTION_TYPE.DESTROY_CROSS:
+                return new DestroyCross();
         }
         return new BaseAction();
     }
@@ -50,6 +52,8 @@ public class BaseAction : IBoardAction{
                 return new DestroyByTag(pBaseAction.m_TargetTag);
             case ACTION_TYPE.DESTROY_ALL_BOARD:
                 return new DestroyAllBoard();
+            case ACTION_TYPE.DESTROY_CROSS:
+                return new DestroyCross();
         }
         return new BaseAction();
     }
@@ -57,7 +61,7 @@ public class BaseAction : IBoardAction{
 
     public virtual void Action(int pOriginX, int pOriginY, BoardIcon[,] pIcons)
     {
-        throw new System.NotImplementedException();
+        Debug.LogError("Not Implemented Action");
     }
 
 

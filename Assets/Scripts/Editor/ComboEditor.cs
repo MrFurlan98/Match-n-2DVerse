@@ -67,6 +67,17 @@ public class ComboEditor : EditorWindow{
 
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
+
+        DrawAddPowerUp(ref tCombo);
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        DrawPowerUp(ref tCombo);
+
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+
     }
 
     void DrawSpecialIconInfo(SpecialIcon pSpecialIcon)
@@ -143,19 +154,47 @@ public class ComboEditor : EditorWindow{
         {
             tBaseAction = tAction.ActionToRun;
         }
-        switch (tAction.Type)
-        {
-            case BaseAction.ACTION_TYPE.DESTROY_BY_TYPE:
-                DestroyByTagDrawer pDestroyByTagDrawer = new DestroyByTagDrawer();
-
-                pDestroyByTagDrawer.Draw(ref tBaseAction);
-                break;
-            case BaseAction.ACTION_TYPE.DESTROY_ALL_BOARD:
-                DestroyAllBoardDrawer pDestroyAllBoardDrawer = new DestroyAllBoardDrawer();
-
-                pDestroyAllBoardDrawer.Draw(ref tBaseAction);
-                break;
-        }
+        ActionDrawer.DrawTypeList(ref tBaseAction, tAction.m_Type);
     }
+    void DrawPowerUp(ref Combo pCombo)
+    {
+        if (pCombo.Actions == null)
+            return;
 
+        EditorGUILayout.BeginVertical("Box", GUILayout.Width(440));
+        m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
+        for (int i = 0; i < pCombo.Actions.Count; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            CustomDrawer(ref pCombo, i);
+            if (GUILayout.Button("X", GUILayout.Width(20)))
+            {
+                pCombo.Actions.RemoveAt(i);
+
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
+
+    }
+    void DrawAddPowerUp(ref Combo pCombo)
+    {
+        EditorGUILayout.BeginHorizontal();
+
+        m_CurrentActionType = (BaseAction.ACTION_TYPE)EditorGUILayout.EnumPopup(m_CurrentActionType);
+
+        if (GUILayout.Button("Add Power Up"))
+        {
+            if (pCombo.Actions == null)
+                pCombo.Actions = new List<Icon.Action>();
+            Icon.Action tAction = new Icon.Action();
+            tAction.Type = m_CurrentActionType;
+            tAction.m_Action = BaseAction.GetActionObject(tAction.Type);
+            pCombo.Actions.Add(tAction);
+        }
+
+        EditorGUILayout.EndHorizontal();
+    }
 }
