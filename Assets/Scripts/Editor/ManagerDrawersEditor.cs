@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 public class ManagerDrawersEditor : EditorWindow {
-    static string PATH_ICONS = "Data/Icons/";
+    static string PATH_ICONS = "/Data/Icons";
 
     private int m_CurrentEditor = 0;
     private string[] m_ArrayEditors = { "Icon", "Combo" };
@@ -34,28 +34,44 @@ public class ManagerDrawersEditor : EditorWindow {
 
     void DrawerIconList()
     {
-        Object[] tIconsObjects = AssetDatabase.LoadAllAssetsAtPath(PATH_ICONS);
-
-        if (tIconsObjects == null)
+        string tPath = Application.dataPath+PATH_ICONS;
+        string[] tFiles = System.IO.Directory.GetFiles(tPath, "*.asset", System.IO.SearchOption.AllDirectories);
+        Debug.Log(tFiles.Length);
+        if(tFiles == null)
             return;
-
-        for (int i = 0; i < tIconsObjects.Length; i++)
+        for (int i = 0; i < tFiles.Length; i++)
         {
-            Icon tIcon = tIconsObjects[i] as Icon;
-            DrawIcon(tIcon);
+
+            string assetPath = "Assets"+PATH_ICONS + tFiles[i].Replace(tPath, "").Replace('\\', '/');
+
+             Debug.Log(assetPath);
+            Icon tIcon = (Icon)AssetDatabase.LoadAssetAtPath(assetPath, typeof(Icon));
+           
+            DrawIcon(tIcon, tPath);
         }
+
     }
 
 
-    void DrawIcon(Icon pIcon)
+    void DrawIcon(Icon pIcon, string pPath)
     {
         EditorGUILayout.BeginHorizontal();
 
-        GUILayout.Label(pIcon.IconSprite.texture, GUILayout.Width(30), GUILayout.Height(30));
+        GUILayout.Label(pIcon.IconSprite.texture, GUILayout.Width(80), GUILayout.Height(80));
 
-        if (GUILayout.Button("Select"))
+        GUILayout.Label(pIcon.Tag);
+
+        if (GUILayout.Button("Select", GUILayout.Width(50)))
         {
             IconEditor.Init(pIcon);
+        }
+
+        if (GUILayout.Button("Delete", GUILayout.Width(50)))
+        {
+            Debug.Log(pPath+"/"+pIcon.name);
+            System.IO.File.Delete(pPath+"/"+pIcon.name+".asset");
+            System.IO.File.Delete(pPath+"/"+pIcon.name+".asset.meta");
+            AssetDatabase.Refresh();
         }
 
 
