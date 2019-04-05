@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: d34a60d55f6da314daa43be17abcf15e
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_0"
+    21300002: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_1"
+    21300004: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_2"
+    21300006: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_3"
+    21300008: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_4"
+    21300010: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_5"
+    21300012: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_6"
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -40,13 +47,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 67, y: 1048, z: 1876, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -69,9 +76,160 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_0"
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 2442
+        width: 76
+        height: 94
+      alignment: 9
+      pivot: {x: 0.48831877, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24990f6434a38a49a1b508a88ae63a7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_1"
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 2436
+        width: 76
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dafcf2091bc3d914e8d7ef0d19abbf5e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_2"
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 2067
+        width: 283
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e8571282c99784099391fd8ac14050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_3"
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 2736
+        width: 524
+        height: 190
+      alignment: 9
+      pivot: {x: 0.530457, y: 0.64119744}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ef499b521f93ab45b84b1b923a85596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_4"
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 2323
+        width: 289
+        height: 299
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f35a018069bf8246bea21cead770f07
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_5"
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 1061
+        width: 1059
+        height: 1890
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65763f00a21c74647a0a463f4d1d287c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Prototipa\xE7\xE3o (ainda nao ta tudo separado)_6"
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 1981
+        width: 484
+        height: 950
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d646d89c3b28d94189e275bcddd22da
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
