@@ -55,7 +55,7 @@ public class ManagerDrawersEditor : EditorWindow {
 
         if (GUILayout.Button("Select"))
         {
-            IconEditor.Init(pIcon);
+            IconEditor.Init();
         }
 
 

@@ -380,7 +380,8 @@ public class Board : MonoBehaviour {
 
             if (IsSpecialIcon(tIconFrom) && IsSpecialIcon(tIconTo))
             {
-                MarkToDestroy(new List<Vector2Int> { pFrom, pTo });
+                tIconFrom.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                tIconTo.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
 
                 Combo tCombo = IconManager.Instance.GetCombo(tIconFrom, tIconTo);
 
@@ -389,8 +390,8 @@ public class Board : MonoBehaviour {
                     List<Icon.Action> tBoardActions = tCombo.Actions;
                     if (tBoardActions != null)
                     {
-                        int tX = pFrom.x;
-                        int tY = pFrom.y;
+                        int tX = pTo.x;
+                        int tY = pTo.y;
 
                         for (int k = 0; k < tBoardActions.Count; k++)
                         {

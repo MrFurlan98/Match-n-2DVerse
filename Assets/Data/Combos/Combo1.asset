@@ -19,3 +19,4 @@ MonoBehaviour:
       m_NxN: {x: 0, y: 0}
   m_Icon1: {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
   m_Icon2: {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
+  m_ActionsPowerUp: []

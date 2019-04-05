@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Combo3
   m_EditorClassIdentifier: 
   m_Actions:
-  - m_Type: 3
+  - m_Type: 1
     m_Action:
       m_TargetTag: 
       m_Multiplier: 0
-      m_NxN: {x: 0, y: 0}
+      m_NxN: {x: 3, y: 3}
   m_Icon1: {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
   m_Icon2: {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
+  m_ActionsPowerUp: []

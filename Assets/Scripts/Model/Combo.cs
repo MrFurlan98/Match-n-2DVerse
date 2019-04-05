@@ -59,5 +59,16 @@ public class Combo : ScriptableObject {
         }
     }
 
+    public List<Icon.Action> ActionsPowerUp
+    {
+        get
+        {
+            return m_ActionsPowerUp;
+        }
 
+        set
+        {
+            m_ActionsPowerUp = value;
+        }
+    }
 }
