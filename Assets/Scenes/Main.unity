@@ -524,15 +524,27 @@ MonoBehaviour:
   m_PrefabBaseIconSetting: {fileID: 1908721860137080, guid: 1d831df76023d3c4c93e5717d4446c6e,
     type: 2}
   m_Icons:
-  - {fileID: 11400000, guid: 6a68b8ecbe9efb44ca46cebeb15c98e6, type: 2}
+  - {fileID: 11400000, guid: 58d1e50200de001418af84caa306e993, type: 2}
   - {fileID: 11400000, guid: 97ab3314312ae2c4fbed1fd2d2952641, type: 2}
   - {fileID: 11400000, guid: 8c640fa1c51af5e4c8ebb1919adbb0e5, type: 2}
   - {fileID: 11400000, guid: 2a737db7a7ee4b5439002ed208a4f32b, type: 2}
   m_SpecialIcons:
   - {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
   - {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
+  - {fileID: 11400000, guid: 5ec77fc55396b014f9f3e11ed3739349, type: 2}
+  - {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
+  - {fileID: 11400000, guid: 8207839ab243ed64092707c3e6b80607, type: 2}
+  - {fileID: 11400000, guid: e9106437dcb9d2a49a8464834b308aea, type: 2}
   m_Combos:
-  - {fileID: 11400000, guid: 6a7f4e17f319ceb4aa7e08ba5d9d344f, type: 2}
+  - {fileID: 11400000, guid: 4795b5ec2d100c34d892c3cd98a976d8, type: 2}
+  - {fileID: 11400000, guid: 5a48898233334c44ca9e85aa891ac193, type: 2}
+  - {fileID: 11400000, guid: 36b1268b5b526fb489a3ced9d660736e, type: 2}
+  - {fileID: 11400000, guid: af2bedfefcecd5c448a56d16d01700d9, type: 2}
+  - {fileID: 11400000, guid: a038004eaefd0584ca90ecf1bb1e1a24, type: 2}
+  - {fileID: 11400000, guid: cd3e99e1533a5474d8769af936dacbfc, type: 2}
+  - {fileID: 11400000, guid: bf9a6d2a1321c9842b1b105da052c306, type: 2}
+  - {fileID: 11400000, guid: 3e7fb0d338e9071478ae8499742b18d5, type: 2}
+  - {fileID: 11400000, guid: b04fa51add9a4f2469860a5dfbb3b5bc, type: 2}
   m_BoardRoot: {fileID: 707063989}
 --- !u!1001 &1194057956
 Prefab:

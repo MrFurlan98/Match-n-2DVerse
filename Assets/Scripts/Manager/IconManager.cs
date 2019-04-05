@@ -85,6 +85,24 @@ public class IconManager : MonoBehaviour {
     {
         for (int i = 0; i < m_SpecialIcons.Count; i++)
         {
+            if(pAmount>=8)
+            {
+                if (pGeneratesTag == m_SpecialIcons[i].GeneratesTag)
+                {
+                    BoardIcon tBoardIcon = Instance.GenerateIcon(pX, pY, m_SpecialIcons[i]);
+                    tBoardIcon.Type = BoardIcon.E_Type.SPECIAL;
+                    return tBoardIcon;
+                }
+            }
+            if(m_SpecialIcons[i].GeneratesTag == "ALL")
+            {
+                if (pAmount == m_SpecialIcons[i].MatchValueToGenerate)
+                {
+                    BoardIcon tBoardIcon = Instance.GenerateIcon(pX, pY, m_SpecialIcons[i]);
+                    tBoardIcon.Type = BoardIcon.E_Type.SPECIAL;
+                    return tBoardIcon;
+                }
+            }
             if (pAmount == m_SpecialIcons[i].MatchValueToGenerate && pGeneratesTag == m_SpecialIcons[i].GeneratesTag)
             {
                 BoardIcon tBoardIcon = Instance.GenerateIcon(pX, pY, m_SpecialIcons[i]);

@@ -11,8 +11,9 @@ public class ComboEditor : EditorWindow{
     private BaseAction.ACTION_TYPE m_CurrentActionType;
 
     [MenuItem("Window/ Match N/ Combo Editor")]
-    static void INIT()
+    public static void Init(ref Combo pCombo)
     {
+        Selection.activeObject = pCombo;
         m_ComboEditor = GetWindow<ComboEditor>();
         m_ComboEditor.Show();
     }
