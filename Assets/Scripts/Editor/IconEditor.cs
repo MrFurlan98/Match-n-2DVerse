@@ -11,7 +11,7 @@ public class IconEditor : EditorWindow{
     private Vector2 m_ActionView;
 
     [MenuItem("Window/ Match N/ Icon Editor")]
-    public static void Init(Icon pIcon)
+    public static void Init(ref Icon pIcon)
     {
         IconEditor tIconEditor = GetWindow<IconEditor>();
 

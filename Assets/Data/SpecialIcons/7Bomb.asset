@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
+  m_Name: 7Bomb
+  m_EditorClassIdentifier: 
+  m_IconSprite: {fileID: 21300000, guid: fac3bb8f4ff839747858ed3b944d9d20, type: 3}
+  m_Tag: 7Bomb
+  m_Actions:
+  - m_Type: 0
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 0, y: 0}
+  m_MatchValueToGenerate: 7
+  m_GeneratesTag: ALL

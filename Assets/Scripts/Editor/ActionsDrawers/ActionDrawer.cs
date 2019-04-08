@@ -29,7 +29,17 @@ public class ActionDrawer {
                 tDestroyAllBoardDrawer.Draw(ref pBaseAction);
                 break;
 
+            case BaseAction.ACTION_TYPE.DESTROY_DIAGONAL:
+                DestroyDiagonalDrawer tDestroyDiagonalDrawer = new DestroyDiagonalDrawer();
 
+                tDestroyDiagonalDrawer.Draw(ref pBaseAction);
+                break;
+
+            case BaseAction.ACTION_TYPE.DESTROY_BLOCK:
+                DestroyBlockDrawer tDestroyBlockDrawer = new DestroyBlockDrawer();
+
+                tDestroyBlockDrawer.Draw(ref pBaseAction);
+                break;
         }
     }
 }
