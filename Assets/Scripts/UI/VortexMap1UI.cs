@@ -21,6 +21,10 @@ public class VortexMap1UI : MonoBehaviour
     [SerializeField]
     private Button m_ChangeVortexMapButton;
 
+    [SerializeField]
+    private Button m_PerfilButton;
+
+
     private void Start()
     {
         m_ConfigButton.onClick = new Button.ButtonClickedEvent();
@@ -54,6 +58,14 @@ public class VortexMap1UI : MonoBehaviour
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
             });
+
+
+        m_PerfilButton.onClick = new Button.ButtonClickedEvent();
+        m_PerfilButton.onClick.AddListener(
+            delegate {
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.PERFIL);
+            });
+
 
 
     }

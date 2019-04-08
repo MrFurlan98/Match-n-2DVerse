@@ -17,6 +17,11 @@ public class RoadMapUI : MonoBehaviour
     [SerializeField]
     private Button m_VortexButton;
 
+    [SerializeField]
+    private Button m_PerfilButton;
+
+    [SerializeField]
+    private Button m_PlayButton;
 
     private void Start()
     {
@@ -46,7 +51,18 @@ public class RoadMapUI : MonoBehaviour
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.ROADMAP);
             });
 
+        m_PerfilButton.onClick = new Button.ButtonClickedEvent();
+        m_PerfilButton.onClick.AddListener(
+            delegate {
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.PERFIL);
+            });
 
+        m_PlayButton.onClick = new Button.ButtonClickedEvent();
+        m_PlayButton.onClick.AddListener(
+            delegate {
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.MENUROADB);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.PLAYB);
+            });
 
     }
 

@@ -13,7 +13,11 @@ public class UIManagerBeta : MonoBehaviour
         STORE = 3,
         TOVORTEX = 4,
         ROADMAP = 5,
-        CHANGEVORTEXMAP = 6
+        CHANGEVORTEXMAP = 6,
+        PERFIL = 7,
+        PLAYB = 8,
+        MENUROADB=9
+
     }
 
     [System.Serializable]
