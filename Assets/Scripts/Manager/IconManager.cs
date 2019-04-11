@@ -81,6 +81,19 @@ public class IconManager : MonoBehaviour {
         return tBoardIcon;
     }
 
+    public Icon TransformIcon(int pX,int pY,string pTagToTransformTo)
+    {
+        for (int i = 0; i < m_SpecialIcons.Count; i++)
+        {
+            if (m_SpecialIcons[i].Tag == pTagToTransformTo)
+            {
+                 return m_SpecialIcons[i];
+            }
+        }
+
+        return null;
+    }
+
     public BoardIcon GenerateSpecialIconByMatch(int pX, int pY, int pAmount, string pGeneratesTag)
     {
         for (int i = 0; i < m_SpecialIcons.Count; i++)
@@ -111,6 +124,17 @@ public class IconManager : MonoBehaviour {
             }
         }
 
+        return null;
+    }
+    public Icon GetIcon(BoardIcon pIcon)
+    {
+        for (int i = 0; i < m_SpecialIcons.Count; i++)
+        {
+            if(pIcon.STag == m_SpecialIcons[i].Tag)
+            {
+                return m_SpecialIcons[i];
+            }
+        }
         return null;
     }
 

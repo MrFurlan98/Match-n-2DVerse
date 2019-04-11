@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class DestroyCrossDrawer : ActionDrawer {
 
@@ -11,6 +12,7 @@ public class DestroyCrossDrawer : ActionDrawer {
         GUILayout.BeginHorizontal("Box");
 
         GUILayout.Label("Destroy Cross");
+        pBaseAction.NxN = EditorGUILayout.Vector2IntField("NxN", pBaseAction.NxN);
 
         GUILayout.EndHorizontal();
 

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class DestroyByTag : BaseAction
+public class TransformIntoSpecial : BaseAction
 {
-    public DestroyByTag()
+    public TransformIntoSpecial()
     {
     }
-    public DestroyByTag(string TargetTag)
+    public TransformIntoSpecial(string TargetTag, string TagToTransformTo)
     {
         this.TargetTag = TargetTag;
+        this.TagToTransformTo = TagToTransformTo;
     }
     public override void Action(int pOriginX, int pOriginY, BoardIcon[,] pIcons)
     {
@@ -20,6 +21,12 @@ public class DestroyByTag : BaseAction
             {
                 if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
                 {
+                    Icon tIcon = IconManager.Instance.TransformIcon(i, j, TagToTransformTo);
+                    if(tIcon!=null)
+                    {
+                        pIcons[i, j].SetBoardData(tIcon);
+                        pIcons[i, j].Type = BoardIcon.E_Type.SPECIAL;
+                    }
                     pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
                 }
             }

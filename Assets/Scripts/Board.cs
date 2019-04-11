@@ -62,6 +62,7 @@ public class Board : MonoBehaviour {
         m_CurrentState = GameState.STANDBY;
         //UpdateMoveScore();
         InitBoard();
+
     }
 
     private void Update()
@@ -141,6 +142,8 @@ public class Board : MonoBehaviour {
         if(pToIndex != pOriginIndex)
             yield return SwapRoutine(pOriginIndex, pToIndex);
 
+        yield return CheckChain(0);
+
         yield return RunSpecialActions();
 
         yield return RunIconsAnimations(0.3f);
@@ -166,7 +169,7 @@ public class Board : MonoBehaviour {
 
     #region Board Actions
 
-  
+
 
     void SwitchDirection(Vector2Int pOriginIndex, E_Direction pDirection, ref int tOriginMatchAmount, ref Vector2Int pToIndex, ref int tToMatchAmount)
     {
@@ -235,7 +238,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
+                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i,j]!=null)
                 {
               
                     VisualIcon tVisualIcon =  m_Icons[i, j].GetComponent<VisualIcon>();
@@ -329,7 +332,7 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
+                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i,j]!=null)
                 {
                     Destroy(m_Icons[i, j].gameObject);
                     m_Icons[i, j] = null;
@@ -380,18 +383,19 @@ public class Board : MonoBehaviour {
 
             if (IsSpecialIcon(tIconFrom) && IsSpecialIcon(tIconTo))
             {
-                tIconFrom.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
-                tIconTo.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                //tIconFrom.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                //tIconTo.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
 
                 Combo tCombo = IconManager.Instance.GetCombo(tIconFrom, tIconTo);
-
-                if(tCombo != null)
+                int w = 0;
+                if (tCombo != null)
                 {
                     List<Icon.Action> tBoardActions = tCombo.Actions;
                     if (tBoardActions != null)
                     {
                         int tX = pTo.x;
                         int tY = pTo.y;
+                        
 
                         for (int k = 0; k < tBoardActions.Count; k++)
                         {
@@ -404,7 +408,11 @@ public class Board : MonoBehaviour {
                         }
                     }
                 }
-
+                
+                Destroy(tIconFrom.gameObject);
+                tIconFrom = null;
+                Destroy(tIconTo.gameObject);
+                tIconTo = null;
                 tReSwap = false;
             }
 
@@ -413,6 +421,44 @@ public class Board : MonoBehaviour {
             {
                 SwapIcons(pTo, pFrom);
             }
+        }
+    }
+
+    private IEnumerator CheckChain(int a)
+    {
+        yield return new WaitForSeconds(0.2f);
+        yield return RunSpecialActions();
+        if (a!=1)
+        {
+            a = 1;
+            for (int i = 0; i < m_Icons.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_Icons.GetLength(1); j++)
+                {
+                    if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL)
+                    {
+
+                        if (m_Icons[i, j] != null)
+                        {
+                            List<Icon.Action> tBoardActions = m_Icons[i, j].Actions;
+                            if (tBoardActions != null)
+                            {
+                                for (int k = 0; k < tBoardActions.Count; k++)
+                                {
+                                    int tIndexAction = k;
+                                    m_BoardModifies.Add(delegate
+                                    {
+                                        BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
+                                        tBaseAction.Action(i, j, m_Icons);
+                                    });
+                                    a = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            CheckChain(a);
         }
     }
 
@@ -450,26 +496,28 @@ public class Board : MonoBehaviour {
         {
             Vector2Int tIndex = pIcons[i];
             BoardIcon tIcon = m_Icons[tIndex.x, tIndex.y];
-
-            if (tIcon.StateIcon != BoardIcon.E_State.CANT_DESTROY)
+            if(tIcon !=null)
             {
-                List<Icon.Action> tBoardActions = tIcon.Actions;
-                if (tBoardActions != null)
+                if (tIcon.StateIcon != BoardIcon.E_State.CANT_DESTROY)
                 {
-                    int tX = tIndex.x;
-                    int tY = tIndex.y;
-                    
-                    for (int k = 0; k < tBoardActions.Count; k++)
+                    List<Icon.Action> tBoardActions = tIcon.Actions;
+                    if (tBoardActions != null)
                     {
-                        int tIndexAction = k;
-                        m_BoardModifies.Add(delegate
+                        int tX = tIndex.x;
+                        int tY = tIndex.y;
+
+                        for (int k = 0; k < tBoardActions.Count; k++)
                         {
-                            BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
-                            tBaseAction.Action(tX, tY, m_Icons);
-                        });
+                            int tIndexAction = k;
+                            m_BoardModifies.Add(delegate
+                            {
+                                BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
+                                tBaseAction.Action(tX, tY, m_Icons);
+                            });
+                        }
                     }
+                    tIcon.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
                 }
-                tIcon.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
             }
         }
     }

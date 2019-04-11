@@ -40,6 +40,11 @@ public class ActionDrawer {
 
                 tDestroyBlockDrawer.Draw(ref pBaseAction);
                 break;
+            case BaseAction.ACTION_TYPE.TRANSFORM_INTO_SPECIAL:
+                TransformIntoSpecialDrawer tTransformIntoSpecialDrawer = new TransformIntoSpecialDrawer();
+
+                tTransformIntoSpecialDrawer.Draw(ref pBaseAction);
+                break;
         }
     }
 }

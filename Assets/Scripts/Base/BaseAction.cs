@@ -11,16 +11,18 @@ public class BaseAction : IBoardAction{
         DESTROY_BLOCK,
         DESTROY_BY_TYPE,
         DESTROY_ALL_BOARD,
-        DESTROY_DIAGONAL
+        DESTROY_DIAGONAL,
+        TRANSFORM_INTO_SPECIAL
     }
 
     public BaseAction()
     {
     }
 
-    public BaseAction(string targetTag, int multiplier, Vector2Int nxN)
+    public BaseAction(string targetTag,string tagToTransformTo, int multiplier, Vector2Int nxN)
     {
         TargetTag = targetTag;
+        TagToTransformTo = tagToTransformTo;
         Multiplier = multiplier;
         NxN = nxN;
     }
@@ -39,6 +41,8 @@ public class BaseAction : IBoardAction{
                 return new DestroyCross();
             case ACTION_TYPE.DESTROY_DIAGONAL:
                 return new DestroyDiagonal();
+            case ACTION_TYPE.TRANSFORM_INTO_SPECIAL:
+                return new TransformIntoSpecial();
         }
         return new BaseAction();
     }
@@ -54,9 +58,11 @@ public class BaseAction : IBoardAction{
             case ACTION_TYPE.DESTROY_ALL_BOARD:
                 return new DestroyAllBoard();
             case ACTION_TYPE.DESTROY_CROSS:
-                return new DestroyCross();
+                return new DestroyCross(pBaseAction.m_NxN);
             case ACTION_TYPE.DESTROY_DIAGONAL:
                 return new DestroyDiagonal();
+            case ACTION_TYPE.TRANSFORM_INTO_SPECIAL:
+                return new TransformIntoSpecial(pBaseAction.m_TargetTag,pBaseAction.m_TagToTransformTo);
         }
         return new BaseAction();
     }
@@ -82,6 +88,10 @@ public class BaseAction : IBoardAction{
     [SerializeField]
     protected Vector2Int m_NxN;
 
+    [HideInInspector]
+    [SerializeField]
+    protected string m_TagToTransformTo;
+
     #endregion
 
     #region Public Methods
@@ -96,6 +106,19 @@ public class BaseAction : IBoardAction{
         set
         {
             m_TargetTag = value;
+        }
+    }
+
+    public virtual string TagToTransformTo
+    {
+        get
+        {
+            return m_TagToTransformTo;
+        }
+
+        set
+        {
+            m_TagToTransformTo = value;
         }
     }
 

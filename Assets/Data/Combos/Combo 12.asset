@@ -9,15 +9,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69570dbecbbe29c4689d8c1511e95d9d, type: 3}
-  m_Name: Combo 1
+  m_Name: Combo 12
   m_EditorClassIdentifier: 
   m_Actions:
-  - m_Type: 3
+  - m_Type: 5
     m_Action:
-      m_TargetTag: 
+      m_TargetTag: RedPotion
+      m_Multiplier: 0
+      m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 6Bomb
+  - m_Type: 2
+    m_Action:
+      m_TargetTag: 6Bomb
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
       m_TagToTransformTo: 
-  m_Icon1: {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
-  m_Icon2: {fileID: 11400000, guid: 5a30630e3600b17419bf9a8a893dbabb, type: 2}
+  m_Icon1: {fileID: 11400000, guid: 5ec77fc55396b014f9f3e11ed3739349, type: 2}
+  m_Icon2: {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
   m_ActionsPowerUp: []
