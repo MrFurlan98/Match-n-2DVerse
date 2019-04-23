@@ -18,7 +18,7 @@ public class DestroyBlock : BaseAction {
         {
             if(!(i<0) && i<pIcons.GetLength(0))
             {
-                for (int j = pOriginY - (NxN.y / 2); j <= pOriginY + (NxN.y / 2); j++)
+                for (int j = pOriginY - tNxN.y; j <= pOriginY + tNxN.y; j++)
                 {
                     if (!(j < 0) && j < pIcons.GetLength(1))
                     {

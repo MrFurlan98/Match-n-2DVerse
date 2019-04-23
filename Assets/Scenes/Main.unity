@@ -549,6 +549,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2627da8df66f99b459878090a00e1587, type: 2}
   - {fileID: 11400000, guid: 2f275b50ea82c7a4585e6b9e93a93a22, type: 2}
   - {fileID: 11400000, guid: 19e4c71ccc8b2724e9db295c8de6bd32, type: 2}
+  - {fileID: 11400000, guid: 3c9ef5bf81279e84b91c50bc3d3439a6, type: 2}
+  - {fileID: 11400000, guid: 74b412becf2e3aa41985cbd94e25765a, type: 2}
+  - {fileID: 11400000, guid: c2504dcb157c78b49ad24c298d7ed8c5, type: 2}
+  - {fileID: 11400000, guid: 3ae9580503355aa4aaf458b958afb2b8, type: 2}
   m_BoardRoot: {fileID: 707063989}
 --- !u!1001 &1194057956
 Prefab:

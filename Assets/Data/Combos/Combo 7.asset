@@ -16,12 +16,14 @@ MonoBehaviour:
     m_Action:
       m_TargetTag: 
       m_Multiplier: 0
-      m_NxN: {x: 0, y: 0}
+      m_NxN: {x: 1, y: 1}
+      m_TagToTransformTo: 
   - m_Type: 4
     m_Action:
       m_TargetTag: 
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 
   m_Icon1: {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
   m_Icon2: {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
   m_ActionsPowerUp: []

@@ -58,10 +58,10 @@ public class Board : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        m_Icons = new BoardIcon[m_Width, m_Heigth];
+        m_Icons = new BoardIcon[Width, Heigth];
         m_CurrentState = GameState.STANDBY;
         //UpdateMoveScore();
-        InitBoard();
+        //InitBoard();
 
     }
 
@@ -69,27 +69,17 @@ public class Board : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            for (int i = 0; i < m_Icons.GetLength(0); i++)
-            {
-                for (int j = 0; j < m_Icons.GetLength(1); j++)
-                {
-                    if(m_Icons[i, j] != null)
-                        Destroy(m_Icons[i, j].gameObject);
-                    m_Icons[i, j] = null;
-                    
-                }
-            }
-            Start();
+           
         }
 
         if (m_CurrentState == GameState.RUNNING)
             return;
 
-        if (OnMouseDown())
+        if (OnMouseDown() && !IsOverUI())
         {
             m_InitPosition = MousePosition();
         }
-        if (OnMouseUp())
+        if (OnMouseUp() && !IsOverUI())
         {
             Vector2 tEndPosi = MousePosition();
 
@@ -108,12 +98,24 @@ public class Board : MonoBehaviour {
         }
 
     }
-
-    private void InitBoard()
+    public void ClearBoard()
     {
-        for (int i = 0; i < m_Width; i++)
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
-            for (int j = 0; j < m_Heigth; j++)
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if (m_Icons[i, j] != null)
+                    Destroy(m_Icons[i, j].gameObject);
+                m_Icons[i, j] = null;
+
+            }
+        }
+    }
+    public void InitBoard()
+    {
+        for (int i = 0; i < Width; i++)
+        {
+            for (int j = 0; j < Heigth; j++)
             {
                 BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j);
 
@@ -165,6 +167,7 @@ public class Board : MonoBehaviour {
         m_InitPosition = -Vector2.one;
 
         m_CurrentState = GameState.STANDBY;
+
     }
 
     #region Board Actions
@@ -298,7 +301,7 @@ public class Board : MonoBehaviour {
     {
         int tDropCount = 0;
 
-        for (int i = pY; i < m_Heigth - 1; i++)
+        for (int i = pY; i < Heigth - 1; i++)
         {
             if (m_Icons[pX, i] == null)
                 tDropCount++;
@@ -307,7 +310,7 @@ public class Board : MonoBehaviour {
             
         }
 
-        for (int i = pY; i < m_Heigth - tDropCount; i++)
+        for (int i = pY; i < Heigth - tDropCount; i++)
         {
 
             int tAboveIndex = i + tDropCount;
@@ -328,24 +331,30 @@ public class Board : MonoBehaviour {
 
     void DestroyIcons()
     {
+        bool validMove = false;
         for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
                 if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i,j]!=null)
                 {
+                    validMove = true;
+                    ScoreManager.Instance.AddPoint(1);
                     Destroy(m_Icons[i, j].gameObject);
                     m_Icons[i, j] = null;
                 }
             }
         }
+        if (validMove)
+            ScoreManager.Instance.MovesLeft -= 1;
+
     }
 
     private void RefillBoard()
     {
-        for (int i = 0; i < m_Width; i++)
+        for (int i = 0; i < Width; i++)
         {
-            for (int j = 0; j < m_Heigth; j++)
+            for (int j = 0; j < Heigth; j++)
             {
                 if (m_Icons[i, j] == null)
                 {
@@ -387,7 +396,6 @@ public class Board : MonoBehaviour {
                 //tIconTo.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
 
                 Combo tCombo = IconManager.Instance.GetCombo(tIconFrom, tIconTo);
-                int w = 0;
                 if (tCombo != null)
                 {
                     List<Icon.Action> tBoardActions = tCombo.Actions;
@@ -515,8 +523,16 @@ public class Board : MonoBehaviour {
                                 tBaseAction.Action(tX, tY, m_Icons);
                             });
                         }
+                    } 
+                    if(tIcon.Type == BoardIcon.E_Type.SPECIAL)
+                    {
+                        Destroy(tIcon.gameObject);
+                        tIcon = null;
                     }
-                    tIcon.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    else
+                    {
+                        tIcon.StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    }
                 }
             }
         }
@@ -562,7 +578,7 @@ public class Board : MonoBehaviour {
 
     bool IsOverUI()
     {
-        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() || UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
     }
 
     bool OnMouseDown()
@@ -625,7 +641,7 @@ public class Board : MonoBehaviour {
 
     bool IsInBoardRange(int pX, int pY)
     {
-        return pX >= 0 && pX < m_Width && pY >= 0 && pY < m_Heigth;
+        return pX >= 0 && pX < Width && pY >= 0 && pY < Heigth;
     }
 
     bool IsAMatch(List<Vector2Int> pIcons)
@@ -679,6 +695,32 @@ public class Board : MonoBehaviour {
         set
         {
             m_OffSet = value;
+        }
+    }
+
+    public int Heigth
+    {
+        get
+        {
+            return m_Heigth;
+        }
+
+        set
+        {
+            m_Heigth = value;
+        }
+    }
+
+    public int Width
+    {
+        get
+        {
+            return m_Width;
+        }
+
+        set
+        {
+            m_Width = value;
         }
     }
 

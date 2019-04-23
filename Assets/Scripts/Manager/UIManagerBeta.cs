@@ -16,7 +16,8 @@ public class UIManagerBeta : MonoBehaviour
         CHANGEVORTEXMAP = 6,
         PERFIL = 7,
         PLAYB = 8,
-        MENUROADB=9
+        MENUROADB=9,
+        GAMEPLAY = 10
 
     }
 

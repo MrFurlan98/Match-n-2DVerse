@@ -10,7 +10,7 @@ public class ConfigMenuUI : MonoBehaviour {
 
     private void Start()
     {
-        m_ExitButton.onClick = new Button.ButtonClickedEvent();
+        m_ExitButton.onClick.RemoveAllListeners();
         m_ExitButton.onClick.AddListener(
             delegate {
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.CONFIGURATIONS);

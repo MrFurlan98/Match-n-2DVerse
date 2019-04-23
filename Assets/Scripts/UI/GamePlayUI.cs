@@ -22,15 +22,36 @@ public class GamePlayUI : MonoBehaviour {
     [SerializeField]
     private MonsterAnimation m_pMonsterAnimation;
 
+    bool hasFinished = false;
+
+    private void OnEnable()
+    {
+        hasFinished = false;
+    }
+
     private void Start()
     {
         UpdateMenuButton();
     }
 
+    private void Update()
+    {
+      
+        m_tScore.text =  ScoreManager.Instance.Points.ToString();
+
+        m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
+        if (!hasFinished && ScoreManager.Instance.MovesLeft <= 0)
+        {
+            hasFinished = true;
+            PopUpUI.Instance.OpenPopUp("Fim de jogo", ScoreManager.Instance.Points >= ScoreManager.Instance.GoalPoints ? "Voce ganhou" : "Voce perdeu", GamePlayUI.BackMenu);
+        }
+
+
+    }
     private void UpdateMenuButton()
     {
         m_bPause.onClick = new Button.ButtonClickedEvent();
-        m_bPause.onClick.AddListener(SelectPauseButton);
+        m_bPause.onClick.AddListener(BackMenu);
     }
 
     private void SelectPauseButton()
@@ -75,6 +96,11 @@ public class GamePlayUI : MonoBehaviour {
         m_pMonsterAnimation.TryReviveMonster(true);
     }
 
-
+    public static void BackMenu()
+    {
+        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
+        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.GAMEPLAY);
+ 
+    }
 
 }
