@@ -1452,7 +1452,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 4000}
+  m_SizeDelta: {x: 280, y: 4000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &322383801
 MonoBehaviour:
@@ -6371,7 +6371,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 4000}
+  m_SizeDelta: {x: 280, y: 4000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1253672882
 MonoBehaviour:
@@ -7948,8 +7948,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExitButton: {fileID: 1890741786}
+  m_HeadButton: {fileID: 0}
+  m_BodyButton: {fileID: 0}
+  m_ArmButton: {fileID: 0}
+  m_LegsButton: {fileID: 0}
   m_RButton: {fileID: 681003525}
   m_LButton: {fileID: 1267795523}
+  m_ConfirmPartButton: {fileID: 0}
+  headsParts: []
+  legsParts: []
+  armsParts: []
+  bodyParts: []
+  partUsing: []
+  bodyPart: {fileID: 0}
 --- !u!1 &1607798640
 GameObject:
   m_ObjectHideFlags: 0
@@ -10448,7 +10459,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 4000}
+  m_SizeDelta: {x: 280, y: 4000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2004852636
 MonoBehaviour:
@@ -10904,7 +10915,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 74b412becf2e3aa41985cbd94e25765a, type: 2}
   - {fileID: 11400000, guid: c2504dcb157c78b49ad24c298d7ed8c5, type: 2}
   - {fileID: 11400000, guid: 3ae9580503355aa4aaf458b958afb2b8, type: 2}
-  - {fileID: 11400000, guid: 5f4673dfec71ef143a2fc40cfc2a650c, type: 2}
+  - {fileID: 0}
   m_BoardRoot: {fileID: 0}
 --- !u!114 &2125419652
 MonoBehaviour:
