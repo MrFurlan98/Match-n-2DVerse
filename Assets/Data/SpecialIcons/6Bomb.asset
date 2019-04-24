@@ -19,5 +19,13 @@ MonoBehaviour:
       m_TargetTag: 
       m_Multiplier: 0
       m_NxN: {x: 3, y: 3}
+      m_TagToTransformTo: 
   m_MatchValueToGenerate: 6
   m_GeneratesTag: ALL
+  m_ActionsPowerUp:
+  - m_Type: 1
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 5, y: 5}
+      m_TagToTransformTo: 

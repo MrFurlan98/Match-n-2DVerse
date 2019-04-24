@@ -57,9 +57,25 @@ public class IconEditor : EditorWindow{
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginVertical(GUILayout.Height(200));
 
-       
-        
+        SpecialIcon tSpecialIcon = (SpecialIcon)tIcon;
+
+        if (tIcon.GetType() == typeof(SpecialIcon))
+                    DrawAddPowerUp(ref tIcon);
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        if (tIcon.GetType() == typeof(SpecialIcon))
+            DrawPowerUp(ref tIcon);
+
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndVertical();
+
+
 
     }
 
@@ -175,6 +191,64 @@ public class IconEditor : EditorWindow{
     {
 
         Icon.Action tAction = pIcon.Actions[pIndex];
+
+        BaseAction tBaseAction = null;
+        if (tAction.ActionToRun == null)
+        {
+            tBaseAction = BaseAction.GetActionObject(tAction.Type);
+        }
+        else
+        {
+            tBaseAction = tAction.ActionToRun;
+        }
+        ActionDrawer.DrawTypeList(ref tBaseAction, tAction.m_Type);
+    }
+    void DrawPowerUp(ref Icon pIcon)
+    {
+        if (pIcon.Actions == null)
+            return;
+        SpecialIcon tSpecialIcon = (SpecialIcon)pIcon;
+        EditorGUILayout.BeginVertical("Box", GUILayout.Width(440));
+        m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
+        for (int i = 0; i < tSpecialIcon.ActionsPowerUp.Count; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            CustomDrawer2(ref tSpecialIcon, i);
+            if (GUILayout.Button("X", GUILayout.Width(20)))
+            {
+                tSpecialIcon.ActionsPowerUp.RemoveAt(i);
+
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
+
+    }
+    void DrawAddPowerUp(ref Icon pIcon)
+    {
+        SpecialIcon tSpecialIcon = (SpecialIcon)pIcon;
+        EditorGUILayout.BeginHorizontal();
+
+        m_CurrentActionType = (BaseAction.ACTION_TYPE)EditorGUILayout.EnumPopup(m_CurrentActionType);
+
+        if (GUILayout.Button("Add Power Up"))
+        {
+            if (tSpecialIcon.ActionsPowerUp == null)
+                tSpecialIcon.ActionsPowerUp = new List<Icon.Action>();
+            Icon.Action tAction = new Icon.Action();
+            tAction.Type = m_CurrentActionType;
+            tAction.m_Action = BaseAction.GetActionObject(tAction.Type);
+            tSpecialIcon.ActionsPowerUp.Add(tAction);
+        }
+
+        EditorGUILayout.EndHorizontal();
+    }
+    void CustomDrawer2(ref SpecialIcon pCombo, int pIndex)
+    {
+
+        Icon.Action tAction = pCombo.ActionsPowerUp[pIndex];
 
         BaseAction tBaseAction = null;
         if (tAction.ActionToRun == null)

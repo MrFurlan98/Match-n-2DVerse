@@ -20,8 +20,11 @@ public class DestroyCross : BaseAction {
             {
                 if (!(i < 0) && i < pIcons.GetLength(0))
                 {
-                    if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j] != null)
-                        pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    if(pIcons[i,j]!=null)
+                    {
+                        if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j] != null)
+                            pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    }
                 }
             }
         }
@@ -31,8 +34,11 @@ public class DestroyCross : BaseAction {
             {
                 if (!(j < 0) && j < pIcons.GetLength(1))
                 {
-                    if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j] != null)
-                        pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    if (pIcons[i, j] != null)
+                    {
+                        if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j] != null)
+                            pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    }
                 }
             }
         }

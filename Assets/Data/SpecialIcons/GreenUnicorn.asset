@@ -19,5 +19,13 @@ MonoBehaviour:
       m_TargetTag: GreenPotion
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 
   m_MatchValueToGenerate: 8
   m_GeneratesTag: GreenPotion
+  m_ActionsPowerUp:
+  - m_Type: 3
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 

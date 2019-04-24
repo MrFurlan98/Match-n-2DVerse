@@ -22,3 +22,16 @@ MonoBehaviour:
       m_TagToTransformTo: 
   m_MatchValueToGenerate: 7
   m_GeneratesTag: ALL
+  m_ActionsPowerUp:
+  - m_Type: 0
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 1, y: 1}
+      m_TagToTransformTo: 
+  - m_Type: 4
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 

@@ -18,9 +18,12 @@ public class DestroyByTag : BaseAction
         {
             for (int j = 0; j < pIcons.GetLength(1); j++)
             {
-                if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+                if(pIcons[i,j]!=null)
                 {
-                    pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+                    {
+                        pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+                    }
                 }
             }
         }

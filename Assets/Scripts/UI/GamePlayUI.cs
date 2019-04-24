@@ -48,6 +48,18 @@ public class GamePlayUI : MonoBehaviour {
 
 
     }
+    public void Switch()
+    {
+        StopAllCoroutines();
+        StartCoroutine(GameManager.Instance.PBoard.SwitchIcons());
+        
+    }
+    public void Upgrade()
+    {
+        StopAllCoroutines();
+        StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+
+    }
     private void UpdateMenuButton()
     {
         m_bPause.onClick = new Button.ButtonClickedEvent();

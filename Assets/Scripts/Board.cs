@@ -170,6 +170,101 @@ public class Board : MonoBehaviour {
 
     }
 
+    public IEnumerator SwitchIcons()
+    {
+        m_CurrentState = GameState.RUNNING;
+        Vector2 tPosition;
+        Vector2Int firstIcon = Vector2Int.zero;
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                firstIcon = FindIcon(tPosition);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+            }
+            return false;
+        });
+        Debug.Log("First");
+        yield return new WaitForEndOfFrame();
+        Vector2Int secondIcon = Vector2Int.zero;
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                secondIcon = FindIcon(tPosition);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+            }
+            return false;
+        });
+        Debug.Log("Segundo");
+        // trocar as pecas
+        SwapIcons(firstIcon, secondIcon);
+        m_CurrentState = GameState.STANDBY;
+    }
+
+    public IEnumerator PowerUp()
+    {
+        m_CurrentState = GameState.RUNNING;
+        Vector2 tPosition;
+        Vector2Int firstIcon = Vector2Int.zero;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                firstIcon = FindIcon(tPosition);
+              
+                if(m_Icons[firstIcon.x,firstIcon.y].Type == BoardIcon.E_Type.SPECIAL)
+                {
+                    SpecialIcon tCombo = IconManager.Instance.GetSpecialIcon((m_Icons[firstIcon.x, firstIcon.y]));
+                    if (tCombo != null)
+                    {
+                        List<SpecialIcon.Action> tBoardActions = tCombo.ActionsPowerUp;
+                        if (tBoardActions != null)
+                        {
+                            for (int k = 0; k < tBoardActions.Count; k++)
+                            {
+                                int tIndexAction = k;
+                                m_BoardModifies.Add(delegate
+                                {
+                                    BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
+                                    tBaseAction.Action(firstIcon.x, firstIcon.y, m_Icons);
+                                });
+                            }
+                        }
+                    }
+
+                    Destroy(m_Icons[firstIcon.x, firstIcon.y].gameObject);
+                    m_Icons[firstIcon.x, firstIcon.y] = null;
+                }
+                return true;
+            }
+            return false;
+        });
+        yield return CheckChain(0);
+
+        yield return RunSpecialActions();
+
+        yield return RunIconsAnimations(0.3f);
+
+        // second state resolve tags 
+        // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
+        DestroyIcons();
+
+        // the last state is refill board 
+        DropCollumns();
+
+        // add time to collumn drop
+        yield return new WaitForSeconds(m_RefillDelay);
+
+        RefillBoard();
+
+        m_InitPosition = -Vector2.one;
+        m_CurrentState = GameState.STANDBY;
+    }
     #region Board Actions
 
 
@@ -241,12 +336,15 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i,j]!=null)
+                if(m_Icons[i,j]!=null)
                 {
-              
-                    VisualIcon tVisualIcon =  m_Icons[i, j].GetComponent<VisualIcon>();
-                    if (tVisualIcon != null)
-                        tVisualIcon.ExplodeIcon();
+                    if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i, j] != null)
+                    {
+
+                        VisualIcon tVisualIcon = m_Icons[i, j].GetComponent<VisualIcon>();
+                        if (tVisualIcon != null)
+                            tVisualIcon.ExplodeIcon();
+                    }
                 }
             }
         }
@@ -336,12 +434,15 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
             {
-                if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i,j]!=null)
+                if(m_Icons[i, j] != null)
                 {
-                    validMove = true;
-                    ScoreManager.Instance.AddPoint(1);
-                    Destroy(m_Icons[i, j].gameObject);
-                    m_Icons[i, j] = null;
+                    if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
+                    {
+                        validMove = true;
+                        ScoreManager.Instance.AddPoint(1);
+                        Destroy(m_Icons[i, j].gameObject);
+                        m_Icons[i, j] = null;
+                    }
                 }
             }
         }
@@ -443,10 +544,9 @@ public class Board : MonoBehaviour {
             {
                 for (int j = 0; j < m_Icons.GetLength(1); j++)
                 {
-                    if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL)
+                    if (m_Icons[i, j] != null)
                     {
-
-                        if (m_Icons[i, j] != null)
+                        if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL)
                         {
                             List<Icon.Action> tBoardActions = m_Icons[i, j].Actions;
                             if (tBoardActions != null)

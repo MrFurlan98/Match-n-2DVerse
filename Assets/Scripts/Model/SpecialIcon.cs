@@ -12,6 +12,10 @@ public class SpecialIcon : Icon {
     [SerializeField]
     private string m_GeneratesTag;
 
+    [HideInInspector]
+    [SerializeField]
+    private List<Icon.Action> m_ActionsPowerUp = new List<Icon.Action>();
+
     public int MatchValueToGenerate
     {
         get
@@ -35,6 +39,19 @@ public class SpecialIcon : Icon {
         set
         {
             m_GeneratesTag = value;
+        }
+    }
+
+    public List<Action> ActionsPowerUp
+    {
+        get
+        {
+            return m_ActionsPowerUp;
+        }
+
+        set
+        {
+            m_ActionsPowerUp = value;
         }
     }
 }

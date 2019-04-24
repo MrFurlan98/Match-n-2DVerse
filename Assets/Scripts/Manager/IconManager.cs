@@ -138,6 +138,17 @@ public class IconManager : MonoBehaviour {
         return null;
     }
 
+    public SpecialIcon GetSpecialIcon(BoardIcon pIcon)
+    {
+        for (int i = 0; i < m_SpecialIcons.Count; i++)
+        {
+            if (pIcon.STag == m_SpecialIcons[i].Tag)
+            {
+                return m_SpecialIcons[i];
+            }
+        }
+        return null;
+    }
     public Combo GetCombo(BoardIcon pIcon1, BoardIcon pIcon2)
     {
         for (int i = 0; i < m_Combos.Count; i++)
