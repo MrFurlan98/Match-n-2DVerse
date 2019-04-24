@@ -176,6 +176,7 @@ public class Board : MonoBehaviour {
         m_CurrentState = GameState.RUNNING;
         Vector2 tPosition;
         Vector2Int firstIcon = Vector2Int.zero;
+        yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() =>
         {
             if (OnMouseUp())
@@ -755,7 +756,8 @@ public class Board : MonoBehaviour {
 
     bool IsSpecialIcon(BoardIcon pIcon)
     {
-        return pIcon.Type == BoardIcon.E_Type.SPECIAL;
+        
+        return pIcon!=null && pIcon.Type == BoardIcon.E_Type.SPECIAL;
     }
 
 
