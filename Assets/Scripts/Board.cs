@@ -127,6 +127,7 @@ public class Board : MonoBehaviour {
                 m_Icons[i, j] = tIconItem;
             }
         }
+        m_CurrentState = GameState.STANDBY;
     }
 
     private IEnumerator BoardRunning(Vector2Int pOriginIndex, E_Direction pDirection)
@@ -175,6 +176,7 @@ public class Board : MonoBehaviour {
         m_CurrentState = GameState.RUNNING;
         Vector2 tPosition;
         Vector2Int firstIcon = Vector2Int.zero;
+        yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() =>
         {
             if (OnMouseUp())
@@ -655,21 +657,24 @@ public class Board : MonoBehaviour {
 
         BoardIcon tIcon = m_Icons[pX, pY];
 
-        for (int i = pX - 1; i <= pX + 1; i++)
+        if (tIcon != null)
         {
-            if(IsInBoardRange(i, pY) && i != pX && m_Icons[ i, pY].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(i, pY)))
+            for (int i = pX - 1; i <= pX + 1; i++)
             {
-                GetRegionIcons(i, pY, ref pIcons) ;
-            
-            }
-        }
+                if (IsInBoardRange(i, pY) && i != pX && m_Icons[i, pY].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(i, pY)))
+                {
+                    GetRegionIcons(i, pY, ref pIcons);
 
-        for (int j = pY - 1; j <= pY + 1; j++)
-        {
-            if (IsInBoardRange(pX, j) && j != pY  && m_Icons[pX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(pX, j)))
+                }
+            }
+
+            for (int j = pY - 1; j <= pY + 1; j++)
             {
-                
-                GetRegionIcons(pX, j, ref pIcons);
+                if (IsInBoardRange(pX, j) && j != pY && m_Icons[pX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(pX, j)))
+                {
+
+                    GetRegionIcons(pX, j, ref pIcons);
+                }
             }
         }
 
@@ -751,7 +756,8 @@ public class Board : MonoBehaviour {
 
     bool IsSpecialIcon(BoardIcon pIcon)
     {
-        return pIcon.Type == BoardIcon.E_Type.SPECIAL;
+        
+        return pIcon!=null && pIcon.Type == BoardIcon.E_Type.SPECIAL;
     }
 
 
