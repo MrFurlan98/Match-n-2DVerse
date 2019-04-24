@@ -17,6 +17,9 @@ public class GamePlayUI : MonoBehaviour {
     private Text m_tMoves;
 
     [SerializeField]
+    private Text m_ObjectivePoint;
+
+    [SerializeField]
     private Board m_pBoard;
 
     [SerializeField]
@@ -40,6 +43,9 @@ public class GamePlayUI : MonoBehaviour {
         m_tScore.text =  ScoreManager.Instance.Points.ToString();
 
         m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
+
+        m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
+
         if (!hasFinished && ScoreManager.Instance.MovesLeft <= 0)
         {
             hasFinished = true;

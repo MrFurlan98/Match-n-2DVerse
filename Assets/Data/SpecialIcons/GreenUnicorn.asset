@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
   m_Name: GreenUnicorn
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300000, guid: 6116b6af4c7aaca438be26b49ff00e11, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: 42e1e0aa8ef0b9e4090e8644ac250c3f, type: 3}
   m_Tag: GreenUnicorn
   m_Actions:
   - m_Type: 2

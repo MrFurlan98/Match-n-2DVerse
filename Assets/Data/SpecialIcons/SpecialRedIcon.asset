@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
   m_Name: SpecialRedIcon
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300000, guid: e5d97bb74f2acb24fa835e551c4c93f6, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: c3a14a32c01b0264c8054e6e7f818cce, type: 3}
   m_Tag: RedUnicorn
   m_Actions:
   - m_Type: 2

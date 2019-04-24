@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd00f984c248194384c495a5b38c5d5, type: 3}
   m_Name: RedIcon
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300002, guid: a9234cfc98ed010469fe35db92916cda, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: 32747c8d1ee2f06419848dd5648c76d9, type: 3}
   m_Tag: RedPotion
   m_Actions: []

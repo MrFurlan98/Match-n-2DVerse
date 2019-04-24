@@ -50,6 +50,7 @@ public class VortexMap1UI : MonoBehaviour
             delegate {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
             });
 
         m_ChangeVortexMapButton.onClick = new Button.ButtonClickedEvent();

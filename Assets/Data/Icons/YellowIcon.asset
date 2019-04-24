@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd00f984c248194384c495a5b38c5d5, type: 3}
   m_Name: YellowIcon
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300000, guid: a9234cfc98ed010469fe35db92916cda, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: d414a762c85bcc94c9a1189d34bc8e9f, type: 3}
   m_Tag: YellowPotion
   m_Actions: []

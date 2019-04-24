@@ -678,7 +678,7 @@ public class Board : MonoBehaviour {
 
     bool IsOverUI()
     {
-        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() || UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
     }
 
     bool OnMouseDown()

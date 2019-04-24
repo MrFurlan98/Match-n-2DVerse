@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
   m_Name: YellowUnicorn
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300000, guid: 39c87dc521077da4186d6a372da5fec7, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: a2383fcf720ac3049b4b3760e7996a88, type: 3}
   m_Tag: YellowUnicorn
   m_Actions:
   - m_Type: 2

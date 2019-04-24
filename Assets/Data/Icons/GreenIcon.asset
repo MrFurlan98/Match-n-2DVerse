@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd00f984c248194384c495a5b38c5d5, type: 3}
   m_Name: GreenIcon
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300006, guid: a9234cfc98ed010469fe35db92916cda, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: 53084f7709db08643905a340957d2ca7, type: 3}
   m_Tag: GreenPotion
   m_Actions: []
