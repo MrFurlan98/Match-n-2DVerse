@@ -8,6 +8,7 @@ public enum GameState
 {
     STANDBY,
     RUNNING,
+    WAITING,
     onMatch,
     finishMatch
 }
@@ -56,22 +57,24 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private int m_OffSet = 0;
 
-    // Use this for initialization
-    void Start() {
-        m_Icons = new BoardIcon[Width, Heigth];
-        m_CurrentState = GameState.STANDBY;
-        //UpdateMoveScore();
-        //InitBoard();
+    [SerializeField]
+    private float m_TimeToStart;
 
+    private void Start()
+    {
+        m_CurrentState = GameState.RUNNING;
+    }
+
+    IEnumerator StartDalay()
+    {
+        m_CurrentState = GameState.RUNNING;
+        yield return new WaitForSeconds(m_TimeToStart);
+        m_CurrentState = GameState.STANDBY;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           
-        }
-
+       
         if (m_CurrentState == GameState.RUNNING)
             return;
 
@@ -100,6 +103,11 @@ public class Board : MonoBehaviour {
     }
     public void ClearBoard()
     {
+        StopAllCoroutines();
+        StartCoroutine(StartDalay());
+
+        m_Icons = new BoardIcon[Width, Heigth];
+
         for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
             for (int j = 0; j < m_Icons.GetLength(1); j++)
