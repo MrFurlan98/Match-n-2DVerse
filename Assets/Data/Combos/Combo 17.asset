@@ -18,6 +18,6 @@ MonoBehaviour:
       m_Multiplier: 0
       m_NxN: {x: 3, y: 3}
       m_TagToTransformTo: 
-  m_Icon1: {fileID: 11400000, guid: 5ec77fc55396b014f9f3e11ed3739349, type: 2}
-  m_Icon2: {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
+  m_Icon1: {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
+  m_Icon2: {fileID: 11400000, guid: 5ec77fc55396b014f9f3e11ed3739349, type: 2}
   m_ActionsPowerUp: []
