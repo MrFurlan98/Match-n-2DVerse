@@ -60,16 +60,17 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private float m_TimeToStart;
 
-    private void Start()
-    {
-        m_CurrentState = GameState.RUNNING;
-    }
-
     IEnumerator StartDalay()
     {
         m_CurrentState = GameState.RUNNING;
         yield return new WaitForSeconds(m_TimeToStart);
         m_CurrentState = GameState.STANDBY;
+    }
+
+    private void Start()
+    {
+        m_CurrentState = GameState.RUNNING;
+        m_Icons = new BoardIcon[Width, Heigth];
     }
 
     private void Update()
@@ -103,10 +104,8 @@ public class Board : MonoBehaviour {
     }
     public void ClearBoard()
     {
-        StopAllCoroutines();
-        StartCoroutine(StartDalay());
-
-        m_Icons = new BoardIcon[Width, Heigth];
+        
+  
 
         for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
@@ -121,6 +120,9 @@ public class Board : MonoBehaviour {
     }
     public void InitBoard()
     {
+        StopAllCoroutines();
+        StartCoroutine(StartDalay());
+
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Heigth; j++)
