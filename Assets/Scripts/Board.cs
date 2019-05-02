@@ -571,6 +571,7 @@ public class Board : MonoBehaviour {
                                         BaseAction tBaseAction = BaseAction.GetActionObject(tBoardActions[tIndexAction].Type, tBoardActions[tIndexAction].ActionToRun);
                                         tBaseAction.Action(i, j, m_Icons);
                                     });
+                                    yield return RunSpecialActions();
                                     a = 0;
                                 }
                             }
