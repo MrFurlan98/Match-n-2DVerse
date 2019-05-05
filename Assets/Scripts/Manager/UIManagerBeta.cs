@@ -17,8 +17,8 @@ public class UIManagerBeta : MonoBehaviour
         PERFIL = 7,
         PLAYB = 8,
         MENUROADB=9,
-        GAMEPLAY = 10
-
+        GAMEPLAY = 10,
+        EDITPARTSGO=11
     }
 
     [System.Serializable]

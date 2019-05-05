@@ -15,6 +15,13 @@ public class PopUpUI : MonoBehaviour {
     private Text m_Message;
     [SerializeField]
     private Button m_Button;
+    [SerializeField]
+    private MobPart[] allParts;
+    PartsManager partsManager;
+    [SerializeField]
+    private Button m_rollNumberIndexPart;
+    [SerializeField]
+    private Image m_imgPart;
 
     public static PopUpUI Instance
     {
@@ -29,6 +36,8 @@ public class PopUpUI : MonoBehaviour {
         }
     }
 
+
+
     private void Awake()
     {
         Instance = this;
@@ -36,6 +45,9 @@ public class PopUpUI : MonoBehaviour {
 
     public void OpenPopUp(string pTitle, string pMessage, Action OnClickAction)
     {
+
+        partsManager = PartsManager.instance;
+
         m_Content.SetActive(true);
         m_Title.text = pTitle;
         m_Message.text = pMessage;
@@ -44,5 +56,44 @@ public class PopUpUI : MonoBehaviour {
             OnClickAction.Invoke();
             m_Content.SetActive(false);
         });
+
+        m_Button.onClick.AddListener(delegate () {
+            RollRandomNumber(); 
+        });
+    }
+
+    private void RollRandomNumber()
+    {
+        int number;
+        number = 2; // Random.Range(0, 3);
+        SendToList(number);
+        print("x");
+    }
+
+    public void SendToList(int indexArray)
+    {
+        if (allParts[indexArray].numberPart == 0)
+        {
+            partsManager.AddHead(allParts[indexArray]);
+            print("a");
+        }
+
+        if (allParts[indexArray].numberPart == 1)
+        {
+            partsManager.AddLeg(allParts[indexArray]);
+            print("b");
+        }
+
+        if (allParts[indexArray].numberPart == 2)
+        {
+            partsManager.AddArm(allParts[indexArray]);
+            print("c");
+        }
+
+        if (allParts[indexArray].numberPart == 3)
+        {
+            partsManager.AddBody(allParts[indexArray]);
+            print("d");
+        }
     }
 }
