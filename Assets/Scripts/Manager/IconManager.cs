@@ -16,6 +16,9 @@ public class IconManager : MonoBehaviour {
     private List<SpecialIcon> m_SpecialIcons;
 
     [SerializeField]
+    private BoostManager boostManager;
+
+    [SerializeField]
     private List<Combo> m_Combos;
 
     [SerializeField]
@@ -136,6 +139,11 @@ public class IconManager : MonoBehaviour {
             }
         }
         return null;
+    }
+    public string GetTagSuperIcon()
+    {
+        int i = UnityEngine.Random.Range(0, 4);
+        return m_SpecialIcons[i].Tag;
     }
 
     public SpecialIcon GetSpecialIcon(BoardIcon pIcon)

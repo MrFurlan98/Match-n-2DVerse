@@ -23,6 +23,15 @@ public class RoadMapUI : MonoBehaviour
     [SerializeField]
     private Button m_PlayButton;
 
+    [SerializeField]
+    private Button m_BoostCross;
+
+    [SerializeField]
+    private Button m_BoostExplosion;
+
+    [SerializeField]
+    private Button m_BoostSuper;
+
     private void Start()
     {
         m_ConfigButton.onClick = new Button.ButtonClickedEvent();
@@ -63,10 +72,29 @@ public class RoadMapUI : MonoBehaviour
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.MENUROADB);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.PLAYB);
             });
-
+        m_BoostCross.onClick = new Button.ButtonClickedEvent();
+        m_BoostCross.onClick.AddListener(
+            delegate
+            {
+                BoostManager.Instance.StarBoostEffect("7Bomb");
+            });
+        m_BoostExplosion.onClick = new Button.ButtonClickedEvent();
+        m_BoostExplosion.onClick.AddListener(
+            delegate
+            {
+                BoostManager.Instance.StarBoostEffect("6Bomb");
+            });
+        m_BoostSuper.onClick = new Button.ButtonClickedEvent();
+        m_BoostSuper.onClick.AddListener(
+            delegate
+            {
+                BoostManager.Instance.StarBoostEffect("Super");
+            });
     }
-
-
+    public void Update()
+    {
+        
+    }
 
 
     ///*
