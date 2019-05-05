@@ -9,9 +9,10 @@ public class BoostManager : MonoBehaviour {
     {
         Instance = this;
     }
-
     [SerializeField]
     private Board m_pBoard;
+
+    private BoardIcon[,] m_Icons;
 
     [SerializeField]
     private List<Boost> m_Boosts;
@@ -31,7 +32,10 @@ public class BoostManager : MonoBehaviour {
         {
             for (int i = 0; i < m_Boosts.Count; i++)
             {
-                TimeLimits[i] -= Time.deltaTime;
+                if(TimeLimits[i]>0)
+                {
+                    TimeLimits[i] -= Time.deltaTime;
+                }
             }
         }
 	}
@@ -40,25 +44,31 @@ public class BoostManager : MonoBehaviour {
     {
         for(int i=0;i<m_Boosts.Count;i++)
         {
-            if(Tag==m_Boosts[i].Tag)
+            if(m_Boosts[i]!=null)
             {
-                if(m_Boosts[i].Qtd>0)
+                if (Tag == m_Boosts[i].Tag)
                 {
-                    BaseEffect tBaseEffect = BaseEffect.GetEffectObject(m_Boosts[i].Effects[0].Type);
-                    tBaseEffect.Effect(m_pBoard);
-                    StartClock(m_Boosts[i],i);
+                    if (m_Boosts[i].Qtd > 0)
+                    {
+                        m_Boosts[i].IsInEffect = true;
+                        StartClock(i);
+                    }
                 }
-            }
+            }  
         }
     }
-    public void StartClock(Boost pBoost,int i)
+    public void StartClock(int i)
     {
-        TimeLimits[i] = pBoost.TimeLimit;
+        TimeLimits[i] = m_Boosts[i].TimeLimit;
     }
     public bool IsBoostOn()
     {
         for (int i = 0; i < m_Boosts.Count; i++)
         {
+            if(timeLimits[i]<=0)
+            {
+                m_Boosts[i].IsInEffect = false;
+            }
             if(m_Boosts[i].IsInEffect)
             {
                 return true;
@@ -68,11 +78,23 @@ public class BoostManager : MonoBehaviour {
     }
     public void ApplyEffects()
     {
-        for(int i =0;i<m_Boosts.Count;i++)
+        
+        for (int i =0;i<m_Boosts.Count;i++)
         {
             if (m_Boosts[i].IsInEffect)
             {
-                
+                if(m_Boosts[i].Effects!=null)
+                {
+                    List<Boost.Effect> tBoardEffects = m_Boosts[i].Effects;
+                    if (tBoardEffects != null)
+                    {
+                        for (int k = 0; k < tBoardEffects.Count; k++)
+                        {
+                            BaseEffect tBaseEffect = BaseEffect.GetEffectObject(tBoardEffects[k].Type, tBoardEffects[k].EffectToRun);
+                            tBaseEffect.Effect(m_pBoard);
+                        }
+                    }
+                }
             }
         }
     }

@@ -16,9 +16,6 @@ public class IconManager : MonoBehaviour {
     private List<SpecialIcon> m_SpecialIcons;
 
     [SerializeField]
-    private BoostManager boostManager;
-
-    [SerializeField]
     private List<Combo> m_Combos;
 
     [SerializeField]
@@ -82,6 +79,26 @@ public class IconManager : MonoBehaviour {
         tBoardIcon.SetBoardData(pIconData);
 
         return tBoardIcon;
+    }
+    public void TransformEffect(string tag,int heigth,int width,BoardIcon[,] tBoardIcons)
+    {
+        int i = 0, j = 0;
+        do
+        {
+            i = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
+            j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
+        } while (tBoardIcons[i, j].Type == BoardIcon.E_Type.SPECIAL);
+        if (tag == "Super")
+        {
+            tag = GetTagSuperIcon();
+        }
+        Icon tIcon = TransformIcon(i, j, tag);
+        if (tIcon != null)
+        {
+            tBoardIcons[i, j].SetBoardData(tIcon);
+            tBoardIcons[i, j].Type = BoardIcon.E_Type.SPECIAL;
+        }
+        
     }
 
     public Icon TransformIcon(int pX,int pY,string pTagToTransformTo)

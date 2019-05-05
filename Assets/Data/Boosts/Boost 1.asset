@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843a9ef8f2add3b4fa91f0faf1764e0f, type: 3}
   m_Name: Boost 1
   m_EditorClassIdentifier: 
-  qtd: 0
+  qtd: 1
   boostSprite: {fileID: 21300000, guid: b12cc44af865adf4ca531a8686bee79a, type: 3}
-  valueToBuy: 0
+  valueToBuy: 300
+  timeLimit: 10
   tag: 6Bomb
   effects:
   - type: 1
     m_Effect:
       m_TargetTag: 6Bomb
+  isInEffect: 0

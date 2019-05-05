@@ -13,6 +13,6 @@ public class BoostExplosion : BaseEffect {
     }
     public override void Effect(Board pBoard)
     {
-        pBoard.BoostExplosion = true;
+        IconManager.Instance.TransformEffect(TargetTag, pBoard.Heigth, pBoard.Width, pBoard.GetBoardIcons());
     }
 }

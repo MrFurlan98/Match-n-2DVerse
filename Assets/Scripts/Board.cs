@@ -61,14 +61,6 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private float m_TimeToStart;
 
-    [SerializeField]
-    private bool m_BoostCross;
-
-    [SerializeField]
-    private bool m_BoostExplosion;
-
-    [SerializeField]
-    private bool m_BoostSuper;
 
     IEnumerator StartDalay()
     {
@@ -112,6 +104,10 @@ public class Board : MonoBehaviour {
         }
 
     }
+    public BoardIcon[,] GetBoardIcons()
+    {
+        return m_Icons;
+    }
     public void ClearBoard()
     {
         
@@ -148,52 +144,9 @@ public class Board : MonoBehaviour {
                 m_Icons[i, j] = tIconItem;
             }
         }
-        if(IsBoostOn())
+        if (BoostManager.Instance.IsBoostOn())
         {
             BoostManager.Instance.ApplyEffects();
-            int i = -1, j = -1;
-            if (BoostCross == true)
-            {  
-                do
-                {
-                    i = UnityEngine.Random.Range(0, m_Icons.GetLength(0));
-                    j = UnityEngine.Random.Range(0, m_Icons.GetLength(1));
-                } while (m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL);
-                Icon tIcon = IconManager.Instance.TransformIcon(i, j, "7Bomb");
-                if (tIcon != null)
-                {
-                    m_Icons[i, j].SetBoardData(tIcon);
-                    m_Icons[i, j].Type = BoardIcon.E_Type.SPECIAL;
-                }
-            }
-            if (BoostExplosion == true)
-            {
-                do
-                {
-                    i = UnityEngine.Random.Range(0, m_Icons.GetLength(0));
-                    j = UnityEngine.Random.Range(0, m_Icons.GetLength(1));
-                } while (m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL);
-                Icon tIcon = IconManager.Instance.TransformIcon(i, j, "6Bomb");
-                if (tIcon != null)
-                {
-                    m_Icons[i, j].SetBoardData(tIcon);
-                    m_Icons[i, j].Type = BoardIcon.E_Type.SPECIAL;
-                }
-            }
-            if (BoostSuper == true)
-            {
-                do
-                {
-                    i = UnityEngine.Random.Range(0, m_Icons.GetLength(0));
-                    j = UnityEngine.Random.Range(0, m_Icons.GetLength(1));
-                } while (m_Icons[i, j].Type == BoardIcon.E_Type.SPECIAL);
-                Icon tIcon = IconManager.Instance.TransformIcon(i, j, IconManager.Instance.GetTagSuperIcon());
-                if (tIcon != null)
-                {
-                    m_Icons[i, j].SetBoardData(tIcon);
-                    m_Icons[i, j].Type = BoardIcon.E_Type.SPECIAL;
-                }
-            }
         }
         m_CurrentState = GameState.STANDBY;
     }
@@ -334,14 +287,6 @@ public class Board : MonoBehaviour {
 
         m_InitPosition = -Vector2.one;
         m_CurrentState = GameState.STANDBY;
-    }
-    public bool IsBoostOn()
-    {
-        if(BoostCross == true || BoostExplosion == true || BoostSuper==true)
-        {
-            return true;
-        }
-        return false;
     }
     #region Board Actions
 
@@ -904,45 +849,6 @@ public class Board : MonoBehaviour {
         set
         {
             m_Width = value;
-        }
-    }
-
-    public bool BoostCross
-    {
-        get
-        {
-            return m_BoostCross;
-        }
-
-        set
-        {
-            m_BoostCross = value;
-        }
-    }
-
-    public bool BoostExplosion
-    {
-        get
-        {
-            return m_BoostExplosion;
-        }
-
-        set
-        {
-            m_BoostExplosion = value;
-        }
-    }
-
-    public bool BoostSuper
-    {
-        get
-        {
-            return m_BoostSuper;
-        }
-
-        set
-        {
-            m_BoostSuper = value;
         }
     }
 

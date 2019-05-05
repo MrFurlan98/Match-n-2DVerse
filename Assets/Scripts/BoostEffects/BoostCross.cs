@@ -13,6 +13,6 @@ public class BoostCross : BaseEffect {
     }
     public override void Effect(Board pBoard)
     {
-        pBoard.BoostCross = true;
+        IconManager.Instance.TransformEffect(TargetTag, pBoard.Heigth, pBoard.Width, pBoard.GetBoardIcons());
     }
 }
