@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1e41be199ad7bc4387d268cbbdc1072, type: 3}
-  m_Name: Arm3
+  m_Name: 0PinkHead
   m_EditorClassIdentifier: 
-  imagePart: {fileID: 21300000, guid: e7f2b2d553ba93e43b77f3775107f1c6, type: 3}
+  memberSprite: {fileID: 0}
   isDefaultItem: 0
-  numberPart: 2
+  numberPart: 0

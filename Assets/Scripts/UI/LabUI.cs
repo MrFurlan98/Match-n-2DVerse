@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LabUI : MonoBehaviour {
 
+    #region Gambi
     //lab avatar
     [SerializeField]
     private Image m_HeadLabAvatar;
@@ -66,6 +67,9 @@ public class LabUI : MonoBehaviour {
     [SerializeField]
     private Image m_BodyPerfilAvatar;
 
+    #endregion 
+
+    PartsManager partsManager;
 
     [SerializeField]
     private Button m_ExitButton;
@@ -99,11 +103,11 @@ public class LabUI : MonoBehaviour {
 
     private int atualChild=0;
 
-    public Sprite[] headsParts;
-    public Sprite[] legsParts;
-    public Sprite[] armsParts;
-    public Sprite[] bodyParts;
-    public Sprite[] partUsing;
+    public Sprite[] headsMembers;
+    public Sprite[] legsMembers;
+    public Sprite[] armsMembers;
+    public Sprite[] bodyMembers;
+    public Sprite[] membersSpritesUsing;
 
     public Image bodyPart;
 
@@ -113,13 +117,16 @@ public class LabUI : MonoBehaviour {
 
     private void Start()
     {
+        partsManager = PartsManager.instance;
 
-        partUsing = CreateArray(headsParts);
+        membersSpritesUsing = partsManager.CreateArmSpritesArray();
 
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
+                openOrClose = 0;
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.LAB);
             });
 
@@ -129,7 +136,7 @@ public class LabUI : MonoBehaviour {
             {
                 bodyPart.sprite = m_HeadButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                partUsing=CreateArray(headsParts);
+                membersSpritesUsing = partsManager.CreateHeadSpritesArray();
                 numberPart = 1;
             });
 
@@ -139,7 +146,7 @@ public class LabUI : MonoBehaviour {
             {
                 bodyPart.sprite = m_BodyButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                partUsing=CreateArray(bodyParts);
+                membersSpritesUsing = partsManager.CreateBodySpritesArray();
                 numberPart = 2;
             });
 
@@ -149,7 +156,7 @@ public class LabUI : MonoBehaviour {
             {
                 bodyPart.sprite = m_ArmButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                partUsing=CreateArray(armsParts);
+                membersSpritesUsing = partsManager.CreateArmSpritesArray();
                 numberPart = 3;
             });
 
@@ -159,7 +166,7 @@ public class LabUI : MonoBehaviour {
             {
                 bodyPart.sprite = m_LegsButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                partUsing=CreateArray(legsParts);
+                membersSpritesUsing = partsManager.CreateLegSpritesArray();
                 numberPart = 4;
             });
 
@@ -167,10 +174,10 @@ public class LabUI : MonoBehaviour {
         m_ConfirmPartButton.onClick.AddListener(
             delegate
             {
-                if (numberPart == 1) m_HeadButton.GetComponent<Image>().sprite = partUsing[atualPart];
-                if (numberPart == 2) m_BodyButton.GetComponent<Image>().sprite = partUsing[atualPart];
-                if (numberPart == 3) m_ArmButton.GetComponent<Image>().sprite = partUsing[atualPart];
-                if (numberPart == 4) m_LegsButton.GetComponent<Image>().sprite = partUsing[atualPart];
+                if (numberPart == 1) m_HeadButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
+                if (numberPart == 2) m_BodyButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
+                if (numberPart == 3) m_ArmButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
+                if (numberPart == 4) m_LegsButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
             });
 
         m_RButton.onClick = new Button.ButtonClickedEvent();
@@ -178,8 +185,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart++;
-                if (atualPart == partUsing.Length) atualPart -= partUsing.Length;
-                bodyPart.sprite = partUsing[atualPart];
+                if (atualPart == membersSpritesUsing.Length) atualPart -= membersSpritesUsing.Length;
+                bodyPart.sprite = membersSpritesUsing[atualPart];
 
             });
 
@@ -189,8 +196,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart--;
-                if (atualPart == 0) atualPart += partUsing.Length;
-                bodyPart.sprite = partUsing[atualPart];
+                if (atualPart < 0) atualPart += membersSpritesUsing.Length;
+                bodyPart.sprite = membersSpritesUsing[atualPart];
             });
 
         m_ChosePartsScreenButton.onClick = new Button.ButtonClickedEvent();
@@ -221,6 +228,7 @@ public class LabUI : MonoBehaviour {
             });
     }
 
+    #region func gambi
     private void SetAvatars()
     {
         //lab avatar
@@ -258,17 +266,11 @@ public class LabUI : MonoBehaviour {
         m_LegPerfilAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
         m_ArmPerfilAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
         m_BodyPerfilAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
+
     }
 
-private Sprite[] CreateArray(Sprite[] ch)
-    {
-        Sprite[] instPartUsing = new Sprite[ch.Length];
-        for(int i=0;  i < (ch.Length); i++)
-        {
-            instPartUsing[i] = ch[i];
-        }
 
-        return instPartUsing;
-    }
+    #endregion
+
 
 }

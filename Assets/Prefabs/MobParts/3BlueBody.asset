@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1e41be199ad7bc4387d268cbbdc1072, type: 3}
-  m_Name: Head1
+  m_Name: 3BlueBody
   m_EditorClassIdentifier: 
-  imagePart: {fileID: 21300000, guid: 107bc9fc3a055344ea909e2002c43a7c, type: 3}
+  memberSprite: {fileID: 21300000, guid: 8229b39030f28af4bbbfd709a813af5a, type: 3}
   isDefaultItem: 0
-  numberPart: 0
+  numberPart: 3

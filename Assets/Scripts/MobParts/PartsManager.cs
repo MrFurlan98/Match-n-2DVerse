@@ -20,7 +20,7 @@ public class PartsManager : MonoBehaviour {
 
     public void AddHead(MobPart part)
     {
-        if(headParts.Count >= maxItensToAdd)
+        if(headParts.Count < maxItensToAdd)
         {
 
             headParts.Add(part);
@@ -30,7 +30,7 @@ public class PartsManager : MonoBehaviour {
 
     public void AddBody(MobPart part)
     {
-        if (bodyParts.Count >= maxItensToAdd)
+        if (bodyParts.Count < maxItensToAdd)
         {
 
             bodyParts.Add(part);
@@ -40,8 +40,8 @@ public class PartsManager : MonoBehaviour {
 
     public void AddLeg(MobPart part)
     {
-        if (legParts.Count >= maxItensToAdd)
-        {
+       if (legParts.Count < maxItensToAdd)
+       {
 
             legParts.Add(part);
 
@@ -50,7 +50,7 @@ public class PartsManager : MonoBehaviour {
 
     public void AddArm(MobPart part)
     {
-        if (armParts.Count >= maxItensToAdd)
+        if (armParts.Count < maxItensToAdd)
         {
 
             armParts.Add(part);
@@ -58,7 +58,51 @@ public class PartsManager : MonoBehaviour {
         }
     }
 
+    #region Create Array Func To Lab
 
+    public Sprite[] CreateBodySpritesArray()
+    {
+        Sprite[] instPartUsing = new Sprite[bodyParts.Count];
+        for (int i = 0; i < (bodyParts.Count); i++)
+        {
+            instPartUsing[i] = bodyParts[i].memberSprite;
+        }
 
+        return instPartUsing;
+    }
 
+    public Sprite[] CreateLegSpritesArray()
+    {
+        Sprite[] instPartUsing = new Sprite[legParts.Count];
+        for (int i = 0; i < (legParts.Count); i++)
+        {
+            instPartUsing[i] = legParts[i].memberSprite;
+        }
+
+        return instPartUsing;
+    }
+
+    public Sprite[] CreateHeadSpritesArray()
+    {
+        Sprite[] instPartUsing = new Sprite[headParts.Count];
+        for (int i = 0; i < (headParts.Count); i++)
+        {
+            instPartUsing[i] = headParts[i].memberSprite;
+        }
+
+        return instPartUsing;
+    }
+
+    public Sprite[] CreateArmSpritesArray()
+    {
+        Sprite[] instPartUsing = new Sprite[armParts.Count];
+        for (int i = 0; i < (armParts.Count); i++)
+        {
+            instPartUsing[i] = armParts[i].memberSprite;
+        }
+
+        return instPartUsing;
+    }
+
+    #endregion
 }

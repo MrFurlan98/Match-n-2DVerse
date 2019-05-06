@@ -49,7 +49,7 @@ public class GamePlayUI : MonoBehaviour {
         if (!hasFinished && ScoreManager.Instance.MovesLeft <= 0)
         {
             hasFinished = true;
-            PopUpUI.Instance.OpenPopUp("Fim de jogo", ScoreManager.Instance.Points >= ScoreManager.Instance.GoalPoints ? "Voce ganhou" : "Voce perdeu", GamePlayUI.BackMenu);
+            PopUpUI.Instance.OpenPopUp("Fim de jogo", ScoreManager.Instance.Points >= ScoreManager.Instance.GoalPoints ? true : false , GamePlayUI.BackMenu);
         }
 
 

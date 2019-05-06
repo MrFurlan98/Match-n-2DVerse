@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1e41be199ad7bc4387d268cbbdc1072, type: 3}
-  m_Name: Leg2
+  m_Name: 1BlueLeg
   m_EditorClassIdentifier: 
-  imagePart: {fileID: 21300000, guid: 05259a319473dad4ebf67551c9bf2ab9, type: 3}
+  memberSprite: {fileID: 21300000, guid: 51a392c4b23860b449ba93e2b1e0bc77, type: 3}
   isDefaultItem: 0
   numberPart: 1
