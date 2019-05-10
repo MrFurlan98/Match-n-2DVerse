@@ -11,61 +11,112 @@ public class PartsManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
+        
+        armParts.Add(new itenArray(inicialArm));
+        bodyParts.Add(new itenArray(inicialBody));
+        headParts.Add(new itenArray(inicialHead));
+        legParts.Add(new itenArray(inicialLeg));
     }
 
-    public List<MobPart> headParts = new List<MobPart>();
-    public List<MobPart> armParts = new List<MobPart>();
-    public List<MobPart> legParts = new List<MobPart>();
-    public List<MobPart> bodyParts = new List<MobPart>();
+    public class itenArray
+    {
+        public MobPart part;
+        public int qnt=0;
+
+        public itenArray(MobPart newMobPart)
+        {
+            part = newMobPart;
+            qnt++;
+        }
+    }
+
+    [SerializeField]
+    private MobPart inicialHead;
+
+    [SerializeField]
+    private MobPart inicialBody;
+
+    [SerializeField]
+    private MobPart inicialLeg;
+
+    [SerializeField]
+    private MobPart inicialArm;
+        
+    public List<itenArray> headParts = new List<itenArray>();
+
+    public List<itenArray> armParts = new List<itenArray>();
+
+    [SerializeField]
+    public List<itenArray> legParts = new List<itenArray>();
+    
+    [SerializeField]
+    public List<itenArray> bodyParts = new List<itenArray>();
 
     public void AddHead(MobPart part)
     {
-        if(headParts.Count < maxItensToAdd)
+        for (int i = 0; i < headParts.Count; i++)
         {
-
-            headParts.Add(part);
-
+            if (headParts[i].part.idMember == part.idMember)
+            {
+                headParts[i].qnt++;
+                return;
+            }
         }
+
+        headParts.Add(new itenArray(part));
     }
 
     public void AddBody(MobPart part)
     {
-        if (bodyParts.Count < maxItensToAdd)
+        for (int i = 0; i < bodyParts.Count; i++)
         {
-
-            bodyParts.Add(part);
-
+            if (bodyParts[i].part.idMember == part.idMember)
+            {
+                bodyParts[i].qnt++;
+                return;
+            }
         }
+
+        bodyParts.Add(new itenArray(part));
     }
 
     public void AddLeg(MobPart part)
     {
-       if (legParts.Count < maxItensToAdd)
-       {
-
-            legParts.Add(part);
-
+        for (int i = 0; i < legParts.Count; i++)
+        {
+            if (legParts[i].part.idMember == part.idMember)
+            {
+                legParts[i].qnt++;
+                return;
+            }
         }
+
+        legParts.Add(new itenArray(part));
     }
 
     public void AddArm(MobPart part)
     {
-        if (armParts.Count < maxItensToAdd)
+        for (int i = 0; i < armParts.Count; i++)
         {
-
-            armParts.Add(part);
-
+            if (armParts[i].part.idMember == part.idMember)
+            {
+                armParts[i].qnt++;
+                return;
+            }
         }
+
+        armParts.Add(new itenArray(part));
     }
 
-    #region Create Array Func To Lab
+    
+    #region Create Array of Sprites
 
     public Sprite[] CreateBodySpritesArray()
     {
         Sprite[] instPartUsing = new Sprite[bodyParts.Count];
         for (int i = 0; i < (bodyParts.Count); i++)
         {
-            instPartUsing[i] = bodyParts[i].memberSprite;
+            instPartUsing[i] = bodyParts[i].part.memberSprite;
         }
 
         return instPartUsing;
@@ -76,7 +127,7 @@ public class PartsManager : MonoBehaviour {
         Sprite[] instPartUsing = new Sprite[legParts.Count];
         for (int i = 0; i < (legParts.Count); i++)
         {
-            instPartUsing[i] = legParts[i].memberSprite;
+            instPartUsing[i] = legParts[i].part.memberSprite;
         }
 
         return instPartUsing;
@@ -87,7 +138,7 @@ public class PartsManager : MonoBehaviour {
         Sprite[] instPartUsing = new Sprite[headParts.Count];
         for (int i = 0; i < (headParts.Count); i++)
         {
-            instPartUsing[i] = headParts[i].memberSprite;
+            instPartUsing[i] = headParts[i].part.memberSprite;
         }
 
         return instPartUsing;
@@ -98,7 +149,7 @@ public class PartsManager : MonoBehaviour {
         Sprite[] instPartUsing = new Sprite[armParts.Count];
         for (int i = 0; i < (armParts.Count); i++)
         {
-            instPartUsing[i] = armParts[i].memberSprite;
+            instPartUsing[i] = armParts[i].part.memberSprite;
         }
 
         return instPartUsing;

@@ -6,6 +6,6 @@ using UnityEngine;
 public class MobPart : ScriptableObject {
 
     public Sprite memberSprite;
-    public bool isDefaultItem = false;
+    public int idMember;
     public int numberPart;
 }

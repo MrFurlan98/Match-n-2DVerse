@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 0GreenHead
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: 9091858a31084ab47bb3c1c23ceb9710, type: 3}
-  isDefaultItem: 0
+  idMember: 1
   numberPart: 0

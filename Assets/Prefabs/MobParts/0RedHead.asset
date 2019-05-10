@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e41be199ad7bc4387d268cbbdc1072, type: 3}
   m_Name: 0RedHead
   m_EditorClassIdentifier: 
-  memberSprite: {fileID: 0}
-  isDefaultItem: 0
+  memberSprite: {fileID: 21300000, guid: 5be0668ebf4febe46bcc9d378939c7a0, type: 3}
+  idMember: 3
   numberPart: 0

@@ -190,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005493164, y: -0.000030517578}
+  m_AnchoredPosition: {x: -0.0005493164, y: 0}
   m_SizeDelta: {x: -0.00097656, y: 0.000030518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &13775715
@@ -5800,30 +5800,50 @@ MonoBehaviour:
   m_Title: {fileID: 64540271}
   m_Message: {fileID: 218631383}
   m_Button: {fileID: 57946483}
-  allParts:
+  m_ButtonReceiveItens: {fileID: 5199197}
+  m_rollNumberIndexPart: {fileID: 766179326}
+  m_imgPart: {fileID: 1946184760}
+  packOneMembers:
   - {fileID: 11400000, guid: c368ca131ff109243a8aed3677df3d13, type: 2}
   - {fileID: 11400000, guid: 9a64c11cb5434bc42ba42edc5b8b9e00, type: 2}
   - {fileID: 11400000, guid: 2155f4af7000541489c98b250b8944a4, type: 2}
   - {fileID: 11400000, guid: 1f911e72761318c4786f1817467e4006, type: 2}
+  packTwoMembers:
   - {fileID: 11400000, guid: cdefc67c7792ad142b8a5dfe305cc968, type: 2}
   - {fileID: 11400000, guid: 29c96609bc91d66479bd1f1fbd949ff8, type: 2}
   - {fileID: 11400000, guid: c979f6ee95fcf1348a2528c3f8b18032, type: 2}
   - {fileID: 11400000, guid: b1a40b86277054b4daa964156b714785, type: 2}
+  packThreeMembers:
   - {fileID: 11400000, guid: be1426adfc6bc92409d702d6db4d7871, type: 2}
   - {fileID: 11400000, guid: 437a660e44000084a87c3bb6758c1ab9, type: 2}
   - {fileID: 11400000, guid: ce73f43a6d36c244cb6972bbfe6100d4, type: 2}
   - {fileID: 11400000, guid: 7e9eae06e60100243b215f362b89face, type: 2}
+  packFourMembers:
   - {fileID: 11400000, guid: 52652cf79d1e65f46a5974a3829e27d7, type: 2}
   - {fileID: 11400000, guid: ff486c7ace06d1d4b835298eb99f370f, type: 2}
   - {fileID: 11400000, guid: b0d2ad8c6a379d84b82abab27edd4c1f, type: 2}
   - {fileID: 11400000, guid: c7cdd5fc7ccdb274c8515a4627a0f338, type: 2}
+  packFiveMembers:
   - {fileID: 11400000, guid: 218193b5aae9c1c4893374e1c65c4fc7, type: 2}
   - {fileID: 11400000, guid: 95d2e85d4d69c18409d08b623bbe83ac, type: 2}
   - {fileID: 11400000, guid: 99612085107fc544e87cf7e04e46d839, type: 2}
   - {fileID: 11400000, guid: e14ce76c4f3cf7a40b117e5bfde4cd5f, type: 2}
-  m_ButtonReceiveItens: {fileID: 5199197}
-  m_rollNumberIndexPart: {fileID: 766179326}
-  m_imgPart: {fileID: 1946184760}
+  lootItens:
+  - name: Blue Set
+    dropRarity: 80
+    numberPack: 0
+  - name: Green Set
+    dropRarity: 50
+    numberPack: 1
+  - name: Pink Set
+    dropRarity: 30
+    numberPack: 2
+  - name: Red Set
+    dropRarity: 15
+    numberPack: 3
+  - name: Yellow Set
+    dropRarity: 5
+    numberPack: 4
 --- !u!114 &950708693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9965,6 +9985,81 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496910415}
   m_CullTransparentMesh: 0
+--- !u!1 &1508567426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1508567427}
+  - component: {fileID: 1508567429}
+  - component: {fileID: 1508567428}
+  m_Layer: 5
+  m_Name: QntMemberText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1508567427
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1508567426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2074483429}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.6644445, y: 0.6038751}
+  m_AnchorMax: {x: 0.7277779, y: 0.637}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_SizeDelta: {x: -0.000030518, y: 0.000026703}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1508567428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1508567426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 99 x
+--- !u!222 &1508567429
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1508567426}
+  m_CullTransparentMesh: 0
 --- !u!1 &1566239444
 GameObject:
   m_ObjectHideFlags: 0
@@ -13578,11 +13673,7 @@ MonoBehaviour:
   m_ConfirmPartButton: {fileID: 1840203372}
   m_ConfirmAvatarButton: {fileID: 195889865}
   m_ChosePartsScreenButton: {fileID: 1339006969}
-  headsMembers: []
-  legsMembers: []
-  armsMembers: []
-  bodyMembers: []
-  membersSpritesUsing: []
+  qntMember: {fileID: 1508567428}
   bodyPart: {fileID: 1760321325}
 --- !u!222 &1928446646
 CanvasRenderer:
@@ -14398,6 +14489,7 @@ RectTransform:
   - {fileID: 1840203371}
   - {fileID: 1760321324}
   - {fileID: 195889864}
+  - {fileID: 1508567427}
   m_Father: {fileID: 1928446644}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14808,11 +14900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f22fc61308c9c04f92ce0026b46f51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headParts:
-  - {fileID: 11400000, guid: c368ca131ff109243a8aed3677df3d13, type: 2}
-  armParts:
-  - {fileID: 11400000, guid: 99612085107fc544e87cf7e04e46d839, type: 2}
-  legParts:
-  - {fileID: 11400000, guid: 29c96609bc91d66479bd1f1fbd949ff8, type: 2}
-  bodyParts:
-  - {fileID: 11400000, guid: c7cdd5fc7ccdb274c8515a4627a0f338, type: 2}
+  inicialHead: {fileID: 11400000, guid: c368ca131ff109243a8aed3677df3d13, type: 2}
+  inicialBody: {fileID: 11400000, guid: c7cdd5fc7ccdb274c8515a4627a0f338, type: 2}
+  inicialLeg: {fileID: 11400000, guid: 29c96609bc91d66479bd1f1fbd949ff8, type: 2}
+  inicialArm: {fileID: 11400000, guid: 99612085107fc544e87cf7e04e46d839, type: 2}

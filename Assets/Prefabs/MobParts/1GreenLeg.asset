@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 1GreenLeg
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: 3e300658635e4714da3710ba84228308, type: 3}
-  isDefaultItem: 0
+  idMember: 6
   numberPart: 1

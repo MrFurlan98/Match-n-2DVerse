@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 1BlueLeg
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: 51a392c4b23860b449ba93e2b1e0bc77, type: 3}
-  isDefaultItem: 0
+  idMember: 5
   numberPart: 1

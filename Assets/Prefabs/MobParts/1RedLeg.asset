@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 1RedLeg
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: e4bd73b1da8f4f64fa95129c03786ac6, type: 3}
-  isDefaultItem: 0
+  idMember: 8
   numberPart: 1
