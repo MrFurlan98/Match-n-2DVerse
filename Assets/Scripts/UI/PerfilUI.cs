@@ -14,7 +14,7 @@ public class PerfilUI : MonoBehaviour {
         m_ExitButton.onClick.AddListener(
             delegate
             {
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.PERFIL);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PERFIL);
             });
 
     }

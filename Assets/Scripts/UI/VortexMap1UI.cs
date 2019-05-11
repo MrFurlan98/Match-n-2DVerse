@@ -30,41 +30,41 @@ public class VortexMap1UI : MonoBehaviour
         m_ConfigButton.onClick = new Button.ButtonClickedEvent();
         m_ConfigButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CONFIGURATIONS);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
             });
 
         m_LabButton.onClick = new Button.ButtonClickedEvent();
         m_LabButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.LAB);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.LAB);
             });
 
         m_StoreButton.onClick = new Button.ButtonClickedEvent();
         m_StoreButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.STORE);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
             });
 
         m_RoadMapButton.onClick = new Button.ButtonClickedEvent();
         m_RoadMapButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.CHANGEVORTEXMAP);
             });
 
         m_ChangeVortexMapButton.onClick = new Button.ButtonClickedEvent();
         m_ChangeVortexMapButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CHANGEVORTEXMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
             });
 
 
         m_PerfilButton.onClick = new Button.ButtonClickedEvent();
         m_PerfilButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.PERFIL);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.PERFIL);
             });
 
 

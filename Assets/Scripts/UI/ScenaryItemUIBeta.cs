@@ -51,39 +51,39 @@ public class ScenaryItemUIBeta : MonoBehaviour {
             case U_Button.LAB:
                 // open lab screen
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.LAB);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.LAB);
 
                 break;
             case U_Button.STORE:
                 // open store screen
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.STORE);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
 
                 break;
             case U_Button.TOVORTEX:
                 // open vortex map 
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.TOVORTEX);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.ROADMAP);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.TOVORTEX);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
 
                 break;
             case U_Button.ROADMAP:
                 // open road map 
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
 
                 break;
             case U_Button.CONFIGURATIONS:
                 // open config screen
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CONFIGURATIONS);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
 
                 break;
 
             case U_Button.CHANGEVORTEXMAP:
                 // change theme map
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CHANGEVORTEXMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.TOVORTEX);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CHANGEVORTEXMAP);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
 
 
                 break;

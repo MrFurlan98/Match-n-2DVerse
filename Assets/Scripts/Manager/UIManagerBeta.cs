@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIManagerBeta : MonoBehaviour
 {
     public static UIManagerBeta Instance;
-    public enum BUTTONS
+    public enum SCREENS
     {
         CONFIGURATIONS = 1,
         LAB = 2,
@@ -18,14 +18,15 @@ public class UIManagerBeta : MonoBehaviour
         PLAYB = 8,
         MENUROADB=9,
         GAMEPLAY = 10,
-        EDITPARTSGO=11
+        EDITPARTSGO=11,
+        AUTHETICATION= 12
     }
 
     [System.Serializable]
     public class UIScreen
     {
         public GameObject m_pScreenObject;
-        public BUTTONS m_pScreen;
+        public SCREENS m_pScreen;
     }
 
     public void Awake()
@@ -36,18 +37,18 @@ public class UIManagerBeta : MonoBehaviour
     [SerializeField]
     private List<UIScreen> m_pScreens = new List<UIScreen>();
 
-    public void OpenScreen(BUTTONS pScreen)
+    public void OpenScreen(SCREENS pScreen)
     {
         GetScreenObject(pScreen).SetActive(true);
     }
 
-    public void CloseScreen(BUTTONS pScreen)
+    public void CloseScreen(SCREENS pScreen)
     {
 
         GetScreenObject(pScreen).SetActive(false);
     }
 
-    public GameObject GetScreenObject(BUTTONS pScreen)
+    public GameObject GetScreenObject(SCREENS pScreen)
     {
         UIScreen UI = m_pScreens.Find(screen => screen.m_pScreen == pScreen);
         return UI.m_pScreenObject;

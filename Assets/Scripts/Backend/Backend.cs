@@ -3,9 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using PlayFab.Events;
-public class Backend: MonoBehaviour {
+using PlayFab.ClientModels;
+using PlayFab;
+public partial class Backend: MonoBehaviour {
+    private static Backend m_Instance;
 
-	public void Login(string pLogin, string pPassword, Action<PlayFabEvents> pResponse){
+    private static string GUEST_KEY= "GUEST_ID";
+    private static string GUEST_USERNAME = "GUEST_USERNAME";
 
-	}
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public static Backend Instance
+    {
+        get
+        {
+            return m_Instance;
+        }
+
+        set
+        {
+            m_Instance = value;
+        }
+    }
 }

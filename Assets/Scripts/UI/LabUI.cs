@@ -126,8 +126,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 openOrClose = 0;
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.LAB);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.LAB);
             });
 
         m_HeadButton.onClick = new Button.ButtonClickedEvent();
@@ -256,11 +256,11 @@ public class LabUI : MonoBehaviour {
                 if (openOrClose == 1)
                 {
                     openOrClose = 0;
-                    UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
+                    UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                 }else
                 {
                     openOrClose = 1;
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                     m_HeadButton.GetComponent<Image>().sprite = m_HeadLabAvatar.sprite;
                     m_LegsButton.GetComponent<Image>().sprite = m_LegLabAvatar.sprite;
                     m_ArmButton.GetComponent<Image>().sprite = m_ArmLabAvatar.sprite;
