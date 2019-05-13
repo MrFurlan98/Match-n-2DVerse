@@ -17,7 +17,7 @@ MonoBehaviour:
       m_TargetTag: GreenPotion
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
-      m_TagToTransformTo: 7Bomb
+      m_TagToTransformTo: 6Bomb
   m_Icon1: {fileID: 11400000, guid: cb27705893ff7784f8e6dd4cbe5aa9b9, type: 2}
   m_Icon2: {fileID: 11400000, guid: 8207839ab243ed64092707c3e6b80607, type: 2}
   m_ActionsPowerUp: []

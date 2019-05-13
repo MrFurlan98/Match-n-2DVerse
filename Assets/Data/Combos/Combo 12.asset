@@ -17,13 +17,7 @@ MonoBehaviour:
       m_TargetTag: RedPotion
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
-      m_TagToTransformTo: 6Bomb
-  - m_Type: 2
-    m_Action:
-      m_TargetTag: 6Bomb
-      m_Multiplier: 0
-      m_NxN: {x: 0, y: 0}
-      m_TagToTransformTo: 
+      m_TagToTransformTo: 7Bomb
   m_Icon1: {fileID: 11400000, guid: 5ec77fc55396b014f9f3e11ed3739349, type: 2}
   m_Icon2: {fileID: 11400000, guid: d51b679d05130044b9d0c353a93c472f, type: 2}
   m_ActionsPowerUp: []
