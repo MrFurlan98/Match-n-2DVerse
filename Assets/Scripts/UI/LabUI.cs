@@ -101,42 +101,43 @@ public class LabUI : MonoBehaviour {
     [SerializeField]
     private Button m_ChosePartsScreenButton;
 
-    private int atualChild=0;
+    public Text qntMember;
 
-    public Sprite[] headsMembers;
-    public Sprite[] legsMembers;
-    public Sprite[] armsMembers;
-    public Sprite[] bodyMembers;
-    public Sprite[] membersSpritesUsing;
+    private int atualChild=0;
+    
 
     public Image bodyPart;
 
     private int atualPart = 0;
     private int numberPart = 1;
     private int openOrClose = 0;
+    private int lengthArray;
 
     private void Start()
     {
         partsManager = PartsManager.instance;
+        lengthArray = partsManager.headParts.Count;
 
-        membersSpritesUsing = partsManager.CreateArmSpritesArray();
+        bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
+        qntMember.text = partsManager.headParts[atualPart].qnt + "x";
 
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
                 openOrClose = 0;
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.LAB);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.LAB);
             });
 
         m_HeadButton.onClick = new Button.ButtonClickedEvent();
         m_HeadButton.onClick.AddListener(
             delegate
             {
-                bodyPart.sprite = m_HeadButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                membersSpritesUsing = partsManager.CreateHeadSpritesArray();
+                bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
+                qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                lengthArray = partsManager.headParts.Count;
                 numberPart = 1;
             });
 
@@ -144,9 +145,10 @@ public class LabUI : MonoBehaviour {
         m_BodyButton.onClick.AddListener(
             delegate
             {
-                bodyPart.sprite = m_BodyButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                membersSpritesUsing = partsManager.CreateBodySpritesArray();
+                bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite;
+                qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
+                lengthArray = partsManager.bodyParts.Count;
                 numberPart = 2;
             });
 
@@ -154,9 +156,10 @@ public class LabUI : MonoBehaviour {
         m_ArmButton.onClick.AddListener(
             delegate
             {
-                bodyPart.sprite = m_ArmButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                membersSpritesUsing = partsManager.CreateArmSpritesArray();
+                bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
+                qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                lengthArray = partsManager.armParts.Count;
                 numberPart = 3;
             });
 
@@ -164,9 +167,10 @@ public class LabUI : MonoBehaviour {
         m_LegsButton.onClick.AddListener(
             delegate
             {
-                bodyPart.sprite = m_LegsButton.GetComponent<Image>().sprite;
                 atualPart = 0;
-                membersSpritesUsing = partsManager.CreateLegSpritesArray();
+                bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
+                qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                lengthArray = partsManager.legParts.Count;
                 numberPart = 4;
             });
 
@@ -174,10 +178,10 @@ public class LabUI : MonoBehaviour {
         m_ConfirmPartButton.onClick.AddListener(
             delegate
             {
-                if (numberPart == 1) m_HeadButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
-                if (numberPart == 2) m_BodyButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
-                if (numberPart == 3) m_ArmButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
-                if (numberPart == 4) m_LegsButton.GetComponent<Image>().sprite = membersSpritesUsing[atualPart];
+                if (numberPart == 1) m_HeadButton.GetComponent<Image>().sprite = bodyPart.sprite;
+                if (numberPart == 2) m_BodyButton.GetComponent<Image>().sprite = bodyPart.sprite;
+                if (numberPart == 3) m_ArmButton.GetComponent<Image>().sprite = bodyPart.sprite;
+                if (numberPart == 4) m_LegsButton.GetComponent<Image>().sprite = bodyPart.sprite;
             });
 
         m_RButton.onClick = new Button.ButtonClickedEvent();
@@ -185,9 +189,31 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart++;
-                if (atualPart == membersSpritesUsing.Length) atualPart -= membersSpritesUsing.Length;
-                bodyPart.sprite = membersSpritesUsing[atualPart];
+                if (atualPart == lengthArray) atualPart -= lengthArray;
 
+                if (numberPart == 1)
+                {
+                    bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                }
+
+                if (numberPart == 2)
+                {
+                    bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite; 
+                    qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";                
+                }
+
+                if (numberPart == 3)
+                {
+                    bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                
+                }
+                if (numberPart == 4)
+                {
+                    bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                }
             });
 
 
@@ -196,8 +222,31 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart--;
-                if (atualPart < 0) atualPart += membersSpritesUsing.Length;
-                bodyPart.sprite = membersSpritesUsing[atualPart];
+                if (atualPart == lengthArray) atualPart += lengthArray;
+
+                if (numberPart == 1)
+                {
+                    bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                }
+
+                if (numberPart == 2)
+                {
+                    bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
+                }
+
+                if (numberPart == 3)
+                {
+                     bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
+                     qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                }
+
+                if (numberPart == 4)
+                {
+                    bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
+                    qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                }
             });
 
         m_ChosePartsScreenButton.onClick = new Button.ButtonClickedEvent();
@@ -207,11 +256,11 @@ public class LabUI : MonoBehaviour {
                 if (openOrClose == 1)
                 {
                     openOrClose = 0;
-                    UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
+                    UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                 }else
                 {
                     openOrClose = 1;
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.EDITPARTSGO);
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                     m_HeadButton.GetComponent<Image>().sprite = m_HeadLabAvatar.sprite;
                     m_LegsButton.GetComponent<Image>().sprite = m_LegLabAvatar.sprite;
                     m_ArmButton.GetComponent<Image>().sprite = m_ArmLabAvatar.sprite;

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 2RedArm
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: a413f533f259aad41aed41bd240a6866, type: 3}
-  isDefaultItem: 0
+  idMember: 13
   numberPart: 2

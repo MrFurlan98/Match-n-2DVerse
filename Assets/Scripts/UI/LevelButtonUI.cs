@@ -16,8 +16,8 @@ public class LevelButtonUI : MonoBehaviour {
         GameManager.Instance.PBoard.ClearBoard();
         GameManager.Instance.PBoard.InitBoard();
 
-        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.GAMEPLAY);
-        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.ROADMAP);
+        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.GAMEPLAY);
+        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
 
     }
 }

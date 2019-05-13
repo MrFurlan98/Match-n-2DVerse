@@ -4,19 +4,18 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 093286084a3d1994a9c28281a1c38b1d, type: 3}
   m_Name: PlayFabSharedSettings
   m_EditorClassIdentifier: 
-  TitleId: 
+  TitleId: F15A2
   VerticalName: 
-  DeveloperSecretKey: 
+  DeveloperSecretKey: 6ZU1Q37BN635UOZJKNY4IZK4KTF8S6T5ZK9UXXCGDF7B99IF6M
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 1
   RequestTimeout: 2000
   RequestKeepAlive: 1
   CompressApiData: 1

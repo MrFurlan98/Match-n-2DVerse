@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 2GreenArm
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: ac92886490657b74396b8a3a17266de1, type: 3}
-  isDefaultItem: 0
+  idMember: 11
   numberPart: 2

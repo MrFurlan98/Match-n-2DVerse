@@ -21,7 +21,7 @@ public class StoreUI : MonoBehaviour
         m_ExitButton.onClick.AddListener(
             delegate
             {
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.STORE);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.STORE);
             });
 
 

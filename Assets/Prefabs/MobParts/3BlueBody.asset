@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: 3BlueBody
   m_EditorClassIdentifier: 
   memberSprite: {fileID: 21300000, guid: 8229b39030f28af4bbbfd709a813af5a, type: 3}
-  isDefaultItem: 0
+  idMember: 15
   numberPart: 3

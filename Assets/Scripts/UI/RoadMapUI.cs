@@ -32,45 +32,49 @@ public class RoadMapUI : MonoBehaviour
     [SerializeField]
     private Button m_BoostSuper;
 
+    [SerializeField]
+    private Text m_WelcomeText;
+
     private void Start()
     {
+        m_WelcomeText.text = "Welcome: " + PlayerManager.Instance.PlayerProfileData.UserName;
         m_ConfigButton.onClick = new Button.ButtonClickedEvent();
         m_ConfigButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.CONFIGURATIONS);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
             });
 
 
         m_LabButton.onClick = new Button.ButtonClickedEvent();
         m_LabButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.LAB);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.LAB);
             });
 
         m_StoreButton.onClick = new Button.ButtonClickedEvent();
         m_StoreButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.STORE);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
             });
 
         m_VortexButton.onClick = new Button.ButtonClickedEvent();
         m_VortexButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.TOVORTEX);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.ROADMAP);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.TOVORTEX);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
             });
 
         m_PerfilButton.onClick = new Button.ButtonClickedEvent();
         m_PerfilButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.PERFIL);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.PERFIL);
             });
 
         m_PlayButton.onClick = new Button.ButtonClickedEvent();
         m_PlayButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.MENUROADB);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.PLAYB);
+                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.MENUROADB);
+                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PLAYB);
             });
         m_BoostCross.onClick = new Button.ButtonClickedEvent();
         m_BoostCross.onClick.AddListener(

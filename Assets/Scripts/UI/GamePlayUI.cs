@@ -116,8 +116,8 @@ public class GamePlayUI : MonoBehaviour {
 
     public static void BackMenu()
     {
-        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.BUTTONS.ROADMAP);
-        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.BUTTONS.GAMEPLAY);
+        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
+        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.GAMEPLAY);
  
     }
 
