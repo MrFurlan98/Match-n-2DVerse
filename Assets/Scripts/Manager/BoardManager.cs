@@ -14,6 +14,8 @@ public class BoardManager : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
+        //string model = Newtonsoft.Json.JsonConvert.SerializeObject(m_levels);
+        //m_levels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Level>>(model);
     }
 
     #region Methods

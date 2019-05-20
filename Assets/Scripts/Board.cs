@@ -129,19 +129,27 @@ public class Board : MonoBehaviour {
         StopAllCoroutines();
         StartCoroutine(StartDalay());
 
-
+        int[,] level = BoardGenerator.GenerateBoard();
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Heigth; j++)
             {
-                BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j);
+                if(level[i,j]==1)
+                {
+                    BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j);
 
-                tIconItem.colunm = j;
-                tIconItem.row = i;
-
-                tIconItem.transform.parent = this.transform;
-
-                m_Icons[i, j] = tIconItem;
+                    tIconItem.colunm = j;
+                    tIconItem.row = i;
+                    m_Icons[i, j] = tIconItem;
+                }
+                else
+                {
+                    BoardIcon tIcon = new BoardIcon();
+                    tIcon.colunm = j;
+                    tIcon.row = i;
+                    tIcon.StateIcon = BoardIcon.E_State.CANT_DESTROY;
+                    m_Icons[i, j] = tIcon;
+                }
             }
         }
         if (BoostManager.Instance.IsBoostOn())
@@ -420,6 +428,7 @@ public class Board : MonoBehaviour {
 
     void DropCollumn(int pX, int pY)
     {
+
         int tDropCount = 0;
 
         for (int i = pY; i < Heigth - 1; i++)
@@ -428,7 +437,6 @@ public class Board : MonoBehaviour {
                 tDropCount++;
             else
                 break;
-            
         }
 
         for (int i = pY; i < Heigth - tDropCount; i++)

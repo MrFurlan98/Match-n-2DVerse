@@ -6,6 +6,7 @@ public static class Noise{
 
     public static float[,] GenerateNoiseMap(int mapWidth,int mapHeight,float scale)
     {
+
         float[,] noiseMap = new float[mapWidth,mapHeight];
 
         if(scale<=0)
