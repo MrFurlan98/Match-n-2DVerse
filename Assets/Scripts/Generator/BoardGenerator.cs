@@ -9,9 +9,9 @@ public class BoardGenerator  {
     [SerializeField]
     private static int Width = 7;
     [SerializeField]
-    private static int Heigth = 14;
+    private static int Heigth = 10;
 
-    public static float noiseScale=0.5f;
+    public static float noiseScale= 4f;
 
     public static int[,] GenerateBoard()
     {
@@ -21,8 +21,8 @@ public class BoardGenerator  {
         {
             for (int j = 0; j < Heigth; j++)
             {
-
-                modelBoard[i, j] = noiseBoard[i, j] > 0.5 ? 1 : 0;
+                Debug.Log(noiseBoard[i, j]);
+                modelBoard[i, j] = noiseBoard[i, j] > 0.3 ? 1 : 0;
                 
             }
         }

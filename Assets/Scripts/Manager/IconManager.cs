@@ -80,6 +80,20 @@ public class IconManager : MonoBehaviour {
 
         return tBoardIcon;
     }
+    public BoardIcon GenerateIndestructableIcon(int pX, int pY)
+    {
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+
+        tNewIcon.name = "Indestructable";
+
+        BoardIcon tBoardIcon = InitBoardIcon(ref tNewIcon, pX, pY);
+
+        tBoardIcon.SetBoardData(new Icon());
+
+        tBoardIcon.StateIcon = BoardIcon.E_State.CANT_DESTROY;
+
+        return tBoardIcon;
+    }
     public void TransformEffect(string tag,int heigth,int width,BoardIcon[,] tBoardIcons)
     {
         int i = 0, j = 0;

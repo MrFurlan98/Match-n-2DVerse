@@ -144,11 +144,11 @@ public class Board : MonoBehaviour {
                 }
                 else
                 {
-                    BoardIcon tIcon = new BoardIcon();
-                    tIcon.colunm = j;
-                    tIcon.row = i;
-                    tIcon.StateIcon = BoardIcon.E_State.CANT_DESTROY;
-                    m_Icons[i, j] = tIcon;
+
+                    BoardIcon tIconIndestructItem = IconManager.Instance.GenerateIndestructableIcon(i, j);
+                    tIconIndestructItem.colunm = j;
+                    tIconIndestructItem.row = i;
+                    m_Icons[i, j] = tIconIndestructItem;
                 }
             }
         }
@@ -434,17 +434,42 @@ public class Board : MonoBehaviour {
         for (int i = pY; i < Heigth - 1; i++)
         {
             if (m_Icons[pX, i] == null)
+            {
                 tDropCount++;
+            }
             else
                 break;
         }
 
         for (int i = pY; i < Heigth - tDropCount; i++)
         {
+          
 
-            int tAboveIndex = i + tDropCount;
+            int tAboveIndex = - 1;
+
+            int indestructable = 0;
+
+            for (int j = i; j < Heigth - tDropCount; j++)
+            {
+                tAboveIndex = j + tDropCount;
+                BoardIcon tIconAbove = m_Icons[pX, tAboveIndex];
+                if(tIconAbove != null && tIconAbove.StateIcon == BoardIcon.E_State.CANT_DESTROY)
+                {
+                    indestructable++;
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (tAboveIndex >= Heigth - tDropCount)
+                break;
 
             BoardIcon tIcon = m_Icons[pX, i];
+
+            if (tIcon != null && tIcon.StateIcon == BoardIcon.E_State.CANT_DESTROY)
+                continue;
 
             m_Icons[pX, i] = m_Icons[pX, tAboveIndex];
 
@@ -453,7 +478,7 @@ public class Board : MonoBehaviour {
             if (m_Icons[pX, i] != null)
             {
                 m_Icons[pX, i].row = pX;
-                m_Icons[pX, i].colunm = tAboveIndex - tDropCount;
+                m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
             }
         }
     }
