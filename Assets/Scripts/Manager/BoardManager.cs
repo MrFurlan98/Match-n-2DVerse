@@ -9,7 +9,7 @@ public class BoardManager : MonoBehaviour {
     private Board m_pBoard;
 
     [SerializeField]
-    private int m_Level;
+    private List<Level> m_levels;
 
     private void Awake()
     {
@@ -18,10 +18,6 @@ public class BoardManager : MonoBehaviour {
 
     #region Methods
 
-    public void GenerateBoard()
-    {
-
-    }
 
     public static BoardManager Instance
     {
@@ -49,16 +45,16 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
-    public int Level
+    public List<Level> Levels
     {
         get
         {
-            return m_Level;
+            return m_levels;
         }
 
         set
         {
-            m_Level = value;
+            m_levels = value;
         }
     }
 
