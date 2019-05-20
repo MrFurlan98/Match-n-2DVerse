@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -128,8 +129,10 @@ public class Board : MonoBehaviour {
     {
         StopAllCoroutines();
         StartCoroutine(StartDalay());
+        string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
 
-        int[,] level = BoardGenerator.GenerateBoard();
+        int[,] level = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model)[0];
+
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Heigth; j++)
