@@ -22,8 +22,8 @@ public class BoardGenerator  {
         {
             for (int j = 0; j < Heigth; j++)
             {
+                modelBoard[i, j] = noiseBoard[i, j] > 0.3 ? 1 : 0;
 
-                
             }
         }
         return modelBoard;
