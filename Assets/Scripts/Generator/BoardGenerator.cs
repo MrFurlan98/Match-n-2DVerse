@@ -14,9 +14,15 @@ public class BoardGenerator  {
 
     public static float noiseScale= 4f;
 
-    public static int[,] GenerateBoard()
+    public static int octaves=4;
+    public static float persistence=1;
+    public static float lacunarity=1;
+    public static int seed=1;
+    public static Vector2 offset = new Vector2(0,0);
+
+    public static int[,] GenerateBoard(int seed)
     {
-        float[,] noiseBoard = Noise.GenerateNoiseMap(Width,Heigth, noiseScale);
+        float[,] noiseBoard = Noise.GenerateNoiseMap(Width,Heigth, seed,noiseScale,octaves,persistence,lacunarity,offset);
         int[,] modelBoard = new int [Width,Heigth];
         for (int i = 0; i < Width; i++)
         {
@@ -34,7 +40,7 @@ public class BoardGenerator  {
         int i = 0;
         while(i<qtd)
         {
-            int[,] validation = GenerateBoard();
+            int[,] validation = GenerateBoard(i);
             if(Validador(validation))
             {
                 if(models.IndexOf(validation) == -1)
@@ -105,10 +111,10 @@ public class BoardGenerator  {
                 }
             }
         }
-        if(cont0 > 0.3f * model.GetLength(0) * model.GetLength(1))
+        /*if(cont0 > 0.3f * model.GetLength(0) * model.GetLength(1))
         {
             return false;
-        }
+        }*/
         return true;
     }
 }

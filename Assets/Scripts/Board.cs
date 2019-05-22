@@ -129,7 +129,7 @@ public class Board : MonoBehaviour {
         StopAllCoroutines();
         StartCoroutine(StartDalay());
 
-        int[,] level = BoardGenerator.GenerateBoard();
+        int[,] level = BoardGenerator.GenerateBoard(1);
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Heigth; j++)
