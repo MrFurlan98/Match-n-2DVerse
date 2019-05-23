@@ -131,7 +131,7 @@ public class Board : MonoBehaviour {
         StartCoroutine(StartDalay());
         string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
 
-        int[,] level = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model)[0];
+        int[,] level = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model)[1];
 
         for (int i = 0; i < Width; i++)
         {

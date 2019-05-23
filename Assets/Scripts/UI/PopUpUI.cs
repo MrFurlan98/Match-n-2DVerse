@@ -146,7 +146,6 @@ public class PopUpUI : MonoBehaviour {
     {
         if (numberArray == 6)
         {
-            print("azedo");
             return;
         }
 
