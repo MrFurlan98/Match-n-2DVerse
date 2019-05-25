@@ -15,11 +15,8 @@ public class UIManagerBeta : MonoBehaviour
         ROADMAP = 5,
         CHANGEVORTEXMAP = 6,
         PERFIL = 7,
-        PLAYB = 8,
-        MENUROADB=9,
-        GAMEPLAY = 10,
-        EDITPARTSGO=11,
-        AUTHETICATION= 12
+        AUTHETICATION = 8,
+        GAMEPLAY = 9
     }
 
     [System.Serializable]

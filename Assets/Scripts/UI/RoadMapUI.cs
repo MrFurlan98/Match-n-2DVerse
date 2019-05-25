@@ -35,6 +35,12 @@ public class RoadMapUI : MonoBehaviour
     [SerializeField]
     private Text m_WelcomeText;
 
+    [SerializeField]
+    private GameObject startGameScreen;
+
+    [SerializeField]
+    private GameObject mapButtonsScreen;
+
     private void Start()
     {
         m_WelcomeText.text = "Welcome: " + PlayerManager.Instance.PlayerProfileData.UserName;
@@ -73,8 +79,10 @@ public class RoadMapUI : MonoBehaviour
         m_PlayButton.onClick = new Button.ButtonClickedEvent();
         m_PlayButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.MENUROADB);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PLAYB);
+                //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.MENUROADB);
+                mapButtonsScreen.SetActive(true);
+                startGameScreen.SetActive(false);
+                //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PLAYB);
             });
         m_BoostCross.onClick = new Button.ButtonClickedEvent();
         m_BoostCross.onClick.AddListener(

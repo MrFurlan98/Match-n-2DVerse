@@ -104,6 +104,9 @@ public class LabUI : MonoBehaviour {
     public Text qntMember;
 
     private int atualChild=0;
+
+    [SerializeField]
+    private GameObject editMemberScreen;
     
 
     public Image bodyPart;
@@ -118,15 +121,16 @@ public class LabUI : MonoBehaviour {
         partsManager = PartsManager.instance;
         lengthArray = partsManager.headParts.Count;
 
-        bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
-        qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+        bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+        //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
 
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
                 openOrClose = 0;
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
+                editMemberScreen.SetActive(false);
+                //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.LAB);
             });
 
@@ -135,8 +139,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart = 0;
-                bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
-                qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+                //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
                 lengthArray = partsManager.headParts.Count;
                 numberPart = 1;
             });
@@ -146,8 +150,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart = 0;
-                bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite;
-                qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
+                bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite;
+                //qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
                 lengthArray = partsManager.bodyParts.Count;
                 numberPart = 2;
             });
@@ -157,8 +161,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart = 0;
-                bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
-                qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
+                //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
                 lengthArray = partsManager.armParts.Count;
                 numberPart = 3;
             });
@@ -168,8 +172,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart = 0;
-                bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
-                qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                bodyPart.sprite = partsManager.legParts[atualPart].memberSprite;
+                //qntMember.text = partsManager.legParts[atualPart].qnt + "x";
                 lengthArray = partsManager.legParts.Count;
                 numberPart = 4;
             });
@@ -193,26 +197,26 @@ public class LabUI : MonoBehaviour {
 
                 if (numberPart == 1)
                 {
-                    bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 2)
                 {
-                    bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite; 
-                    qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";                
+                    bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite; 
+                    //qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";                
                 }
 
                 if (numberPart == 3)
                 {
-                    bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
                 
                 }
                 if (numberPart == 4)
                 {
-                    bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.legParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.legParts[atualPart].qnt + "x";
                 }
             });
 
@@ -226,26 +230,26 @@ public class LabUI : MonoBehaviour {
 
                 if (numberPart == 1)
                 {
-                    bodyPart.sprite = partsManager.headParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.headParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 2)
                 {
-                    bodyPart.sprite = partsManager.bodyParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 3)
                 {
-                     bodyPart.sprite = partsManager.armParts[atualPart].part.memberSprite;
-                     qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                     bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
+                     //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 4)
                 {
-                    bodyPart.sprite = partsManager.legParts[atualPart].part.memberSprite;
-                    qntMember.text = partsManager.legParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.legParts[atualPart].memberSprite;
+                    //qntMember.text = partsManager.legParts[atualPart].qnt + "x";
                 }
             });
 
@@ -256,11 +260,13 @@ public class LabUI : MonoBehaviour {
                 if (openOrClose == 1)
                 {
                     openOrClose = 0;
-                    UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
+                    editMemberScreen.SetActive(false);
+                    //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                 }else
                 {
                     openOrClose = 1;
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
+                    editMemberScreen.SetActive(true);
+                    //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                     m_HeadButton.GetComponent<Image>().sprite = m_HeadLabAvatar.sprite;
                     m_LegsButton.GetComponent<Image>().sprite = m_LegLabAvatar.sprite;
                     m_ArmButton.GetComponent<Image>().sprite = m_ArmLabAvatar.sprite;
