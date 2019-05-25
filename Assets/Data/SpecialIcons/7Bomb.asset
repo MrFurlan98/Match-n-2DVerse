@@ -20,6 +20,7 @@ MonoBehaviour:
       m_Multiplier: 0
       m_NxN: {x: 3, y: 3}
       m_TagToTransformTo: 
+  durability: 1
   m_MatchValueToGenerate: 6
   m_GeneratesTag: ALL
   m_ActionsPowerUp:

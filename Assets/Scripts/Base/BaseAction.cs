@@ -12,7 +12,8 @@ public class BaseAction : IBoardAction{
         DESTROY_BY_TYPE,
         DESTROY_ALL_BOARD,
         DESTROY_DIAGONAL,
-        TRANSFORM_INTO_SPECIAL
+        TRANSFORM_INTO_SPECIAL,
+        RESCUE_SURVIVOR
     }
 
     public BaseAction()

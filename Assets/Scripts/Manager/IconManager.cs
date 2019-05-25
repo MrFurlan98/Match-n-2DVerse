@@ -94,13 +94,27 @@ public class IconManager : MonoBehaviour {
 
         return tBoardIcon;
     }
+    public BoardIcon GenerateRescueIcon(int pX, int pY)
+    {
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+
+        tNewIcon.name = "Rescue";
+
+        BoardIcon tBoardIcon = InitBoardIcon(ref tNewIcon, pX, pY);
+
+        tBoardIcon.SetBoardData(new Icon());
+
+        tBoardIcon.StateIcon = BoardIcon.E_State.STAND_BY;
+
+        return tBoardIcon;
+    }
     public void TransformEffect(string tag,int heigth,int width,BoardIcon[,] tBoardIcons)
     {
         int i = 0, j = 0;
         do
         {
             i = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
-            j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
+            j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(1));
         } while (tBoardIcons[i, j].Type == BoardIcon.E_Type.SPECIAL);
         if (tag == "Super")
         {
@@ -113,6 +127,12 @@ public class IconManager : MonoBehaviour {
             tBoardIcons[i, j].Type = BoardIcon.E_Type.SPECIAL;
         }
         
+    }
+
+    public Sprite GetRandomIconSprite()
+    {
+        int i = UnityEngine.Random.Range(0, m_Icons.Count);
+        return m_Icons[i].IconSprite;
     }
 
     public Icon TransformIcon(int pX,int pY,string pTagToTransformTo)
@@ -160,13 +180,13 @@ public class IconManager : MonoBehaviour {
 
         return null;
     }
-    public Icon GetIcon(BoardIcon pIcon)
+    public Icon GetIcon(string tag)
     {
-        for (int i = 0; i < m_SpecialIcons.Count; i++)
+        for (int i = 0; i < m_Icons.Count; i++)
         {
-            if(pIcon.STag == m_SpecialIcons[i].Tag)
+            if(tag == m_Icons[i].Tag)
             {
-                return m_SpecialIcons[i];
+                return m_Icons[i];
             }
         }
         return null;

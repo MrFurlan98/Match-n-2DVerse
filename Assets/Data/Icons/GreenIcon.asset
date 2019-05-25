@@ -14,3 +14,4 @@ MonoBehaviour:
   m_IconSprite: {fileID: 21300000, guid: 53084f7709db08643905a340957d2ca7, type: 3}
   m_Tag: GreenPotion
   m_Actions: []
+  durability: 1

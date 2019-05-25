@@ -51,6 +51,10 @@ public class Icon : ScriptableObject {
     [SerializeField]
     protected List<Action> m_Actions = new List<Action>();
 
+    [HideInInspector]
+    [SerializeField]
+    private int durability;
+
     public Sprite IconSprite
     {
         get
@@ -87,6 +91,19 @@ public class Icon : ScriptableObject {
         set
         {
             m_Tag = value;
+        }
+    }
+
+    public int Durability
+    {
+        get
+        {
+            return durability;
+        }
+
+        set
+        {
+            durability = value;
         }
     }
 }

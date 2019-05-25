@@ -24,9 +24,28 @@ public enum E_Direction
     STAY
 }
 
+public enum BoardScenario
+{
+    STANDBY,
+    APOCALIPTICO,
+    GREGO
+}
+
+public enum BoardType
+{
+    STANDBY,
+    RESGATE,
+    DESATIVAR_BOMBA,
+    UM_DOS_DOZE_TRABALHOS,
+    SOB_O_OLHAR_DA_GORGONA
+}
 public class Board : MonoBehaviour {
    
     private GameState m_CurrentState = GameState.STANDBY;
+    private BoardScenario m_CurrentScenario = BoardScenario.STANDBY;
+    private BoardType m_CurrentType = BoardType.STANDBY;
+
+    //private string json_PATH = Application.dataPath + BoardGenerator.PATH_MODEL;
 
     private BoardIcon[,] m_Icons;
 
@@ -125,13 +144,13 @@ public class Board : MonoBehaviour {
             }
         }
     }
-    public void InitBoard()
+    public void InitBoard(int levelSelect)
     {
         StopAllCoroutines();
         StartCoroutine(StartDalay());
-        string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
 
-        int[,] level = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model)[0];
+        int[,] level = BoardManager.Instance.Levels[levelSelect];
+        GetBoardScenario(levelSelect);
 
         for (int i = 0; i < Width; i++)
         {
@@ -153,6 +172,17 @@ public class Board : MonoBehaviour {
                     tIconIndestructItem.row = i;
                     m_Icons[i, j] = tIconIndestructItem;
                 }
+            }
+        }
+        if(m_CurrentScenario == BoardScenario.APOCALIPTICO)
+        {
+            if(m_CurrentType == BoardType.RESGATE)
+            {
+                BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
+            }
+            else
+            {
+                BoardManager.Instance.SetBoardDeactivateBomb(levelSelect, Heigth, Width, m_Icons);
             }
         }
         if (BoostManager.Instance.IsBoostOn())
@@ -374,10 +404,12 @@ public class Board : MonoBehaviour {
                 {
                     if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY && m_Icons[i, j] != null)
                     {
-
-                        VisualIcon tVisualIcon = m_Icons[i, j].GetComponent<VisualIcon>();
-                        if (tVisualIcon != null)
-                            tVisualIcon.ExplodeIcon();
+                        if(m_Icons[i,j].Durability==0)
+                        {
+                            VisualIcon tVisualIcon = m_Icons[i, j].GetComponent<VisualIcon>();
+                            if (tVisualIcon != null)
+                                tVisualIcon.ExplodeIcon();
+                        }
                     }
                 }
             }
@@ -497,10 +529,19 @@ public class Board : MonoBehaviour {
                 {
                     if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
                     {
+                        m_Icons[i, j].Durability--;
+                        if (m_Icons[i,j].Durability==0)
+                        {
+                            ScoreManager.Instance.AddPoint(1);
+                            /*if(IconManager.Instance.GetIcon(m_Icons[i,j].STag).IconSprite == ScoreManager.Instance.IconToDestroy)
+                            {
+                                ScoreManager.Instance.ReduceNumberTarget(1);
+                            }*/
+                            Destroy(m_Icons[i, j].gameObject);
+                            m_Icons[i, j] = null;
+                        }
                         validMove = true;
-                        ScoreManager.Instance.AddPoint(1);
-                        Destroy(m_Icons[i, j].gameObject);
-                        m_Icons[i, j] = null;
+                        
                     }
                 }
             }
@@ -645,6 +686,35 @@ public class Board : MonoBehaviour {
         m_Icons[pTo.x, pTo.y] = tIcon;
     }
 
+    public void GetBoardScenario(int level)
+    {
+        string scenario = BoardManager.Instance.Nivel[level];
+        string type = BoardManager.Instance.Type[level];
+        if(scenario=="APOCALIPTICO")
+        {
+            m_CurrentScenario = BoardScenario.APOCALIPTICO;
+            if(type == "Resgate")
+            {
+                m_CurrentType = BoardType.RESGATE;
+            }
+            else
+            {
+                m_CurrentType = BoardType.DESATIVAR_BOMBA;
+            }
+        }
+        else
+        {
+            m_CurrentScenario = BoardScenario.GREGO;
+            if(type == "Um_Dos_Doze_Trabalhos")
+            {
+                m_CurrentType = BoardType.UM_DOS_DOZE_TRABALHOS;
+            }
+            else
+            {
+                m_CurrentType = BoardType.SOB_O_OLHAR_DA_GORGONA;
+            }
+        }
+    }
     #endregion
 
     #region Board Methods 
@@ -724,13 +794,20 @@ public class Board : MonoBehaviour {
                     GetRegionIcons(i, pY, ref pIcons);
 
                 }
+                if (IsInBoardRange(i, pY) && i != pX && m_Icons[i, pY].STag == "Rescue" && !pIcons.Contains(new Vector2Int(i, pY)))
+                {
+                    GetRegionIcons(i, pY, ref pIcons);
+                }
             }
 
             for (int j = pY - 1; j <= pY + 1; j++)
             {
                 if (IsInBoardRange(pX, j) && j != pY && m_Icons[pX, j].STag == tIcon.STag && !pIcons.Contains(new Vector2Int(pX, j)))
                 {
-
+                    GetRegionIcons(pX, j, ref pIcons);
+                }
+                if (IsInBoardRange(pX, j) && j != pY && m_Icons[pX, j].STag == "Rescue" && !pIcons.Contains(new Vector2Int(pX, j)))
+                {
                     GetRegionIcons(pX, j, ref pIcons);
                 }
             }

@@ -20,6 +20,7 @@ MonoBehaviour:
       m_Multiplier: 0
       m_NxN: {x: 0, y: 0}
       m_TagToTransformTo: 
+  durability: 1
   m_MatchValueToGenerate: 8
   m_GeneratesTag: RedPotion
   m_ActionsPowerUp:

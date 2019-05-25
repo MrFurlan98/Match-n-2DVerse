@@ -8,6 +8,9 @@ public class GamePlayUI : MonoBehaviour {
     private Image m_iBackground;
 
     [SerializeField]
+    private Image m_TargetSprite;
+
+    [SerializeField]
     private Button m_bPause;
 
     [SerializeField]
@@ -15,6 +18,9 @@ public class GamePlayUI : MonoBehaviour {
 
     [SerializeField]
     private Text m_tMoves;
+
+    [SerializeField]
+    private Text m_tModulos;
 
     [SerializeField]
     private Text m_ObjectivePoint;
@@ -25,11 +31,17 @@ public class GamePlayUI : MonoBehaviour {
     [SerializeField]
     private MonsterAnimation m_pMonsterAnimation;
 
+    private string m_Scenario;
+
+    private string m_Type;
+
+
     bool hasFinished = false;
 
     private void OnEnable()
     {
         hasFinished = false;
+        
     }
 
     private void Start()
@@ -39,12 +51,20 @@ public class GamePlayUI : MonoBehaviour {
 
     private void Update()
     {
+        m_tModulos.text = ScoreManager.Instance.TargetLeft.ToString();
       
         m_tScore.text =  ScoreManager.Instance.Points.ToString();
 
         m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
 
+        m_TargetSprite.sprite = ScoreManager.Instance.IconToDestroy;
+
         m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
+
+        Scenario = ScoreManager.Instance.Scenario;
+
+        Type = ScoreManager.Instance.Type;
+
 
         if (!hasFinished && ScoreManager.Instance.MovesLeft <= 0)
         {
@@ -105,6 +125,71 @@ public class GamePlayUI : MonoBehaviour {
         set
         {
             m_tScore = value;
+        }
+    }
+
+    public Text TModulos
+    {
+        get
+        {
+            return m_tModulos;
+        }
+
+        set
+        {
+            m_tModulos = value;
+        }
+    }
+
+    public Image TargetSprite
+    {
+        get
+        {
+            return m_TargetSprite;
+        }
+
+        set
+        {
+            m_TargetSprite = value;
+        }
+    }
+
+    public Board PBoard
+    {
+        get
+        {
+            return m_pBoard;
+        }
+
+        set
+        {
+            m_pBoard = value;
+        }
+    }
+
+    public string Scenario
+    {
+        get
+        {
+            return m_Scenario;
+        }
+
+        set
+        {
+            m_Scenario = value;
+        }
+    }
+
+    public string Type
+    {
+        get
+        {
+            return m_Type;
+        }
+
+        set
+        {
+            m_Type = value;
         }
     }
 

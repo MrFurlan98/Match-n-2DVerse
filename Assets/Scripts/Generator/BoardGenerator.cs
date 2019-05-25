@@ -5,6 +5,8 @@ using UnityEngine;
 public class BoardGenerator  {
 
     public static string PATH_MODEL = "/Data/Models/model.json";
+    public static string PATH_SCENARIO = "/Data/Models/scenario.json";
+    public static string PATH_Type = "/Data/Models/type.json";
     [SerializeField]
     private Board m_pBoard;
     [SerializeField]
@@ -32,23 +34,25 @@ public class BoardGenerator  {
 
             }
         }
-        return modelBoard;
+        return Mirror(modelBoard, true, true);
     }
-    public static List<int[,]> Models(int qtd)
+    public static List<int[,]> Models(int qtd ,bool vertical,bool horizontal)
     {
         List<int[,]> models = new List<int[,]>();
         int i = 0;
+        int j = 0;
         while(i<qtd)
         {
-            int[,] validation = GenerateBoard(i);
-            if(Validador(validation))
-            {
-                if(models.IndexOf(validation) == -1)
+            int[,] validation = GenerateBoard(j);
+            if (Validador(validation))
+            {       
+                if (models.IndexOf(validation) == -1)
                 {
                     models.Add(validation);
                     i++;
                 }    
-            }       
+            }
+            j++;
         }
         return models;
     }
@@ -111,10 +115,35 @@ public class BoardGenerator  {
                 }
             }
         }
-        /*if(cont0 > 0.3f * model.GetLength(0) * model.GetLength(1))
+        if(cont0 >= 0.6f * model.GetLength(0) * model.GetLength(1))
         {
-            return false;
-        }*/
-        return true;
+            int newcont0 = 0;
+            for (int i = 0; i < model.GetLength(0); i++)
+            {
+                for (int j = 0; j < model.GetLength(1); j++)
+                {
+                    if (model[i, j] == 1)
+                    {
+                        model[i, j] = 0;
+                        newcont0++;
+                    }
+                    else
+                    {
+                        model[i, j] = 1;
+                    }
+                }
+            }
+            if (newcont0 <= 0.3f * model.GetLength(0) * model.GetLength(1))
+            {
+                return false;
+            }
+            return true;
+        }
+        
+        if (cont0 <= 0.4f * model.GetLength(0) * model.GetLength(1) && cont0 >= 0.3f * model.GetLength(0) * model.GetLength(1))
+        {
+            return true;
+        }
+        return false;
     }
 }

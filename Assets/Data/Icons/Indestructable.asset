@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Name: Indestructable
   m_EditorClassIdentifier: 
   m_IconSprite: {fileID: 0}
-  m_Tag: Industructable
+  m_Tag: indestructable
   m_Actions: []
+  durability: 1000

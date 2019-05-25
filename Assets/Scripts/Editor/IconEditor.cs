@@ -140,6 +140,11 @@ public class IconEditor : EditorWindow{
 
         GUILayout.FlexibleSpace();
 
+        GUILayout.Label("Durability:");
+        pIcon.Durability = EditorGUILayout.IntField(pIcon.Durability);
+
+        GUILayout.FlexibleSpace();
+
         GUILayout.EndHorizontal();
 
         GUILayout.Space(15);
