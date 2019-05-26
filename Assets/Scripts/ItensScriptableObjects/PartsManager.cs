@@ -45,11 +45,8 @@ public class PartsManager : MonoBehaviour {
     private MobPart inicialLeg;
 
     [SerializeField]
-    private MobPart inicialArm;
-
-    [SerializeField]
-    private int hardCurrency;
-
+    private MobPart inicialArm;    
+    
     public List<MobPart> headParts = new List<MobPart>();
 
     public List<MobPart> armParts = new List<MobPart>();
@@ -60,6 +57,7 @@ public class PartsManager : MonoBehaviour {
     [SerializeField]
     public List<MobPart> bodyParts = new List<MobPart>();
 
+    /*
     public void AddHead(MobPart part)
     {
         for (int i = 0; i < headParts.Count; i++)
@@ -94,18 +92,7 @@ public class PartsManager : MonoBehaviour {
 
     public void AddLeg(MobPart part)
     {
-        for (int i = 0; i < legParts.Count; i++)
-        {
-            if (legParts[i].idMember == part.idMember)
-            {
-                //legParts[i].qnt++;
-                hardCurrency++;
-                return;
-            }
-        }
 
-        //legParts.Add(new itenArray(part));
-        legParts.Add(part);
     }
 
     public void AddArm(MobPart part)
@@ -122,9 +109,7 @@ public class PartsManager : MonoBehaviour {
 
         //armParts.Add(new itenArray(part));
         armParts.Add(part);
-    }
-
-    
+    }*/    
     #region Create Array of Sprites
 
     public Sprite[] CreateBodySpritesArray()

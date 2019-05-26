@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class GamePlayUI : MonoBehaviour {
+   
+    #region Avatar
+    [SerializeField]
+    private Image m_HeadGamePlayAvatar;
+    [SerializeField]
+    private Image m_ArmGamePlayAvatar;
+    [SerializeField]
+    private Image m_LegGamePlayAvatar;
+    [SerializeField]
+    private Image m_BodyGamePlayAvatar;
+
+    #endregion
+    public static GamePlayUI instance;
 
 
 
@@ -42,6 +55,11 @@ public class GamePlayUI : MonoBehaviour {
     private string m_Scenario;
 
     private string m_Type;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -153,6 +171,14 @@ public class GamePlayUI : MonoBehaviour {
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.RESCUE);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
+    }
+
+    public void SetMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)
+    {
+        m_HeadGamePlayAvatar.sprite = m_HeadButton.sprite;
+        m_LegGamePlayAvatar.sprite = m_LegsButton.sprite;
+        m_ArmGamePlayAvatar.sprite = m_ArmButton.sprite;
+        m_BodyGamePlayAvatar.sprite = m_BodyButton.sprite;
     }
 
 }

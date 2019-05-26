@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class LabUI : MonoBehaviour {
 
+    #region Instances
+    RoadMapUI instanceRoad;
+    #endregion
     #region Gambi
     //lab avatar
     [SerializeField]
@@ -16,17 +19,7 @@ public class LabUI : MonoBehaviour {
     private Image m_LegLabAvatar;
     [SerializeField]
     private Image m_BodyLabAvatar;
-        
-    //roadmap avatar
-    [SerializeField]
-    private Image m_HeadRoadAvatar;
-    [SerializeField]
-    private Image m_ArmRoadAvatar;
-    [SerializeField]
-    private Image m_LegRoadAvatar;
-    [SerializeField]
-    private Image m_BodyRoadAvatar;
-
+ 
     //vortex1 avatar
     [SerializeField]
     private Image m_HeadVortex1Avatar;
@@ -46,26 +39,6 @@ public class LabUI : MonoBehaviour {
     private Image m_LegVortex2Avatar;
     [SerializeField]
     private Image m_BodyVortex2Avatar;
-
-    //gameplay avatar
-    [SerializeField]
-    private Image m_HeadGamePlayAvatar;
-    [SerializeField]
-    private Image m_ArmGamePlayAvatar;
-    [SerializeField]
-    private Image m_LegGamePlayAvatar;
-    [SerializeField]
-    private Image m_BodyGamePlayAvatar;    
-    
-    //perfil avatar
-    [SerializeField]
-    private Image m_HeadPerfilAvatar;
-    [SerializeField]
-    private Image m_ArmPerfilAvatar;
-    [SerializeField]
-    private Image m_LegPerfilAvatar;
-    [SerializeField]
-    private Image m_BodyPerfilAvatar;
 
     #endregion 
 
@@ -101,8 +74,6 @@ public class LabUI : MonoBehaviour {
     [SerializeField]
     private Button m_ChosePartsScreenButton;
 
-    public Text qntMember;
-
     private int atualChild=0;
 
     [SerializeField]
@@ -118,6 +89,7 @@ public class LabUI : MonoBehaviour {
 
     private void Start()
     {
+        instanceRoad = RoadMapUI.instance;
         partsManager = PartsManager.instance;
         lengthArray = partsManager.headParts.Count;
 
@@ -283,21 +255,16 @@ public class LabUI : MonoBehaviour {
             });
     }
 
-    #region func gambi
     private void SetAvatars()
     {
-        //lab avatar
+        #region lab avatar
         m_HeadLabAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
         m_LegLabAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
         m_ArmLabAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
         m_BodyLabAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-
-        //Roadmap avatar
-        m_HeadRoadAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegRoadAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmRoadAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyRoadAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-
+        #endregion
+        instanceRoad.setRoadMapMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
+        #region Gambi
         //Vortex1 avatar
         m_HeadVortex1Avatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
         m_LegVortex1Avatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
@@ -311,21 +278,10 @@ public class LabUI : MonoBehaviour {
         m_BodyVortex2Avatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
 
         //Gameplay avatar
-        m_HeadGamePlayAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegGamePlayAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmGamePlayAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyGamePlayAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-
-        //Perfil avatar
-        m_HeadPerfilAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegPerfilAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmPerfilAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyPerfilAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-
+        #endregion
     }
 
 
-    #endregion
 
 
 }
