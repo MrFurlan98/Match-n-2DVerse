@@ -142,25 +142,6 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
-    public void SetBoardDeactivateBomb(int level,int heigth,int width, BoardIcon[,] tBoardIcons)
-    {
-        int qtd = GetQtd(level);
-        for (int z = 0; z < qtd; z++)
-        {
-            int i = 0, j = 0;
-            do
-            {
-                i = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
-                j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(1));
-            } while (tBoardIcons[i, j].Type == BoardIcon.E_Type.SPECIAL || tBoardIcons[i, j].StateIcon == BoardIcon.E_State.CANT_DESTROY);
-            Icon tIcon = IconManager.Instance.TransformIcon(i, j, "Modulo");
-            if (tIcon != null)
-            {
-                tBoardIcons[i, j].SetBoardData(tIcon);
-                tBoardIcons[i, j].Type = BoardIcon.E_Type.NORMAL;
-            }
-        }
-    }
 
     public int GetQtd(int level)
     {

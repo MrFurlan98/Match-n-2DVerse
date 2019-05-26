@@ -152,6 +152,7 @@ public class GamePlayUI : MonoBehaviour {
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.RESCUE);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
+        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
     }
 
 }

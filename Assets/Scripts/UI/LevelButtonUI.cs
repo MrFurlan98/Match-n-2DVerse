@@ -22,10 +22,10 @@ public class LevelButtonUI : MonoBehaviour {
 
         ScoreManager.Instance.StartGame = false;
         BoardManager.Instance.currentLevel = i;
-        ScoreManager.Instance.MovesLeft = 5;
+        ScoreManager.Instance.MovesLeft = 100;
         ScoreManager.Instance.TargetLeft = BoardManager.Instance.GetQtd(i);
         ScoreManager.Instance.NumberToDestroy = ScoreManager.Instance.SetTargets(i);
-        ScoreManager.Instance.GoalPoints = 200;
+        ScoreManager.Instance.GoalPoints = 100;
         ScoreManager.Instance.Points = 0;
         
         ScoreManager.Instance.Timer = 30;
@@ -43,6 +43,10 @@ public class LevelButtonUI : MonoBehaviour {
         if (BoardManager.Instance.Type[i] == "Desativar_Bomba")
         {
             UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
+        }
+        if (BoardManager.Instance.Type[i] == "Sobre_O_Olhar_Da_Gorgona")
+        {
+            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
         }
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
         ScoreManager.Instance.StartGame = true;
