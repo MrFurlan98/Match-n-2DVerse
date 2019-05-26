@@ -13,6 +13,27 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Board m_pBoard;
 
+    public List<Icon> m_IconToDestroy;
+
+    public bool CheckSurvivors()
+    {
+        BoardIcon[,] tBoardIcons = PBoard.GetBoardIcons();
+        for (int i = 0; i < tBoardIcons.GetLength(0); i++)
+        {
+            for (int j = 0; j < tBoardIcons.GetLength(1); j++)
+            {
+                if(tBoardIcons[i,j]!=null)
+                {
+                    if (tBoardIcons[i, j].STag == "Rescue")
+                    {
+                        return false;
+                    }
+                } 
+            }
+        }
+        return true;
+    }
+
     public void ResetBoard()
     {
         GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();

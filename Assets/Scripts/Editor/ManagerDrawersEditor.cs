@@ -75,6 +75,7 @@ public class ManagerDrawersEditor : EditorWindow {
         Debug.Log(tFiles.Length);
         if(tFiles == null)
             return;
+        m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
         for (int i = 0; i < tFiles.Length; i++)
         {
 
@@ -85,7 +86,7 @@ public class ManagerDrawersEditor : EditorWindow {
            
             DrawIcon(tIcon, tPath);
         }
-
+        EditorGUILayout.EndScrollView();
     }
     void DrawerSpecialIconList()
     {
@@ -94,6 +95,7 @@ public class ManagerDrawersEditor : EditorWindow {
         Debug.Log(tFiles.Length);
         if (tFiles == null)
             return;
+        m_ActionView = EditorGUILayout.BeginScrollView(m_ActionView);
         for (int i = 0; i < tFiles.Length; i++)
         {
 
@@ -104,6 +106,7 @@ public class ManagerDrawersEditor : EditorWindow {
 
             DrawIcon(tIcon, tPath);
         }
+        EditorGUILayout.EndScrollView();
 
     }
     void DrawerComboList()

@@ -180,10 +180,6 @@ public class Board : MonoBehaviour {
             {
                 BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
             }
-            else
-            {
-                BoardManager.Instance.SetBoardDeactivateBomb(levelSelect, Heigth, Width, m_Icons);
-            }
         }
         if (BoostManager.Instance.IsBoostOn())
         {
@@ -441,12 +437,14 @@ public class Board : MonoBehaviour {
         BoardIcon tIcon = m_Icons[pIconIndex.x, pIconIndex.y];
 
         //Debug.Log(tIcons.Count);
-
-        if (IsAMatch(tIcons) || IsSpecialIcon(tIcon))
+        if(!(tIcon.StateIcon == BoardIcon.E_State.CANT_DESTROY))
         {
-            MarkToDestroy(tIcons);
+            if (IsAMatch(tIcons) || IsSpecialIcon(tIcon))
+            {
+                MarkToDestroy(tIcons);
+            }
         }
-        
+
     }
 
     void DropCollumns()
@@ -533,10 +531,13 @@ public class Board : MonoBehaviour {
                         if (m_Icons[i,j].Durability==0)
                         {
                             ScoreManager.Instance.AddPoint(1);
-                            /*if(IconManager.Instance.GetIcon(m_Icons[i,j].STag).IconSprite == ScoreManager.Instance.IconToDestroy)
+                            for (int z = 0; z < GameManager.Instance.m_IconToDestroy.Count; z++)
                             {
-                                ScoreManager.Instance.ReduceNumberTarget(1);
-                            }*/
+                                if (m_Icons[i,j].STag == GameManager.Instance.m_IconToDestroy[z].Tag)
+                                {
+                                    ScoreManager.Instance.ReduceNumberTarget(1,z);
+                                }
+                            }
                             Destroy(m_Icons[i, j].gameObject);
                             m_Icons[i, j] = null;
                         }

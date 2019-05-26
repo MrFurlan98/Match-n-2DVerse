@@ -109,6 +109,8 @@ public class PopUpUI : MonoBehaviour {
             m_ButtonReceiveItens.SetActive(false);
 
         });
+
+        //GameManager.Instance.PBoard.ClearBoard();
     }
     
 

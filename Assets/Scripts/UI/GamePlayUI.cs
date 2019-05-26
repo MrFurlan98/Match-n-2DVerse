@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GamePlayUI : MonoBehaviour {
 
+
+
+
     [SerializeField]
     private Image m_iBackground;
 
-    [SerializeField]
+    /*[SerializeField]
     private Image m_TargetSprite;
 
-    [SerializeField]
-    private Button m_bPause;
+    
 
     [SerializeField]
     private Text m_tScore;
@@ -28,6 +30,12 @@ public class GamePlayUI : MonoBehaviour {
     [SerializeField]
     private Board m_pBoard;
 
+    [SerializeField]*/
+
+    [SerializeField]
+    private Button m_bPause;
+    private Text m_timer;
+
     [SerializeField]
     private MonsterAnimation m_pMonsterAnimation;
 
@@ -35,43 +43,30 @@ public class GamePlayUI : MonoBehaviour {
 
     private string m_Type;
 
-
-    bool hasFinished = false;
-
-    private void OnEnable()
-    {
-        hasFinished = false;
-        
-    }
-
     private void Start()
     {
+
         UpdateMenuButton();
     }
 
     private void Update()
     {
-        m_tModulos.text = ScoreManager.Instance.TargetLeft.ToString();
+        //m_tModulos.text = ScoreManager.Instance.TargetLeft.ToString();
       
-        m_tScore.text =  ScoreManager.Instance.Points.ToString();
+        //m_tScore.text =  ScoreManager.Instance.Points.ToString();
 
-        m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
+       // m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
 
-        m_TargetSprite.sprite = ScoreManager.Instance.IconToDestroy;
+        //m_TargetSprite.sprite = ScoreManager.Instance.IconToDestroy;
 
-        m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
+       // m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
 
-        Scenario = ScoreManager.Instance.Scenario;
+        //Scenario = ScoreManager.Instance.Scenario;
 
-        Type = ScoreManager.Instance.Type;
+        //Type = ScoreManager.Instance.Type;
 
-
-        if (!hasFinished && ScoreManager.Instance.MovesLeft <= 0)
-        {
-            hasFinished = true;
-            PopUpUI.Instance.OpenPopUp("Fim de jogo", ScoreManager.Instance.Points >= ScoreManager.Instance.GoalPoints ? true : false , GamePlayUI.BackMenu);
-        }
-
+        //Timer.text = ScoreManager.Instance.Timer.ToString("0");
+        
 
     }
     public void Switch()
@@ -102,71 +97,7 @@ public class GamePlayUI : MonoBehaviour {
         m_iBackground.sprite = pBackground;
     }
 
-    public Text TMoves
-    {
-        get
-        {
-            return m_tMoves;
-        }
-
-        set
-        {
-            m_tMoves = value;
-        }
-    }
-
-    public Text TScore
-    {
-        get
-        {
-            return m_tScore;
-        }
-
-        set
-        {
-            m_tScore = value;
-        }
-    }
-
-    public Text TModulos
-    {
-        get
-        {
-            return m_tModulos;
-        }
-
-        set
-        {
-            m_tModulos = value;
-        }
-    }
-
-    public Image TargetSprite
-    {
-        get
-        {
-            return m_TargetSprite;
-        }
-
-        set
-        {
-            m_TargetSprite = value;
-        }
-    }
-
-    public Board PBoard
-    {
-        get
-        {
-            return m_pBoard;
-        }
-
-        set
-        {
-            m_pBoard = value;
-        }
-    }
-
+    
     public string Scenario
     {
         get
@@ -193,6 +124,21 @@ public class GamePlayUI : MonoBehaviour {
         }
     }
 
+    public Text Timer
+    {
+        get
+        {
+            return m_timer;
+        }
+
+        set
+        {
+            m_timer = value;
+        }
+    }
+
+
+
     // set all events when has a match
     public void SetEvents()
     {
@@ -203,7 +149,9 @@ public class GamePlayUI : MonoBehaviour {
     {
         UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.GAMEPLAY);
- 
+        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
+        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.RESCUE);
+        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
     }
 
 }

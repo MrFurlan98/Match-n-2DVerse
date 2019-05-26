@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour {
 
     private string[] m_Type;
 
+    public int currentLevel = 0;
+
     private void Awake()
     {
         Instance = this;

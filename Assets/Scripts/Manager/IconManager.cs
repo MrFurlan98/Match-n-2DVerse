@@ -21,6 +21,9 @@ public class IconManager : MonoBehaviour {
     [SerializeField]
     private Transform m_BoardRoot;
 
+    [SerializeField]
+    private List<Sprite> m_Modulos = new List<Sprite>();
+
     private void Awake()
     {
         Instance = this;
@@ -129,10 +132,35 @@ public class IconManager : MonoBehaviour {
         
     }
 
-    public Sprite GetRandomIconSprite()
+    public List<Sprite> ShambleIconSprite()
     {
-        int i = UnityEngine.Random.Range(0, m_Icons.Count);
-        return m_Icons[i].IconSprite;
+        for (int i = 0; i < m_Modulos.Count; i++)
+        {
+            int j = UnityEngine.Random.Range(0, m_Modulos.Count);
+            Sprite tSprite = m_Modulos[i];
+            m_Modulos[i] = m_Modulos[j];
+            m_Modulos[j] = tSprite;
+        }
+        
+        return m_Modulos;
+    }
+
+    public List<Icon> GetModulos(List<Sprite> tSprite)
+    {
+        List<Icon> tIcons = new List<Icon>();
+        
+        for (int i = 0; i < tSprite.Count; i++)
+        {
+            for (int j = 0; j < m_SpecialIcons.Count; j++)
+            {
+                if (m_SpecialIcons[j].IconSprite == tSprite[i])
+                {
+                    tIcons.Add(m_SpecialIcons[j]);
+                }
+            }
+            
+        }
+        return tIcons;
     }
 
     public Icon TransformIcon(int pX,int pY,string pTagToTransformTo)
@@ -243,6 +271,19 @@ public class IconManager : MonoBehaviour {
         set
         {
             m_Combos = value;
+        }
+    }
+
+    public List<Sprite> Modulos
+    {
+        get
+        {
+            return m_Modulos;
+        }
+
+        set
+        {
+            m_Modulos = value;
         }
     }
 }
