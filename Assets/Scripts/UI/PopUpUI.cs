@@ -17,7 +17,6 @@ public class PopUpUI : MonoBehaviour {
     private Text m_Message;
     [SerializeField]
     private Button m_Button;
-
     [SerializeField]
     private GameObject m_ButtonReceiveItens;
     [SerializeField]
@@ -45,6 +44,7 @@ public class PopUpUI : MonoBehaviour {
     private MobPart[] packFiveMembers;
 
     PartsManager partsManager;
+    InventoryManager invtryInstance;
 
     public static PopUpUI Instance
     {
@@ -78,8 +78,8 @@ public class PopUpUI : MonoBehaviour {
 
     public void OpenPopUp(string pTitle, bool pResultBoard, Action OnClickAction)
     {
-
         partsManager = PartsManager.instance;
+        invtryInstance = InventoryManager.instance;
 
         if (pResultBoard)
         {
@@ -130,11 +130,14 @@ public class PopUpUI : MonoBehaviour {
 
         int randomValue = UnityEngine.Random.Range(0, itemWeight);
 
+        print(randomValue);
+
+
         for (int j = 0; j < lootItens.Count; j++)
         {
             if (randomValue <= lootItens[j].dropRarity)
             {
-                return lootItens[j].numberPack;
+                return j;
             }
             randomValue -= lootItens[j].dropRarity;
         }
@@ -152,34 +155,34 @@ public class PopUpUI : MonoBehaviour {
         if (numberArray == 0)
         {
             int numberMember = RandonNumberMember();
-            SendToList(packOneMembers[numberArray]);
+            SendToList(packOneMembers[numberMember]);
         }
 
         if (numberArray == 1)
         {
             int numberMember = RandonNumberMember();
-            SendToList(packOneMembers[numberArray]);
+            SendToList(packTwoMembers[numberMember]);
 
         }
 
         if (numberArray == 2)
         {
             int numberMember = RandonNumberMember();
-            SendToList(packOneMembers[numberArray]);
+            SendToList(packThreeMembers[numberMember]);
 
         }
 
         if (numberArray == 3)
         {
             int numberMember = RandonNumberMember();
-            SendToList(packOneMembers[numberArray]);
+            SendToList(packFourMembers[numberMember]);
 
         }
 
         if (numberArray == 4)
         {
             int numberMember = RandonNumberMember();
-            SendToList(packOneMembers[numberArray]);
+            SendToList(packFiveMembers[numberMember]);
 
         }
 
@@ -187,7 +190,7 @@ public class PopUpUI : MonoBehaviour {
 
     private int RandonNumberMember()
     {
-        int number = UnityEngine.Random.Range(0, 5);
+        int number = UnityEngine.Random.Range(0, 4);
         return number;
     }
 
@@ -198,22 +201,58 @@ public class PopUpUI : MonoBehaviour {
 
         if (memberToSend.numberPart == 0)
         {
-            partsManager.AddHead(memberToSend);
+            for (int i = 0; i < partsManager.headParts.Count; i++)
+            {
+                if (partsManager.headParts[i].idMember == memberToSend.idMember)
+                {
+                    invtryInstance.hardCurrency++;
+                    return;
+                }
+            }
+            partsManager.headParts.Add(memberToSend);
         }
 
+
+
         if (memberToSend.numberPart == 1)
-        {            
-            partsManager.AddLeg(memberToSend);
+        {
+            for (int i = 0; i < partsManager.legParts.Count; i++)
+            {
+                if (partsManager.legParts[i].idMember == memberToSend.idMember)
+                {
+                    invtryInstance.hardCurrency++;
+                    return;
+                }
+            }
+            partsManager.legParts.Add(memberToSend);
         }
-        
+
+
         if (memberToSend.numberPart == 2)
-        {            
-            partsManager.AddArm(memberToSend);
+        {
+            for (int i = 0; i < partsManager.armParts.Count; i++)
+            {
+                if (partsManager.armParts[i].idMember == memberToSend.idMember)
+                {
+                    invtryInstance.hardCurrency++;
+                    return;
+                }
+            }
+            partsManager.armParts.Add(memberToSend);
         }
+
 
         if (memberToSend.numberPart == 3)
         {
-            partsManager.AddBody(memberToSend);
+            for (int i = 0; i < partsManager.bodyParts.Count; i++)
+            {
+                if (partsManager.bodyParts[i].idMember == memberToSend.idMember)
+                {
+                    invtryInstance.hardCurrency++;
+                    return;
+                }
+            }
+            partsManager.bodyParts.Add(memberToSend);
         }
     }
 }

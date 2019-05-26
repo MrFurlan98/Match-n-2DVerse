@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour
 {
+    private static StoreUI m_Instance;
+
+    public Text m_HCText;
 
     [SerializeField]
     private Button m_ExitButton;
@@ -27,7 +31,28 @@ public class StoreUI : MonoBehaviour
     [SerializeField]
     private GameObject InGameItensScreen;
 
+    [SerializeField]
+    private Button m_addHCButton;
+
     private GameObject AtualScreen;
+
+    public static StoreUI Instance
+    {
+        get
+        {
+            return m_Instance;
+        }
+
+        set
+        {
+            m_Instance = value;
+        }
+    }
+
+    public void Awake()
+    {
+        m_Instance = this;
+    }
 
     private void Start()
     {
@@ -38,6 +63,7 @@ public class StoreUI : MonoBehaviour
             delegate
             {
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.STORE);
+                RoadMapUI.instance.UpdateText();
             });
 
         m_InGameScreenButton.onClick = new Button.ButtonClickedEvent();
@@ -68,5 +94,18 @@ public class StoreUI : MonoBehaviour
                 AtualScreen.SetActive(true);
             });
 
+        m_addHCButton.onClick = new Button.ButtonClickedEvent();
+        m_addHCButton.onClick.AddListener(
+            delegate
+            {
+                InventoryManager.instance.hardCurrency += 1000;
+                SetHCText();
+            });
+
+    }
+
+    public void SetHCText()
+    {
+        m_HCText.text = "Gold: " + InventoryManager.instance.hardCurrency;
     }
 }
