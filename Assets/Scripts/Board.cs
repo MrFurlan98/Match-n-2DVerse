@@ -562,9 +562,9 @@ public class Board : MonoBehaviour {
 
         for (int i = pY; i < Heigth - tDropCount; i++)
         {
-          
 
-            int tAboveIndex = - 1;
+
+            int tAboveIndex = -1;
 
             int indestructable = 0;
 
@@ -572,17 +572,17 @@ public class Board : MonoBehaviour {
             {
                 tAboveIndex = j + tDropCount;
                 BoardIcon tIconAbove = m_Icons[pX, tAboveIndex];
-                if(tIconAbove != null && tIconAbove.StateIcon == BoardIcon.E_State.CANT_DESTROY)
+                if (tIconAbove != null && tIconAbove.StateIcon == BoardIcon.E_State.CANT_DESTROY)
                 {
                     indestructable++;
-                    continue;
                 }
                 else
                 {
                     break;
                 }
             }
-            if (tAboveIndex >= Heigth - tDropCount + 1)
+
+            if (tAboveIndex > Heigth - tDropCount)
                 break;
 
             BoardIcon tIcon = m_Icons[pX, i];
@@ -600,8 +600,6 @@ public class Board : MonoBehaviour {
                 m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
             }
         }
-
-        
     }
 
     void DestroyIcons()
