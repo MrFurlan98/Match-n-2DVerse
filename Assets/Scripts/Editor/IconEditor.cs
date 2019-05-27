@@ -145,8 +145,17 @@ public class IconEditor : EditorWindow{
 
         GUILayout.FlexibleSpace();
 
-        GUILayout.EndHorizontal();
 
+        
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Theme:");
+        GUILayout.FlexibleSpace();
+        //pIcon.Theme = EditorGUILayout.EnumPopup((BoardScenario)Enum.Parse(typeof(BoardScenario), pIcon.Theme)).ToString();
+        pIcon.Theme = EditorGUILayout.TextField(pIcon.Theme);
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
         GUILayout.Space(15);
     }
 

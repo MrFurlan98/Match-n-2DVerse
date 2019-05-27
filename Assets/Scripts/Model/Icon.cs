@@ -55,6 +55,10 @@ public class Icon : ScriptableObject {
     [SerializeField]
     private int durability;
 
+    [HideInInspector]
+    [SerializeField]
+    private string m_Theme;
+
     public Sprite IconSprite
     {
         get
@@ -104,6 +108,19 @@ public class Icon : ScriptableObject {
         set
         {
             durability = value;
+        }
+    }
+
+    public string Theme
+    {
+        get
+        {
+            return m_Theme;
+        }
+
+        set
+        {
+            m_Theme = value;
         }
     }
 }

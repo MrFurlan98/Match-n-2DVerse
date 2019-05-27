@@ -21,6 +21,7 @@ MonoBehaviour:
       m_NxN: {x: 3, y: 3}
       m_TagToTransformTo: 
   durability: 1
+  m_Theme: Apo
   m_MatchValueToGenerate: 6
   m_GeneratesTag: ALL
   m_ActionsPowerUp:

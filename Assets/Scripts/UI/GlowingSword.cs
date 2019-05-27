@@ -9,6 +9,7 @@ public class GlowingSword : MonoBehaviour {
     private Image sprite;
 
     private float H,S,V;
+
     public Image Sprite
     {
         get
@@ -24,8 +25,8 @@ public class GlowingSword : MonoBehaviour {
 
     private void Update()
     {
-        Color.RGBToHSV(new Color(Sprite.color.r, Sprite.color.g, Sprite.color.b, Sprite.color.a), out H, out S, out V);
+        Color.RGBToHSV(Sprite.color, out H, out S, out V);
 
-        Sprite.color = Color.HSVToRGB(H, S, (V + (ScoreManager.Instance.Points * (70 / ScoreManager.Instance.GoalPoints))));
+        Sprite.color = Color.HSVToRGB(H, S, (((float)ScoreManager.Instance.Points/ (float)ScoreManager.Instance.GoalPoints)));
     }
 }

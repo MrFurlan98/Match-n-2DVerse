@@ -15,6 +15,7 @@ MonoBehaviour:
   m_Tag: BluePotion
   m_Actions: []
   durability: 1
+  m_Theme: Apo
   m_MatchValueToGenerate: 1000
   m_GeneratesTag: NONE
   m_ActionsPowerUp: []

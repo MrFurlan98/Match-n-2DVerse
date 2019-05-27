@@ -15,3 +15,4 @@ MonoBehaviour:
   m_Tag: indestructable
   m_Actions: []
   durability: 1000
+  m_Theme: None
