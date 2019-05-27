@@ -18,11 +18,18 @@ public class IconManager : MonoBehaviour {
     [SerializeField]
     private List<Combo> m_Combos;
 
-    [SerializeField]
     private Transform m_BoardRoot;
 
     [SerializeField]
     private List<Sprite> m_Modulos = new List<Sprite>();
+
+    private void Start()
+    {
+        if(m_BoardRoot == null)
+        {
+            m_BoardRoot = GameManager.Instance.PBoard.transform;
+        }
+    }
 
     private void Awake()
     {

@@ -87,7 +87,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pBoard: {fileID: 0}
-  m_IconToDestroy: []
+  m_IconToDestroy:
+  - {fileID: 11400000, guid: 3af36bbdb61f0724ca10ba43c382fd79, type: 2}
+  - {fileID: 11400000, guid: 5d3cc1d4c30bbd74aa960248da100b5e, type: 2}
+  - {fileID: 11400000, guid: 5767505b4fc881f4ca498a634bc8d047, type: 2}
+  - {fileID: 11400000, guid: 9ce8f3ad9a58ab54fae7813402e8d0eb, type: 2}
 --- !u!114 &114377602894244636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +160,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c2504dcb157c78b49ad24c298d7ed8c5, type: 2}
   - {fileID: 11400000, guid: 3ae9580503355aa4aaf458b958afb2b8, type: 2}
   - {fileID: 11400000, guid: 0895825d7c4ec834582c94ef35de3887, type: 2}
-  m_BoardRoot: {fileID: 0}
   m_Modulos:
   - {fileID: 21300000, guid: e73edd784429f1444b36243879cbc53c, type: 3}
   - {fileID: 21300000, guid: 2a4cf0edfbf55174c81708de4e468361, type: 3}
