@@ -56,6 +56,12 @@ public class GamePlayUI : MonoBehaviour {
 
     private string m_Type;
 
+    [SerializeField]
+    private Sprite m_BackGround_Apocaliptco;
+
+    [SerializeField]
+    private Sprite m_BackGround_Grego;
+
     private void Awake()
     {
         instance = this;
@@ -69,6 +75,7 @@ public class GamePlayUI : MonoBehaviour {
 
     private void Update()
     {
+        SetBackground();
         //m_tModulos.text = ScoreManager.Instance.TargetLeft.ToString();
       
         //m_tScore.text =  ScoreManager.Instance.Points.ToString();
@@ -79,13 +86,18 @@ public class GamePlayUI : MonoBehaviour {
 
        // m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
 
-        //Scenario = ScoreManager.Instance.Scenario;
+        Scenario = ScoreManager.Instance.Scenario;
 
-        //Type = ScoreManager.Instance.Type;
+        Type = ScoreManager.Instance.Type;
 
         //Timer.text = ScoreManager.Instance.Timer.ToString("0");
         
 
+    }
+    public void ZeusThunder()
+    {
+        StopAllCoroutines();
+        StartCoroutine(GameManager.Instance.PBoard.ZeusThunder());
     }
     public void Switch()
     {
@@ -110,9 +122,17 @@ public class GamePlayUI : MonoBehaviour {
         UIManager.Instance.OpenScreen(UIManager.SCREEN.PAUSE);
     }
 
-    public void SetBackground(Sprite pBackground)
+    public void SetBackground()
     {
-        m_iBackground.sprite = pBackground;
+        if (Scenario == "APOCALIPTICO")
+        {
+            IBackground.sprite = BackGround_Apocaliptco;
+            Debug.Log("aqui");
+        }
+        if (Scenario == "GREGO")
+        {
+            IBackground.sprite = BackGround_Grego;
+        }
     }
 
     
@@ -155,6 +175,45 @@ public class GamePlayUI : MonoBehaviour {
         }
     }
 
+    public Image IBackground
+    {
+        get
+        {
+            return m_iBackground;
+        }
+
+        set
+        {
+            m_iBackground = value;
+        }
+    }
+
+    public Sprite BackGround_Apocaliptco
+    {
+        get
+        {
+            return m_BackGround_Apocaliptco;
+        }
+
+        set
+        {
+            m_BackGround_Apocaliptco = value;
+        }
+    }
+
+    public Sprite BackGround_Grego
+    {
+        get
+        {
+            return m_BackGround_Grego;
+        }
+
+        set
+        {
+            m_BackGround_Grego = value;
+        }
+    }
+
 
 
     // set all events when has a match
@@ -171,6 +230,7 @@ public class GamePlayUI : MonoBehaviour {
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.RESCUE);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
         UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
+        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.ONE_OF_TWELVE_WORKS);
     }
 
     public void SetMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)

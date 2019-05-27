@@ -61,11 +61,26 @@ public class IconManager : MonoBehaviour {
         return tBoardIcon;
     }
 
-    public BoardIcon GenerateRandomIcon(int pX, int pY)
+    public BoardIcon GenerateRandomIcon(int pX, int pY,string scenario)
     {
         int tRandoIndex = UnityEngine.Random.Range(0, m_Icons.Count);
-
         Icon tIcon = m_Icons[tRandoIndex];
+        if (scenario == "APOCALIPTICO")
+        {
+            while(tIcon.Theme == "Gre")
+            {
+                tRandoIndex = UnityEngine.Random.Range(0, m_Icons.Count);
+                tIcon = m_Icons[tRandoIndex];
+            }
+        }
+        if(scenario == "GREGO")
+        {
+            while (tIcon.Theme == "Apo")
+            {
+                tRandoIndex = UnityEngine.Random.Range(0, m_Icons.Count);
+                tIcon = m_Icons[tRandoIndex];
+            }
+        }
 
         GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
 

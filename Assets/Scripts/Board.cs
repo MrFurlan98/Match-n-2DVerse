@@ -158,7 +158,7 @@ public class Board : MonoBehaviour {
             {
                 if(level[i,j]==1)
                 {
-                    BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j);
+                    BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j,BoardManager.Instance.Nivel[BoardManager.Instance.CurrentLevel]);
 
                     tIconItem.colunm = j;
                     tIconItem.row = i;
@@ -179,6 +179,13 @@ public class Board : MonoBehaviour {
             if(m_CurrentType == BoardType.RESGATE)
             {
                 BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
+            }
+        }
+        if(m_CurrentScenario == BoardScenario.GREGO)
+        {
+            if(m_CurrentType == BoardType.UM_DOS_DOZE_TRABALHOS)
+            {
+                BoardManager.Instance.SetBoardWorks(levelSelect, Heigth, Width, m_Icons);
             }
         }
         if (BoostManager.Instance.IsBoostOn())
@@ -220,6 +227,16 @@ public class Board : MonoBehaviour {
 
         // add time to collumn drop
         yield return new WaitForSeconds(m_RefillDelay);
+
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            if (m_Icons[i, 0] != null && m_Icons[i, 0].STag == "Down")
+            {
+                Destroy(m_Icons[i, 0].gameObject);
+                m_Icons[i, 0] = null;
+                ScoreManager.Instance.TargetLeft--;
+            }
+        }
 
         RefillBoard();
 
@@ -263,7 +280,72 @@ public class Board : MonoBehaviour {
         SwapIcons(firstIcon, secondIcon);
         m_CurrentState = GameState.STANDBY;
     }
+    public IEnumerator ZeusThunder()
+    {
+        m_CurrentState = GameState.RUNNING;
+        Vector2 tPosition;
+        Vector2Int firstIcon = Vector2Int.zero;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                firstIcon = FindIcon(tPosition);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+            }
+            return false;
+        });
+        Debug.Log("First");
+        yield return new WaitForEndOfFrame();
+        Vector2Int secondIcon = Vector2Int.zero;
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                secondIcon = FindIcon(tPosition);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+            }
+            return false;
+        });
+        Debug.Log("Segundo");
+        yield return new WaitForEndOfFrame();
+        Vector2Int thirdIcon = Vector2Int.zero;
+        yield return new WaitUntil(() =>
+        {
+            if (OnMouseUp())
+            {
+                tPosition = MousePosition();
+                thirdIcon = FindIcon(tPosition);
+                return IsInBoardRange(pX: thirdIcon.x, pY: thirdIcon.y);
+            }
+            return false;
+        });
+        Debug.Log("Terceiro");
 
+        m_Icons[firstIcon.x, firstIcon.y].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+        m_Icons[secondIcon.x, secondIcon.y].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+        m_Icons[thirdIcon.x, thirdIcon.y].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
+        DestroyIcons();
+        DropCollumns();
+
+        // add time to collumn drop
+        yield return new WaitForSeconds(m_RefillDelay);
+
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            if (m_Icons[i, 0] != null && m_Icons[i, 0].STag == "Down")
+            {
+                Destroy(m_Icons[i, 0].gameObject);
+                m_Icons[i, 0] = null;
+                ScoreManager.Instance.TargetLeft--;
+            }
+        }
+
+        RefillBoard();
+        m_CurrentState = GameState.STANDBY;
+    }
     public IEnumerator PowerUp()
     {
         m_CurrentState = GameState.RUNNING;
@@ -320,7 +402,11 @@ public class Board : MonoBehaviour {
         // add time to collumn drop
         yield return new WaitForSeconds(m_RefillDelay);
 
+
+
         RefillBoard();
+
+
 
         m_InitPosition = -Vector2.one;
         m_CurrentState = GameState.STANDBY;
@@ -496,7 +582,7 @@ public class Board : MonoBehaviour {
                     break;
                 }
             }
-            if (tAboveIndex >= Heigth - tDropCount)
+            if (tAboveIndex >= Heigth - tDropCount + 1)
                 break;
 
             BoardIcon tIcon = m_Icons[pX, i];
@@ -514,6 +600,8 @@ public class Board : MonoBehaviour {
                 m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
             }
         }
+
+        
     }
 
     void DestroyIcons()
@@ -560,7 +648,7 @@ public class Board : MonoBehaviour {
             {
                 if (m_Icons[i, j] == null)
                 {
-                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j);
+                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,BoardManager.Instance.Nivel[BoardManager.Instance.CurrentLevel]);
                     tIcon.colunm = j;
                     tIcon.row = i;
                     tIcon.transform.parent = transform;

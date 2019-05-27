@@ -48,6 +48,8 @@ public class BoardIcon : MonoBehaviour {
 
     private int durability;
 
+    private string theme;
+
     public void SetBoardData(Icon pIcon)
     {
         STag = pIcon.Tag;
@@ -57,6 +59,8 @@ public class BoardIcon : MonoBehaviour {
         SpriteRenderer.sprite = pIcon.IconSprite;
 
         Durability = pIcon.Durability;
+
+        Theme = pIcon.Theme;
     }
 
     // Use this for initialization
@@ -271,6 +275,19 @@ public class BoardIcon : MonoBehaviour {
         set
         {
             durability = value;
+        }
+    }
+
+    public string Theme
+    {
+        get
+        {
+            return theme;
+        }
+
+        set
+        {
+            theme = value;
         }
     }
 }

@@ -32,19 +32,21 @@ public class LevelButtonUI : MonoBehaviour {
         ScoreManager.Instance.Type = BoardManager.Instance.Type[i];
         Debug.Log(BoardManager.Instance.Nivel[i]);
         Debug.Log(BoardManager.Instance.Type[i]);
-        GameManager.Instance.PBoard.ClearBoard();
-        GameManager.Instance.PBoard.InitBoard(i);
+        
 
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
 
         ScoreManager.Instance.StartGame = false;
-        BoardManager.Instance.currentLevel = i;
+        BoardManager.Instance.CurrentLevel = i;
         ScoreManager.Instance.MovesLeft = 100;
         ScoreManager.Instance.TargetLeft = BoardManager.Instance.GetQtd(i);
         ScoreManager.Instance.NumberToDestroy = ScoreManager.Instance.SetTargets(i);
         ScoreManager.Instance.GoalPoints = 100;
         ScoreManager.Instance.Points = 0;
-        
+
+        GameManager.Instance.PBoard.ClearBoard();
+        GameManager.Instance.PBoard.InitBoard(i);
+
         ScoreManager.Instance.Timer = 30;
         if (BoardManager.Instance.Type[i] == "Desativar_Bomba")
         {
@@ -53,7 +55,10 @@ public class LevelButtonUI : MonoBehaviour {
         }
 
         UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.GAMEPLAY);
+
         GamePlayUI.instance.SetMembers(m_headToSend, m_legToSend, m_armToSend, m_bodyToSend);
+        GamePlayUI.instance.SetBackground();
+        //GamePlayUI.instance.SetBackground(BoardManager.Instance.Nivel[i]);
 
         if (BoardManager.Instance.Type[i] == "Resgate")
         {
@@ -66,6 +71,10 @@ public class LevelButtonUI : MonoBehaviour {
         if (BoardManager.Instance.Type[i] == "Sobre_O_Olhar_Da_Gorgona")
         {
             UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
+        }
+        if (BoardManager.Instance.Type[i] == "Um_Dos_Doze_Trabalhos")
+        {
+            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.ONE_OF_TWELVE_WORKS);
         }
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
         ScoreManager.Instance.StartGame = true;

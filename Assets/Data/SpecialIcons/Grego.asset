@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
+  m_Name: Grego
+  m_EditorClassIdentifier: 
+  m_IconSprite: {fileID: 21300176, guid: a29f5998aa40b664faab360a0de97fcb, type: 3}
+  m_Tag: Down
+  m_Actions: []
+  durability: 1
+  m_Theme: Gre
+  m_MatchValueToGenerate: 10000
+  m_GeneratesTag: NONE
+  m_ActionsPowerUp: []

@@ -12,7 +12,7 @@ public class ScenaryItemUI : MonoBehaviour {
     {
         // get component game play UI to set background UI
         GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
-        tGamePlayUI.SetBackground(m_pScenaryImage.sprite);
+        
 
         GameManager.Instance.ResetBoard();
 

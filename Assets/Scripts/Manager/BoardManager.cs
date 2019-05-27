@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
@@ -11,12 +12,14 @@ public class BoardManager : MonoBehaviour {
 
     [SerializeField]
     private List<int[,]> m_levels;
-    [SerializeField]
+
     private string[] nivel;
 
     private string[] m_Type;
 
-    public int currentLevel = 0;
+    
+
+    private int currentLevel;
 
     private void Awake()
     {
@@ -141,7 +144,24 @@ public class BoardManager : MonoBehaviour {
             }
         }
     }
-
+    public void SetBoardWorks(int level, int heigth, int width, BoardIcon[,] tBoardIcons)
+    {
+        int qtd = GetQtd(level);
+        for (int i = 0; i < qtd; i++)
+        {
+            int j = 0;
+            do
+            {
+                j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
+            } while (tBoardIcons[j, heigth-1].Type == BoardIcon.E_Type.SPECIAL || tBoardIcons[j, heigth-1].StateIcon == BoardIcon.E_State.CANT_DESTROY);
+            Icon tIcon = IconManager.Instance.TransformIcon(heigth-1, j, "Down");
+            if (tIcon != null)
+            {
+                tBoardIcons[j, heigth-1].SetBoardData(tIcon);
+                tBoardIcons[j, heigth-1].Type = BoardIcon.E_Type.NORMAL;
+            }
+        }
+    }
 
     public int GetQtd(int level)
     {
@@ -229,6 +249,20 @@ public class BoardManager : MonoBehaviour {
         set
         {
             m_levels = value;
+        }
+    }
+
+
+    public int CurrentLevel
+    {
+        get
+        {
+            return currentLevel;
+        }
+
+        set
+        {
+            currentLevel = value;
         }
     }
 
