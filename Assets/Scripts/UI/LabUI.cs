@@ -198,7 +198,7 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 atualPart--;
-                if (atualPart == lengthArray) atualPart += lengthArray;
+                if (atualPart == -1) atualPart += lengthArray;
 
                 if (numberPart == 1)
                 {

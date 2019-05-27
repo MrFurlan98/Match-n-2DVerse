@@ -17,6 +17,14 @@ public class GamePlayUI : MonoBehaviour {
     #endregion
     public static GamePlayUI instance;
 
+    [SerializeField]
+    private Text m_qtdZeusText;
+    [SerializeField]
+    private Text m_qtdUpApText;
+    [SerializeField]
+    private Text m_qtdUpGregText;
+    [SerializeField]
+    private Text m_qtdSwitchText;
 
 
 
@@ -61,6 +69,7 @@ public class GamePlayUI : MonoBehaviour {
 
     [SerializeField]
     private Sprite m_BackGround_Grego;
+    
 
     private void Awake()
     {
@@ -96,20 +105,40 @@ public class GamePlayUI : MonoBehaviour {
     }
     public void ZeusThunder()
     {
-        StopAllCoroutines();
-        StartCoroutine(GameManager.Instance.PBoard.ZeusThunder());
+        if (InventoryManager.instance.listConsumables[2].qtdItem > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(GameManager.Instance.PBoard.ZeusThunder());
+            InventoryManager.instance.listConsumables[2].qtdItem--;
+        }
     }
     public void Switch()
     {
-        StopAllCoroutines();
-        StartCoroutine(GameManager.Instance.PBoard.SwitchIcons());
-        
+        if (InventoryManager.instance.listConsumables[0].qtdItem > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(GameManager.Instance.PBoard.SwitchIcons());
+            InventoryManager.instance.listConsumables[0].qtdItem--;
+        }
     }
     public void Upgrade()
     {
-        StopAllCoroutines();
-        StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+        if (InventoryManager.instance.listConsumables[1].qtdItem > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+            InventoryManager.instance.listConsumables[1].qtdItem--;
+        }
+    }
 
+    public void UpgradeGrego()
+    {
+        if (InventoryManager.instance.listConsumables[3].qtdItem > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+            InventoryManager.instance.listConsumables[3].qtdItem--;
+        }
     }
     private void UpdateMenuButton()
     {
