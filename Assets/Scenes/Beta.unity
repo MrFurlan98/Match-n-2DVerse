@@ -11113,6 +11113,60 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224689104416166640, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 224689104416166640, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 899.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224822120301742620, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 224822120301742620, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 899.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224777400142536154, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 224777400142536154, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 899.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224071152101281260, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 224071152101281260, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 899.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224510804932327228, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 224510804932327228, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 899.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410265495293812, guid: 70e97ee6bd0aa414a857aab5edc8d095, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70e97ee6bd0aa414a857aab5edc8d095, type: 2}
   m_IsPrefabAsset: 0
@@ -18825,7 +18879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1829877279
 MonoBehaviour:
   m_ObjectHideFlags: 0

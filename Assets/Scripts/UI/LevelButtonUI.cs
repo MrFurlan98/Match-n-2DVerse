@@ -1,8 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class LevelButtonUI : MonoBehaviour {
+
+    RoadMapUI instanceRM;
+
+    private Image m_headToSend;
+    private Image m_armToSend;
+    private Image m_legToSend;
+    private Image m_bodyToSend;
 
     private int m_IndexButton;
 
@@ -10,6 +20,13 @@ public class LevelButtonUI : MonoBehaviour {
 
     public void OpenBoard(int i)
     {
+        #region SET AVATAR TO SEND
+        instanceRM = RoadMapUI.instance;
+        m_headToSend = instanceRM.m_HeadRoadAvatar;
+        m_legToSend = instanceRM.m_LegRoadAvatar;
+        m_bodyToSend = instanceRM.m_BodyRoadAvatar;
+        m_armToSend = instanceRM.m_ArmRoadAvatar;
+        #endregion
 
         ScoreManager.Instance.Scenario = BoardManager.Instance.Nivel[i];
         ScoreManager.Instance.Type = BoardManager.Instance.Type[i];
@@ -36,7 +53,9 @@ public class LevelButtonUI : MonoBehaviour {
         }
 
         UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.GAMEPLAY);
-        if(BoardManager.Instance.Type[i] == "Resgate")
+        GamePlayUI.instance.SetMembers(m_headToSend, m_legToSend, m_armToSend, m_bodyToSend);
+
+        if (BoardManager.Instance.Type[i] == "Resgate")
         {
             UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.RESCUE);
         }
