@@ -10945,11 +10945,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114066456044567044, guid: 5108b057be7089c4ba8c633f86ffae73,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ZeusThunder
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5108b057be7089c4ba8c633f86ffae73, type: 2}
   m_IsPrefabAsset: 0
@@ -11364,6 +11359,46 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.x
       value: 1066.6666
+      objectReference: {fileID: 0}
+    - target: {fileID: 114352714724611528, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 114537045778971384, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 114524340377993426, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 114418067731236322, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 114172013667046606, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 114509893004968418, guid: 70e97ee6bd0aa414a857aab5edc8d095,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b83cfb7407dd9d42893a90d5ec1595d,
+        type: 3}
+    - target: {fileID: 1410265495293812, guid: 70e97ee6bd0aa414a857aab5edc8d095, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70e97ee6bd0aa414a857aab5edc8d095, type: 2}
