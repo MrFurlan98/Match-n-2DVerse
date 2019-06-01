@@ -11,13 +11,7 @@ public class BoardManager : MonoBehaviour {
     private Board m_pBoard;
 
     [SerializeField]
-    private List<int[,]> m_levels;
-
-    private string[] nivel;
-
-    private string[] m_Type;
-
-    
+    private List<Level> m_levels;
 
     private int currentLevel;
 
@@ -25,102 +19,7 @@ public class BoardManager : MonoBehaviour {
     {
         Instance = this;
         string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
-        Levels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model);
-        int qtd = Levels.Count;
-        nivel = new string[Levels.Count];
-        m_Type = new string[Levels.Count];
-        int a = 0;
-        int b = 0;
-        int seed = 1000;
-        for (int i = 0; i <  qtd / 2; i++)
-        {
-            if (b % 2 == 0)
-            {
-                if (a < 2)
-                {
-                    nivel[i] = "APOCALIPTICO";
-                }
-                if (a == 2)
-                {
-                    nivel[i] = "GREGO";
-                }
-                if (a > 2)
-                {
-                    nivel[i] = "APOCALIPTICO";
-                    b++;
-                }
-                a++;
-                if (a == 4)
-                {
-                    a = 0;
-                }
-            }
-            else
-            {
-                if (a < 2)
-                {
-                    nivel[i] = "GREGO";
-                }
-                if (a == 2)
-                {
-                    nivel[i] = "APOCALIPTICO";
-                }
-                if (a > 2)
-                {
-                    nivel[i] = "GREGO";
-                    b++;
-                }
-                a++;
-                if (a == 4)
-                {
-                    a = 0;
-                }
-            }
-        }
-        a = 0;
-        for (int i = qtd / 2; i < qtd; i++)
-        {
-            if (a < 2)
-            {
-                nivel[i] = "APOCALIPTICO";
-                a++;
-            }
-            else
-            {
-                a++;
-                nivel[i] = "GREGO";
-                if (a == 4)
-                {
-                    a = 0;
-                }
-            }
-        }
-        System.Random prng = new System.Random(seed);
-        for (int i = 0; i < qtd; i++)
-        {
-            if (nivel[i] == "APOCALIPTICO")
-            {
-                if (prng.Next(0, 2) == 0)
-                {
-                    m_Type[i] = "Resgate";
-                }
-                else
-                {
-                    m_Type[i] = "Desativar_Bomba";
-                }
-            }
-            else
-            {
-                if (prng.Next(0, 2) == 0)
-                {
-                    m_Type[i] = "Um_Dos_Doze_Trabalhos";
-                }
-                else
-                {
-                    m_Type[i] = "Sobre_O_Olhar_Da_Gorgona";
-                }
-            }
-        }
+        Levels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Level>>(model);
     }
 
     #region Methods
@@ -213,33 +112,7 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
-    public string[] Nivel
-    {
-        get
-        {
-            return nivel;
-        }
-
-        set
-        {
-            nivel = value;
-        }
-    }
-
-    public string[] Type
-    {
-        get
-        {
-            return m_Type;
-        }
-
-        set
-        {
-            m_Type = value;
-        }
-    }
-
-    public List<int[,]> Levels
+    public List<Level> Levels
     {
         get
         {

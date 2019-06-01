@@ -48,17 +48,19 @@ public class DeactivateBombPanel : MonoBehaviour {
                 {
                     
                     ScoreManager.Instance.StopTime(float.Parse(Timer.text));
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.BackMenu);
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.BackMenu);
+                    
                 }
                 if (ScoreManager.Instance.Timer <= 0)
                 {
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.BackMenu);
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.BackMenu);
+                   
                 }
                 cont = 0;
             }

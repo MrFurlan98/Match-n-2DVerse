@@ -49,6 +49,8 @@ public class Board : MonoBehaviour {
 
     private BoardIcon[,] m_Icons;
 
+    private Level level;
+
     private System.Action m_TriggerMatch;
     // create a queue to do actions before the next match 
     [SerializeField]
@@ -82,7 +84,7 @@ public class Board : MonoBehaviour {
     private float m_TimeToStart;
 
 
-    IEnumerator StartDalay()
+    public IEnumerator StartDalay()
     {
         m_CurrentState = GameState.RUNNING;
         yield return new WaitForSeconds(m_TimeToStart);
@@ -146,19 +148,19 @@ public class Board : MonoBehaviour {
     }
     public void InitBoard(int levelSelect)
     {
+        m_CurrentState = GameState.RUNNING;
         StopAllCoroutines();
-        StartCoroutine(StartDalay());
+        //StartCoroutine(StartDalay());
 
-        int[,] level = BoardManager.Instance.Levels[levelSelect];
-        GetBoardScenario(levelSelect);
+        level = BoardManager.Instance.Levels[levelSelect];
 
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Heigth; j++)
             {
-                if(level[i,j]==1)
+                if(level.Model[i,j]==1)
                 {
-                    BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j,BoardManager.Instance.Nivel[BoardManager.Instance.CurrentLevel]);
+                    BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
 
                     tIconItem.colunm = j;
                     tIconItem.row = i;
@@ -174,25 +176,19 @@ public class Board : MonoBehaviour {
                 }
             }
         }
-        if(m_CurrentScenario == BoardScenario.APOCALIPTICO)
-        {
-            if(m_CurrentType == BoardType.RESGATE)
-            {
-                BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
-            }
+        if(level.Type == "Resgate")
+        {       
+            BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
         }
-        if(m_CurrentScenario == BoardScenario.GREGO)
+        if(level.Type == "Um_Dos_Doze_Trabalhos")
         {
-            if(m_CurrentType == BoardType.UM_DOS_DOZE_TRABALHOS)
-            {
-                BoardManager.Instance.SetBoardWorks(levelSelect, Heigth, Width, m_Icons);
-            }
+            BoardManager.Instance.SetBoardWorks(levelSelect, Heigth, Width, m_Icons);
         }
         if (BoostManager.Instance.IsBoostOn())
         {
             BoostManager.Instance.ApplyEffects();
         }
-        m_CurrentState = GameState.STANDBY;
+        //m_CurrentState = GameState.STANDBY;
     }
 
     private IEnumerator BoardRunning(Vector2Int pOriginIndex, E_Direction pDirection)
@@ -402,11 +398,7 @@ public class Board : MonoBehaviour {
         // add time to collumn drop
         yield return new WaitForSeconds(m_RefillDelay);
 
-
-
         RefillBoard();
-
-
 
         m_InitPosition = -Vector2.one;
         m_CurrentState = GameState.STANDBY;
@@ -562,9 +554,9 @@ public class Board : MonoBehaviour {
 
         for (int i = pY; i < Heigth - tDropCount; i++)
         {
+          
 
-
-            int tAboveIndex = -1;
+            int tAboveIndex = - 1;
 
             int indestructable = 0;
 
@@ -572,34 +564,39 @@ public class Board : MonoBehaviour {
             {
                 tAboveIndex = j + tDropCount;
                 BoardIcon tIconAbove = m_Icons[pX, tAboveIndex];
-                if (tIconAbove != null && tIconAbove.StateIcon == BoardIcon.E_State.CANT_DESTROY)
+                if(tIconAbove != null && tIconAbove.StateIcon == BoardIcon.E_State.CANT_DESTROY)
                 {
                     indestructable++;
+                    continue;
                 }
                 else
                 {
                     break;
                 }
             }
-
-            if (tAboveIndex > Heigth - tDropCount)
-                break;
-
-            BoardIcon tIcon = m_Icons[pX, i];
-
-            if (tIcon != null && tIcon.StateIcon == BoardIcon.E_State.CANT_DESTROY)
-                continue;
-
-            m_Icons[pX, i] = m_Icons[pX, tAboveIndex];
-
-            m_Icons[pX, tAboveIndex] = tIcon;
-
-            if (m_Icons[pX, i] != null)
+            //if (tAboveIndex >= Heigth - tDropCount + 1)
+               // break;
+            if(m_Icons[pX,tAboveIndex] !=null && m_Icons[pX, tAboveIndex].StateIcon != BoardIcon.E_State.CANT_DESTROY)
             {
-                m_Icons[pX, i].row = pX;
-                m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
+                BoardIcon tIcon = m_Icons[pX, i];
+
+                if (tIcon != null && tIcon.StateIcon == BoardIcon.E_State.CANT_DESTROY)
+                    continue;
+
+                m_Icons[pX, i] = m_Icons[pX, tAboveIndex];
+
+                m_Icons[pX, tAboveIndex] = tIcon;
+
+                if (m_Icons[pX, i] != null)
+                {
+                    m_Icons[pX, i].row = pX;
+                    m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
+                }
             }
+            
         }
+
+        
     }
 
     void DestroyIcons()
@@ -616,7 +613,7 @@ public class Board : MonoBehaviour {
                         m_Icons[i, j].Durability--;
                         if (m_Icons[i,j].Durability==0)
                         {
-                            ScoreManager.Instance.AddPoint(1);
+                            ScoreManager.Instance.AddPoint(50);
                             for (int z = 0; z < GameManager.Instance.m_IconToDestroy.Count; z++)
                             {
                                 if (m_Icons[i,j].STag == GameManager.Instance.m_IconToDestroy[z].Tag)
@@ -646,7 +643,7 @@ public class Board : MonoBehaviour {
             {
                 if (m_Icons[i, j] == null)
                 {
-                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,BoardManager.Instance.Nivel[BoardManager.Instance.CurrentLevel]);
+                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
                     tIcon.colunm = j;
                     tIcon.row = i;
                     tIcon.transform.parent = transform;
@@ -773,7 +770,7 @@ public class Board : MonoBehaviour {
         m_Icons[pTo.x, pTo.y] = tIcon;
     }
 
-    public void GetBoardScenario(int level)
+    /*public void GetBoardScenario(int level)
     {
         string scenario = BoardManager.Instance.Nivel[level];
         string type = BoardManager.Instance.Type[level];
@@ -801,7 +798,7 @@ public class Board : MonoBehaviour {
                 m_CurrentType = BoardType.SOB_O_OLHAR_DA_GORGONA;
             }
         }
-    }
+    }*/
     #endregion
 
     #region Board Methods 
