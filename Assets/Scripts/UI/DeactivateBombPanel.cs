@@ -15,6 +15,15 @@ public class DeactivateBombPanel : MonoBehaviour {
     [SerializeField]
     private List<Image> m_TargetSprites = new List<Image>();
 
+    private void OnEnable()
+    {
+        setSprites = true;
+        for (int i = 0; i < TargetSprites.Count; i++)
+        {
+            TargetSprites[i].enabled = true;
+        }
+    }
+
     private void Update()
     {
         if(ScoreManager.Instance.StartGame)

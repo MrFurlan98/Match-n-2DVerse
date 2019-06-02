@@ -8,8 +8,9 @@ public class BoardIcon : MonoBehaviour {
     public enum E_State {
         STAND_BY,
         MARK_TO_DESTROY,
-        CANT_DESTROY
-      
+        CANT_DESTROY,
+        SHADOW,
+        PETRIFIED
     }
     public enum E_Type
     {
@@ -35,6 +36,7 @@ public class BoardIcon : MonoBehaviour {
     public bool isMatch = false;
     public bool isIndestructable = false;
     public bool isSpecial = false;
+    public int shadowy = 0;
 
     [SerializeField]
     public string m_sTag;
@@ -62,7 +64,10 @@ public class BoardIcon : MonoBehaviour {
 
         Theme = pIcon.Theme;
     }
-
+    public void SetShadow(Sprite shadow)
+    {
+        SpriteRenderer.sprite = shadow;
+    }
     // Use this for initialization
     void Start () {
         board = FindObjectOfType<Board>();

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162cbd9462ba5d94b83d9fbc0f32b2a3, type: 3}
   m_Name: Modulo_verde
   m_EditorClassIdentifier: 
-  m_IconSprite: {fileID: 21300000, guid: f59bdd15d46813f468ce1e687b8b5b0e, type: 3}
+  m_IconSprite: {fileID: 21300000, guid: 53084f7709db08643905a340957d2ca7, type: 3}
   m_Tag: GreenPotion
   m_Actions: []
   durability: 1

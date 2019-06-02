@@ -92,7 +92,23 @@ public class IconManager : MonoBehaviour {
 
         return tBoardIcon;
     }
-
+    public void ReturnOriginalSprite(BoardIcon tIcon)
+    {
+        for (int i = 0; i < m_Icons.Count; i++)
+        {
+            if(m_Icons[i].Tag == tIcon.m_sTag)
+            {
+                tIcon.SpriteRenderer.sprite = m_Icons[i].IconSprite;
+            }
+        }
+        for (int i = 0; i < m_SpecialIcons.Count; i++)
+        {
+            if (m_SpecialIcons[i].Tag == tIcon.m_sTag)
+            {
+                tIcon.SpriteRenderer.sprite = m_SpecialIcons[i].IconSprite;
+            }
+        }
+    }
     public BoardIcon GenerateIcon(int pX, int pY, Icon pIconData)
     {
         GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
