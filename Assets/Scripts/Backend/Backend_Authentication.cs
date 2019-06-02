@@ -12,7 +12,7 @@ public partial class Backend : MonoBehaviour {
         new DeviceAuthenticationRequest()
             .SetDisplayName(pDisplayName)
             .Send((response) =>
-            {
+            { 
                 SaveAuthenticationToken(response.AuthToken);
 
                 pResponse(!response.HasErrors, response.DisplayName);

@@ -28,7 +28,7 @@ public class AuthenticationUI : MonoBehaviour {
 
     void Init()
     {
-        UnityEngine.Events.UnityAction GuestLoginAction = delegate { Backend.Instance.GuestLogin(LoginGuest); };
+        UnityEngine.Events.UnityAction GuestLoginAction = delegate { Backend.Instance.GuestLogin(LoginGuest, pDisplayName: "Guest_" + UnityEngine.Random.Range(0, 100000)); };
         m_GuestLoginButton.onClick.AddListener(GuestLoginAction);
     }
 
@@ -38,10 +38,7 @@ public class AuthenticationUI : MonoBehaviour {
         {
             Debug.Log("Welcome: " + pUsername);
 
-            PlayerManager.Instance.PlayerProfileData.UserName = pUsername;
-            UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
-            UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.AUTHETICATION);
-
+            PipelineManager.Instance.RestartFlow();
         }
         else
         {
