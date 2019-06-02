@@ -45,6 +45,8 @@ public class Board : MonoBehaviour {
     private BoardScenario m_CurrentScenario = BoardScenario.STANDBY;
     private BoardType m_CurrentType = BoardType.STANDBY;
 
+
+
     //private string json_PATH = Application.dataPath + BoardGenerator.PATH_MODEL;
 
     private BoardIcon[,] m_Icons;
@@ -62,6 +64,9 @@ public class Board : MonoBehaviour {
     private Vector2 m_InitPosition;
 
     [Header("Config Board Game")]
+
+    [SerializeField]
+    private Sprite shadow;
 
     [SerializeField]
     private int m_Heigth;
@@ -521,10 +526,55 @@ public class Board : MonoBehaviour {
             {
                 MarkToDestroy(tIcons);
             }
+            else
+            {
+                if(level.Type == "Um_Dos_Doze_Trabalhos")
+                {
+                    Shadowy(pIconIndex);
+                }
+            }
         }
-
+        ReduceShadow();
     }
-
+    void ReduceShadow()
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if(m_Icons[i,j].StateIcon == BoardIcon.E_State.SHADOW)
+                {
+                    m_Icons[i, j].shadowy--;
+                    if(m_Icons[i,j].shadowy == 0)
+                    {
+                        m_Icons[i, j].StateIcon = BoardIcon.E_State.STAND_BY;
+                        IconManager.Instance.ReturnOriginalSprite(m_Icons[i, j]);
+                    }
+                }
+            }
+        }
+    }
+    void Shadowy(Vector2Int pIconIndex)
+    {
+        for (int i = pIconIndex.x-1; i <pIconIndex.x+2 ; i++)
+        {
+            if(IsInBoardRange(i,pIconIndex.y) && m_Icons[i,pIconIndex.y]!=null && m_Icons[i,pIconIndex.y].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+            {
+                m_Icons[i,pIconIndex.y].shadowy = 4;
+                m_Icons[i, pIconIndex.y].StateIcon = BoardIcon.E_State.SHADOW;
+                m_Icons[i, pIconIndex.y].SetShadow(shadow);
+            }
+        }
+        for (int i = pIconIndex.y - 1; i < pIconIndex.y + 2; i++)
+        {
+            if (IsInBoardRange(pIconIndex.x,i) && m_Icons[pIconIndex.x, i] != null && m_Icons[pIconIndex.x,i].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+            {
+                m_Icons[pIconIndex.x, i].shadowy = 4;
+                m_Icons[pIconIndex.x, i].StateIcon = BoardIcon.E_State.SHADOW;
+                m_Icons[pIconIndex.x, i].SetShadow(shadow);
+            }
+        }
+    }
     void DropCollumns()
     {
         for (int i = 0; i < m_Icons.GetLength(0); i++)

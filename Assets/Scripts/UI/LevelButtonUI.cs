@@ -40,7 +40,6 @@ public class LevelButtonUI : MonoBehaviour {
         BoardManager.Instance.CurrentLevel = i;
         ScoreManager.Instance.MovesLeft = BoardManager.Instance.Levels[i].MovesLeft;
         ScoreManager.Instance.TargetLeft = BoardManager.Instance.Levels[i].TargetLeft;
-        ScoreManager.Instance.NumberToDestroy = ScoreManager.Instance.SetTargets(i);
         ScoreManager.Instance.GoalPoints = BoardManager.Instance.Levels[i].GoalPoints;
         ScoreManager.Instance.Points = 0;
 
@@ -51,6 +50,7 @@ public class LevelButtonUI : MonoBehaviour {
 
         if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
         {
+            ScoreManager.Instance.SetTargets(ScoreManager.Instance.TargetLeft);
             ScoreManager.Instance.Stop = false;
             ScoreManager.Instance.StartClock();
         }

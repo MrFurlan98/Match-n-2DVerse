@@ -77,9 +77,8 @@ public class ScoreManager : MonoBehaviour {
         }
         
     }
-    public List<int> SetTargets(int qtd)
+    public void SetTargets(int qtd)
     {
-        qtd = BoardManager.Instance.GetQtd(qtd);
         if(qtd ==5)
         {
             qtd = 4;
@@ -92,8 +91,7 @@ public class ScoreManager : MonoBehaviour {
         {
             NumberToDestroy[i] = 0;
         }
-        return NumberToDestroy;
-    }
+    }  
     public void AddPoint(int pPoint)
     {
         Points += pPoint;

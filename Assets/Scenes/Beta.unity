@@ -5148,11 +5148,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5184,57 +5179,6 @@ Prefab:
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_RootOrder
       value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[1].m_IconPrefab
-      value: 
-      objectReference: {fileID: 1471670826069130, guid: b58679ae3a18b704cb522b8b03058043,
-        type: 2}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[1].m_MatchValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[2].m_IconPrefab
-      value: 
-      objectReference: {fileID: 1707404909606250, guid: 223fa98e0adf93b40b411b52eb50c98c,
-        type: 2}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[2].m_MatchValue
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[0].m_GeneratesTag
-      value: BluePotion
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SwapDelay
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_RefillDelay
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1916596518678126, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_OffSet
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_TimeToStart
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
