@@ -22,7 +22,7 @@ public class DestroyCross : BaseAction {
                 {
                     if(pIcons[i,j]!=null)
                     {
-                        if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j] != null)
+                        if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j].StateIcon != BoardIcon.E_State.OBJECTIVE)
                             pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
                     }
                 }

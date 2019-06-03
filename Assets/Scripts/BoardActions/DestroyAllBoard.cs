@@ -16,7 +16,7 @@ public class DestroyAllBoard : BaseAction
             {
                 if(pIcons[i,j]!=null)
                 {
-                    if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+                    if (pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
                         pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
                 }   
             }

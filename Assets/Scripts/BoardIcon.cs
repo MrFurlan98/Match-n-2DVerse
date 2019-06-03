@@ -9,6 +9,7 @@ public class BoardIcon : MonoBehaviour {
         STAND_BY,
         MARK_TO_DESTROY,
         CANT_DESTROY,
+        OBJECTIVE,
         SHADOW,
         PETRIFIED
     }

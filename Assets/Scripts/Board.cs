@@ -259,7 +259,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y) && m_Icons[firstIcon.x,firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -272,7 +272,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 secondIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y) && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -293,7 +293,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y) && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -306,7 +306,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 secondIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y) && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -319,7 +319,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 thirdIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: thirdIcon.x, pY: thirdIcon.y);
+                return IsInBoardRange(pX: thirdIcon.x, pY: thirdIcon.y) && m_Icons[thirdIcon.x, thirdIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[thirdIcon.x, thirdIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -360,7 +360,7 @@ public class Board : MonoBehaviour {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
               
-                if(m_Icons[firstIcon.x,firstIcon.y].Type == BoardIcon.E_Type.SPECIAL)
+                if(m_Icons[firstIcon.x,firstIcon.y].Type == BoardIcon.E_Type.SPECIAL && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY)
                 {
                     SpecialIcon tCombo = IconManager.Instance.GetSpecialIcon((m_Icons[firstIcon.x, firstIcon.y]));
                     if (tCombo != null)
@@ -661,6 +661,7 @@ public class Board : MonoBehaviour {
                     if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
                     {
                         m_Icons[i, j].Durability--;
+                        m_Icons[i, j].StateIcon = BoardIcon.E_State.STAND_BY;
                         if (m_Icons[i,j].Durability==0)
                         {
                             ScoreManager.Instance.AddPoint(50);

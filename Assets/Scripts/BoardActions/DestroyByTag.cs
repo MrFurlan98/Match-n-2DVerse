@@ -20,7 +20,7 @@ public class DestroyByTag : BaseAction
             {
                 if(pIcons[i,j]!=null)
                 {
-                    if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+                    if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j].StateIcon != BoardIcon.E_State.OBJECTIVE)
                     {
                         pIcons[i, j].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
                     }

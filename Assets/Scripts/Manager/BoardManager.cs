@@ -52,12 +52,13 @@ public class BoardManager : MonoBehaviour {
             do
             {
                 j = UnityEngine.Random.Range(0, tBoardIcons.GetLength(0));
-            } while (tBoardIcons[j, heigth-1].Type == BoardIcon.E_Type.SPECIAL || tBoardIcons[j, heigth-1].StateIcon == BoardIcon.E_State.CANT_DESTROY);
+            } while (tBoardIcons[j, heigth-1].Type == BoardIcon.E_Type.SPECIAL || tBoardIcons[j, heigth-1].StateIcon == BoardIcon.E_State.CANT_DESTROY || tBoardIcons[j, heigth - 1].StateIcon == BoardIcon.E_State.OBJECTIVE);
             Icon tIcon = IconManager.Instance.TransformIcon(heigth-1, j, "Down");
             if (tIcon != null)
             {
                 tBoardIcons[j, heigth-1].SetBoardData(tIcon);
                 tBoardIcons[j, heigth-1].Type = BoardIcon.E_Type.NORMAL;
+                tBoardIcons[j, heigth - 1].StateIcon = BoardIcon.E_State.OBJECTIVE;
             }
         }
     }
