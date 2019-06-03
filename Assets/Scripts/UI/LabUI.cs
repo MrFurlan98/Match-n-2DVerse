@@ -10,15 +10,7 @@ public class LabUI : MonoBehaviour {
     RoadMapUI instanceRoad;
     #endregion
     #region Gambi
-    //lab avatar
-    [SerializeField]
-    private Image m_HeadLabAvatar;
-    [SerializeField]
-    private Image m_ArmLabAvatar;
-    [SerializeField]
-    private Image m_LegLabAvatar;
-    [SerializeField]
-    private Image m_BodyLabAvatar;
+
  
     //vortex1 avatar
     [SerializeField]
@@ -66,19 +58,9 @@ public class LabUI : MonoBehaviour {
     private Button m_LButton;
 
     [SerializeField]
-    private Button m_ConfirmPartButton;
-
-    [SerializeField]
     private Button m_ConfirmAvatarButton;
-
-    [SerializeField]
-    private Button m_ChosePartsScreenButton;
-
-    private int atualChild=0;
-
-    [SerializeField]
-    private GameObject editMemberScreen;
     
+    private int atualChild=0;    
 
     public Image bodyPart;
 
@@ -96,12 +78,13 @@ public class LabUI : MonoBehaviour {
         bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
         //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
 
+        SetLabAvatar();
+
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
                 openOrClose = 0;
-                editMemberScreen.SetActive(false);
                 //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.LAB);
             });
@@ -150,15 +133,6 @@ public class LabUI : MonoBehaviour {
                 numberPart = 4;
             });
 
-        m_ConfirmPartButton.onClick = new Button.ButtonClickedEvent();
-        m_ConfirmPartButton.onClick.AddListener(
-            delegate
-            {
-                if (numberPart == 1) m_HeadButton.GetComponent<Image>().sprite = bodyPart.sprite;
-                if (numberPart == 2) m_BodyButton.GetComponent<Image>().sprite = bodyPart.sprite;
-                if (numberPart == 3) m_ArmButton.GetComponent<Image>().sprite = bodyPart.sprite;
-                if (numberPart == 4) m_LegsButton.GetComponent<Image>().sprite = bodyPart.sprite;
-            });
 
         m_RButton.onClick = new Button.ButtonClickedEvent();
         m_RButton.onClick.AddListener(
@@ -170,24 +144,28 @@ public class LabUI : MonoBehaviour {
                 if (numberPart == 1)
                 {
                     bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+                    m_HeadButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 2)
                 {
-                    bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite; 
+                    bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite;
+                    m_BodyButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";                
                 }
 
                 if (numberPart == 3)
                 {
                     bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
+                    m_ArmButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
-                
+
                 }
                 if (numberPart == 4)
                 {
                     bodyPart.sprite = partsManager.legParts[atualPart].memberSprite;
+                    m_LegsButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.legParts[atualPart].qnt + "x";
                 }
             });
@@ -203,66 +181,42 @@ public class LabUI : MonoBehaviour {
                 if (numberPart == 1)
                 {
                     bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
+                    m_HeadButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.headParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 2)
                 {
                     bodyPart.sprite = partsManager.bodyParts[atualPart].memberSprite;
+                    m_BodyButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.bodyParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 3)
                 {
-                     bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
-                     //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
+                    bodyPart.sprite = partsManager.armParts[atualPart].memberSprite;
+                    m_ArmButton.GetComponent<Image>().sprite = bodyPart.sprite;
+                    //qntMember.text = partsManager.armParts[atualPart].qnt + "x";
                 }
 
                 if (numberPart == 4)
                 {
                     bodyPart.sprite = partsManager.legParts[atualPart].memberSprite;
+                    m_LegsButton.GetComponent<Image>().sprite = bodyPart.sprite;
                     //qntMember.text = partsManager.legParts[atualPart].qnt + "x";
                 }
-            });
-
-        m_ChosePartsScreenButton.onClick = new Button.ButtonClickedEvent();
-        m_ChosePartsScreenButton.onClick.AddListener(
-            delegate
-            {
-                if (openOrClose == 1)
-                {
-                    openOrClose = 0;
-                    editMemberScreen.SetActive(false);
-                    //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
-                }else
-                {
-                    openOrClose = 1;
-                    editMemberScreen.SetActive(true);
-                    //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
-                    m_HeadButton.GetComponent<Image>().sprite = m_HeadLabAvatar.sprite;
-                    m_LegsButton.GetComponent<Image>().sprite = m_LegLabAvatar.sprite;
-                    m_ArmButton.GetComponent<Image>().sprite = m_ArmLabAvatar.sprite;
-                    m_BodyButton.GetComponent<Image>().sprite = m_BodyLabAvatar.sprite;
-                }
-                                             
             });
 
         m_ConfirmAvatarButton.onClick = new Button.ButtonClickedEvent();
         m_ConfirmAvatarButton.onClick.AddListener(
             delegate
             {
-                SetAvatars();
+                SetRoadAvatars();
             });
     }
 
-    private void SetAvatars()
+    private void SetRoadAvatars()
     {
-        #region lab avatar
-        m_HeadLabAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegLabAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmLabAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyLabAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-        #endregion
         instanceRoad.setRoadMapMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
         #region Gambi
         //Vortex1 avatar
@@ -281,7 +235,11 @@ public class LabUI : MonoBehaviour {
         #endregion
     }
 
-
-
-
+    private void SetLabAvatar()
+    {
+        m_HeadButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_HeadRoadAvatar.sprite;
+        m_BodyButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_BodyRoadAvatar.sprite;
+        m_ArmButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_ArmRoadAvatar.sprite;
+        m_LegsButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_LegRoadAvatar.sprite;
+    }
 }
