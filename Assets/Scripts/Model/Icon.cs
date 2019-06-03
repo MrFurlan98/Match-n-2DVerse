@@ -49,7 +49,7 @@ public class Icon : ScriptableObject {
 
     [HideInInspector]
     [SerializeField]
-    protected List<Action> m_Actions = new List<Action>();
+    protected List<Action> m_Actions;
 
     [HideInInspector]
     [SerializeField]
