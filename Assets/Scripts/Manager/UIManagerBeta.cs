@@ -19,21 +19,21 @@ public class UIManagerBeta : MonoBehaviour
         GAMEPLAY = 9,
         POPUP
     }
-    public enum PANELS
+    /*public enum PANELS
     {
         RESCUE,
         DEACTIVATE_BOMB,
         UNDER_THE_GORGONAS_EYES,
         ONE_OF_TWELVE_WORKS,
         NONE
-    }
+    }*/
 
-    [System.Serializable]
+    /*[System.Serializable]
     public class UIPanel
     {
         public GameObject m_pPanelObject;
         public PANELS m_pPanel;
-    }
+    }*/
 
     [System.Serializable]
     public class UIScreen
@@ -50,8 +50,8 @@ public class UIManagerBeta : MonoBehaviour
     [SerializeField]
     private List<UIScreen> m_pScreens = new List<UIScreen>();
 
-    [SerializeField]
-    private List<UIPanel> m_pPanel = new List<UIPanel>();
+    //[SerializeField]
+    //private List<UIPanel> m_pPanel = new List<UIPanel>();
 
     public void OpenScreen(SCREENS pScreen)
     {
@@ -64,7 +64,7 @@ public class UIManagerBeta : MonoBehaviour
         GetScreenObject(pScreen).SetActive(false);
     }
 
-    public void OpenPanel(PANELS pPanel)
+    /*public void OpenPanel(PANELS pPanel)
     {
         GetPanelObject(pPanel).SetActive(true);
     }
@@ -73,16 +73,16 @@ public class UIManagerBeta : MonoBehaviour
     {
 
         GetPanelObject(pPanel).SetActive(false);
-    }
+    }*/
 
     public GameObject GetScreenObject(SCREENS pScreen)
     {
         UIScreen UI = m_pScreens.Find(screen => screen.m_pScreen == pScreen);
         return UI.m_pScreenObject;
     }
-    public GameObject GetPanelObject(PANELS pPanel)
+    /*public GameObject GetPanelObject(PANELS pPanel)
     {
         UIPanel UI = m_pPanel.Find(panel => panel.m_pPanel == pPanel);
         return UI.m_pPanelObject;
-    }
+    }*/
 }

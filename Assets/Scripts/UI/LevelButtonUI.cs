@@ -63,19 +63,19 @@ public class LevelButtonUI : MonoBehaviour {
 
         if (BoardManager.Instance.Levels[i].Type == "Resgate")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.RESCUE);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.RESCUE);
         }
         if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.DEACTIVATE_BOMB);
         }
         if (BoardManager.Instance.Levels[i].Type == "Sobre_O_Olhar_Da_Gorgona")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.UNDER_THE_GORGONAS_EYES);
         }
         if (BoardManager.Instance.Levels[i].Type == "Um_Dos_Doze_Trabalhos")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.ONE_OF_TWELVE_WORKS);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.ONE_OF_TWELVE_WORKS);
         }
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
         ScoreManager.Instance.StartGame = true;

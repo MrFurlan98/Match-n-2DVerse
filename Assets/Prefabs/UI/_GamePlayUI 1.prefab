@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1177293679878216
 GameObject:
   m_ObjectHideFlags: 1
@@ -3745,6 +3745,15 @@ MonoBehaviour:
   m_BackGround_Apocaliptco: {fileID: 21300000, guid: 74b1c6874b4cbdd44a95bc636152b93c,
     type: 3}
   m_BackGround_Grego: {fileID: 21300000, guid: 966b2b91e0d88ca42a9d95eb649a19d6, type: 3}
+  m_pPanel:
+  - m_pPanelObject: {fileID: 1854514959044758}
+    m_pPanel: 0
+  - m_pPanelObject: {fileID: 1811846955083312}
+    m_pPanel: 1
+  - m_pPanelObject: {fileID: 1165169736856010}
+    m_pPanel: 2
+  - m_pPanelObject: {fileID: 1019655587622044}
+    m_pPanel: 3
 --- !u!114 &114973453369419092
 MonoBehaviour:
   m_ObjectHideFlags: 1

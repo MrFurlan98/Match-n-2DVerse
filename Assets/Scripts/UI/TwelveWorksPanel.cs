@@ -29,14 +29,14 @@ public class TwelveWorksPanel : MonoBehaviour {
             if (ScoreManager.Instance.TargetLeft<=0)
             {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.BackMenu);
+                PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.instance.BackMenu);
                 ScoreManager.Instance.StartGame = false;
             }
             if (ScoreManager.Instance.MovesLeft <= 0)
             {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
                 Debug.Log(ScoreManager.Instance.MovesLeft);
-                PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.BackMenu);
+                PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.instance.BackMenu);
                 ScoreManager.Instance.StartGame = false;
             }
         }

@@ -60,7 +60,7 @@ public class DeactivateBombPanel : MonoBehaviour {
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
                     UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.BackMenu);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.instance.BackMenu);
                     
                 }
                 if (ScoreManager.Instance.Timer <= 0)
@@ -68,7 +68,7 @@ public class DeactivateBombPanel : MonoBehaviour {
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
                     UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.BackMenu);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.instance.BackMenu);
                    
                 }
                 cont = 0;
