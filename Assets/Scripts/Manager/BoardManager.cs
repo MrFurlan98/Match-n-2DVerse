@@ -18,7 +18,7 @@ public class BoardManager : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-        string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
+        string model = Resources.Load<TextAsset>(BoardGenerator.PATH_MODEL).text;
         Levels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Level>>(model);
     }
 

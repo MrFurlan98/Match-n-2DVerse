@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BoardGenerator  {
 
-    public static string PATH_MODEL = "/Data/Models/model.json";
-    public static string PATH_SCENARIO = "/Data/Models/scenario.json";
-    public static string PATH_Type = "/Data/Models/type.json";
+    public static string PATH_MODEL = "Data/Models/model";
+    public static string PATH_SCENARIO = "Data/Models/scenario.json";
+    public static string PATH_Type = "Data/Models/type.json";
     [SerializeField]
     private Board m_pBoard;
     [SerializeField]

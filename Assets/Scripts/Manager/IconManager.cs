@@ -129,7 +129,7 @@ public class IconManager : MonoBehaviour {
 
         BoardIcon tBoardIcon = InitBoardIcon(ref tNewIcon, pX, pY);
 
-        tBoardIcon.SetBoardData(new Icon());
+        tBoardIcon.SetBoardData(ScriptableObject.CreateInstance<Icon>());
 
         tBoardIcon.StateIcon = BoardIcon.E_State.CANT_DESTROY;
 

@@ -64,6 +64,7 @@ public class BoardEditor : EditorWindow
         BoardModels = BoardGenerator.Models(qtd,true,true);
         
         string model = Newtonsoft.Json.JsonConvert.SerializeObject(BoardModels);
-        File.WriteAllText(Application.dataPath + BoardGenerator.PATH_MODEL, model);
+        
+        File.WriteAllText(Application.dataPath + "/Resources/" + BoardGenerator.PATH_MODEL + ".json", model);
     }
 }
