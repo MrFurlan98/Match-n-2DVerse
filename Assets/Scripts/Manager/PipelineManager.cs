@@ -66,22 +66,20 @@ public class PipelineManager : MonoBehaviour {
 
     IEnumerator StartGamePipeline()
     {
-        yield return SceneManager.LoadSceneAsync("ServerSetup", LoadSceneMode.Additive);
         yield return Connection();
-  
     }
 
     #region Verifies 
     IEnumerator VerifyServerConnection()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (GS.Available)
             {
                 m_Stages[STEPS.VERIFY_CONNECTION] = true;
                 break;
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
         }
     }
 
@@ -178,6 +176,8 @@ public class PipelineManager : MonoBehaviour {
         {
             yield return SceneManager.LoadSceneAsync("GameMainScene", LoadSceneMode.Single);
         }
+        yield return SceneManager.LoadSceneAsync("ServerSetup", LoadSceneMode.Additive);
+
         //for (int i = scenemanager.scenecount - 1; i > 0; i--)
         //{
         //    yield return scenemanager.unloadsceneasync(i);
