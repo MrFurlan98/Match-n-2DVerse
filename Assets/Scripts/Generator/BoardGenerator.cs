@@ -54,9 +54,43 @@ public class BoardGenerator  {
             j++;
         }
         System.Random prng = new System.Random(seed);
+        int a = 0;
+        int[] array = { 1, 2, 3, 4 };
+        shuffleArray(array);
+        for (int w = 0; w < qtd; w++)
+        {
+            if(a==4)
+            {
+                shuffleArray(array);
+                a = 0;
+            }
+            Debug.Log(array[a]);
+            if (array[a] == 1)
+            {
+                models[w].Scenario = "APOCALIPTICO";
+                models[w].Type = "Resgate";
+            }
+            if (array[a] == 2)
+            {
+                models[w].Scenario = "APOCALIPTICO";
+                models[w].Type = "Desativar_Bomba";
+            }
+            if (array[a] == 3)
+            {
+                models[w].Scenario = "GREGO";
+                models[w].Type = "Sobre_O_Olhar_Da_Gorgona";
+            }
+            if (array[a] == 4)
+            {
+                models[w].Scenario = "GREGO";
+                models[w].Type = "Um_Dos_Doze_Trabalhos";
+            }
+            a++;
+        }
         for (int k = 0; k < qtd; k++)
         {
-            if ((prng.Next(0, 2) == 0))
+            
+            /*if ((prng.Next(0, 2) == 0))
             {
                 models[k].Scenario = "APOCALIPTICO";
                 if ((prng.Next(0, 2) == 0))
@@ -79,7 +113,7 @@ public class BoardGenerator  {
                 {
                     models[k].Type = "Sobre_O_Olhar_Da_Gorgona";
                 }
-            }
+            }*/
             models[k].GoalPoints = 10000;
             models[k].MovesLeft = 12;
             if (k <= qtd / 5)
@@ -151,7 +185,20 @@ public class BoardGenerator  {
             m_pBoard = value;
         }
     }
-
+    public static void shuffleArray(int[] array)
+    {
+        System.Random prng = new System.Random(100);
+        for (int i = 0; i < array.Length; i++)
+        {
+            swap(array, i, i + prng.Next(array.Length - i));
+        }
+    }
+    public static void swap(int[]array,int a,int b)
+    {
+        int temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
+    }
     public static bool Validador(int[,] model)
     {
         int cont0 = 0;
