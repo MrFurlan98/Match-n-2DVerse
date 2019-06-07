@@ -63,7 +63,6 @@ public class StoreUI : MonoBehaviour
             delegate
             {
                 UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.STORE);
-                RoadMapUI.instance.UpdateText();
             });
 
         m_InGameScreenButton.onClick = new Button.ButtonClickedEvent();

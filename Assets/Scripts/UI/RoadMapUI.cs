@@ -18,6 +18,7 @@ public class RoadMapUI : MonoBehaviour
     #region Instances
     public static RoadMapUI instance;
     PerfilUI instancePerf;
+    MinionAvatar instanceMA;
     #endregion
 
     [SerializeField]
@@ -48,6 +49,9 @@ public class RoadMapUI : MonoBehaviour
     private Button m_BoostSuper;
 
     [SerializeField]
+    private Button m_ClosePopUp;
+
+    [SerializeField]
     private Text m_WelcomeText;
 
     [SerializeField]
@@ -57,17 +61,30 @@ public class RoadMapUI : MonoBehaviour
     private GameObject mapButtonsScreen;
 
     [SerializeField]
-    private Text textBoostOne;
+    private GameObject boostsPopUp;
+
     [SerializeField]
-    private Text textBoostTwo;
+    private Image boostImage1;
+
     [SerializeField]
-    private Text textBoostThree;
+    private Image boostImage2;
+
+    [SerializeField]
+    private Image boostImage3;
+
+    [SerializeField]
+    private Text textQtdBoostOne;
+    [SerializeField]
+    private Text textQtdBoostTwo;
+    [SerializeField]
+    private Text textQtdBoostThree;
 
 
 
     private void Awake()
     {
         instance = this;
+        instanceMA = MinionAvatar.instance;
     }
 
     private void Start()
@@ -105,7 +122,7 @@ public class RoadMapUI : MonoBehaviour
             delegate {
                 UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.PERFIL);
                 instancePerf = PerfilUI.instance;
-                instancePerf.setPerfilMembers(m_HeadRoadAvatar, m_LegRoadAvatar, m_ArmRoadAvatar, m_BodyRoadAvatar);
+                instancePerf.setPerfilMembers(instanceMA.m_headMemberUsing, instanceMA.m_legMemberUsing, instanceMA.m_armMemberUsing, instanceMA.m_bodyMemberUsing);
             });
 
         m_PlayButton.onClick = new Button.ButtonClickedEvent();
@@ -113,7 +130,6 @@ public class RoadMapUI : MonoBehaviour
             delegate {
                 //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.MENUROADB);
                 mapButtonsScreen.SetActive(true);
-                UpdateText();
                 startGameScreen.SetActive(false);
                 //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PLAYB);
             });
@@ -121,11 +137,48 @@ public class RoadMapUI : MonoBehaviour
         m_BoostCross.onClick.AddListener(
             delegate
             {
+                openPopUp(m_BoostCross.GetComponent<Image>(), 0);
+            });
+        m_BoostExplosion.onClick = new Button.ButtonClickedEvent();
+        m_BoostExplosion.onClick.AddListener(
+            delegate
+            {
+                openPopUp(m_BoostExplosion.GetComponent<Image>(), 1);
+            });
+        m_BoostSuper.onClick = new Button.ButtonClickedEvent();
+        m_BoostSuper.onClick.AddListener(
+            delegate
+            {
+                openPopUp(m_BoostSuper.GetComponent<Image>(), 2);
+            });
+
+        m_ClosePopUp.onClick = new Button.ButtonClickedEvent();
+        m_ClosePopUp.onClick.AddListener(
+            delegate
+            {
+                boostsPopUp.SetActive(false);
+            });
+    }
+
+    /*public void setRoadMapMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)
+    {
+        m_HeadRoadAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
+        m_LegRoadAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
+        m_ArmRoadAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
+        m_BodyRoadAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
+    }*/
+
+
+    /*m_BoostCross.onClick = new Button.ButtonClickedEvent();
+        m_BoostCross.onClick.AddListener(
+            delegate
+            {
+
                 if (InventoryManager.instance.listBoosts[0].qtdItem > 0) { 
                     BoostManager.Instance.StarBoostEffect("7Bomb");
                     InventoryManager.instance.listBoosts[0].qtdItem--;
                     UpdateText();
-                }
+}
             });
         m_BoostExplosion.onClick = new Button.ButtonClickedEvent();
         m_BoostExplosion.onClick.AddListener(
@@ -147,21 +200,24 @@ public class RoadMapUI : MonoBehaviour
                     UpdateText();
                 }
             });
+
+    */
+
+    private void openPopUp(Image boostToUse, int numberArrayBoost)
+    {
+        boostsPopUp.SetActive(true);
+        boostImage1.sprite = boostToUse.sprite;
+        boostImage2.sprite = boostToUse.sprite;
+        boostImage3.sprite = boostToUse.sprite;
+        UpdateText(numberArrayBoost);
     }
 
-    public void setRoadMapMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)
-    {
-        m_HeadRoadAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegRoadAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmRoadAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyRoadAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-    }
 
-    public void UpdateText()
+    public void UpdateText(int numberArrayToUptade)
     {
-        textBoostOne.text = InventoryManager.instance.listBoosts[0].qtdItem + "x";
-        textBoostTwo.text = InventoryManager.instance.listBoosts[1].qtdItem + "x";
-        textBoostThree.text = InventoryManager.instance.listBoosts[2].qtdItem + "x";
+        textQtdBoostOne.text = InventoryManager.instance.listBoosts[numberArrayToUptade].qtdItem + "x";
+        textQtdBoostTwo.text = InventoryManager.instance.listBoosts[numberArrayToUptade + 3].qtdItem + "x";
+        textQtdBoostThree.text = InventoryManager.instance.listBoosts[numberArrayToUptade + 6].qtdItem + "x";
     }
 
 

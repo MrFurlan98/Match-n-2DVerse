@@ -36,11 +36,11 @@ public class PerfilUI : MonoBehaviour {
 
     }
 
-    public void setPerfilMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)
+    public void setPerfilMembers(Sprite m_HeadButton, Sprite m_LegsButton, Sprite m_ArmButton, Sprite m_BodyButton)
     {
-        m_HeadPerfilAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegPerfilAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmPerfilAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyPerfilAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
+        m_HeadPerfilAvatar.sprite = m_HeadButton;
+        m_LegPerfilAvatar.sprite = m_LegsButton;
+        m_ArmPerfilAvatar.sprite = m_ArmButton;
+        m_BodyPerfilAvatar.sprite = m_BodyButton;
     }
 }

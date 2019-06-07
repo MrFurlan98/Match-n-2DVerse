@@ -35,6 +35,7 @@ public class LabUI : MonoBehaviour {
     #endregion 
 
     PartsManager partsManager;
+    MinionAvatar instanceMA;
 
     [SerializeField]
     private Button m_ExitButton;
@@ -73,6 +74,7 @@ public class LabUI : MonoBehaviour {
     {
         instanceRoad = RoadMapUI.instance;
         partsManager = PartsManager.instance;
+        instanceMA = MinionAvatar.instance;
         lengthArray = partsManager.headParts.Count;
 
         bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
@@ -211,11 +213,11 @@ public class LabUI : MonoBehaviour {
         m_ConfirmAvatarButton.onClick.AddListener(
             delegate
             {
-                SetRoadAvatars();
+                MinionAvatar.instance.setMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
             });
     }
 
-    private void SetRoadAvatars()
+    /*private void SetRoadAvatars()
     {
         instanceRoad.setRoadMapMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
         #region Gambi
@@ -233,13 +235,13 @@ public class LabUI : MonoBehaviour {
 
         //Gameplay avatar
         #endregion
-    }
+    }*/
 
     private void SetLabAvatar()
     {
-        m_HeadButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_HeadRoadAvatar.sprite;
-        m_BodyButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_BodyRoadAvatar.sprite;
-        m_ArmButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_ArmRoadAvatar.sprite;
-        m_LegsButton.GetComponent<Image>().sprite = RoadMapUI.instance.m_LegRoadAvatar.sprite;
+        m_HeadButton.GetComponent<Image>().sprite = instanceMA.m_headMemberUsing;
+        m_BodyButton.GetComponent<Image>().sprite = instanceMA.m_bodyMemberUsing;
+        m_ArmButton.GetComponent<Image>().sprite = instanceMA.m_armMemberUsing;
+        m_LegsButton.GetComponent<Image>().sprite = instanceMA.m_legMemberUsing;
     }
 }
