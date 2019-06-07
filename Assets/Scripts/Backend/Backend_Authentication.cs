@@ -1,38 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PlayFab;
-using PlayFab.ClientModels;
 using System;
-
+using GameSparks.Api.Requests;
+using GameSparks.Api.Responses;
 public partial class Backend : MonoBehaviour {
 
-    public void Login(string pLogin, string pPassword, Action<LoginResult> pResponse, bool pRetry = false)
-    {
-
-    }
     ///<summary> That's request to server to a new guest player using a hash id of player guest username </summary>
-    public void GuestLogin(Action<bool, string> pResponse)
+    public void GuestLogin(Action<bool, string> pResponse, string pDisplayName = "")
     {
-        string tGuestID = PlayerPrefs.GetString(GUEST_KEY);
-        string tUserID = PlayerPrefs.GetString(GUEST_USERNAME);
+        new DeviceAuthenticationRequest()
+            .SetDisplayName(pDisplayName)
+            .Send((response) =>
+            { 
+                SaveAuthenticationToken(response.AuthToken);
 
-        if (string.IsNullOrEmpty(tGuestID)) {
-            tUserID = "Guest_" + UnityEngine.Random.Range(0, 500);
-            tGuestID = tUserID.GetHashCode().ToString();
-        }
-
-        LoginWithCustomIDRequest pRequest = new LoginWithCustomIDRequest() { CustomId = tGuestID, CreateAccount = true };
-        PlayFabClientAPI.LoginWithCustomID(pRequest, delegate (LoginResult pResult) 
-        {
-            PlayerPrefs.SetString(GUEST_KEY, tGuestID);
-            PlayerPrefs.SetString(GUEST_USERNAME, tUserID);
-            pResponse(true, tUserID);
-        } , 
-        delegate(PlayFabError pError) 
-        {
-            pResponse(false, tUserID);
-            Debug.Log(pError.Error);
-        });
+                pResponse(!response.HasErrors, response.DisplayName);
+            });
     }
+
+    public bool Logged()
+    {
+        UserAuthentication tAuthentication = PersistInformation.LoadData<UserAuthentication>(PersistInformation.INFO_TYPE.AUTHENTICATION);
+
+        return !string.IsNullOrEmpty(tAuthentication.m_AuthToken);
+    }
+
+    internal void SaveAuthenticationToken(string pToken)
+    {
+        PersistInformation.PersistData(PersistInformation.INFO_TYPE.AUTHENTICATION, new UserAuthentication { m_AuthToken = pToken });
+    }
+
 }

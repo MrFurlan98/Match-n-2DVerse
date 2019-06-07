@@ -11,7 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69570dbecbbe29c4689d8c1511e95d9d, type: 3}
   m_Name: Combo 24
   m_EditorClassIdentifier: 
-  m_Actions: []
-  m_Icon1: {fileID: 0}
-  m_Icon2: {fileID: 0}
+  m_Actions:
+  - m_Type: 0
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 1, y: 1}
+      m_TagToTransformTo: 
+  - m_Type: 4
+    m_Action:
+      m_TargetTag: 
+      m_Multiplier: 0
+      m_NxN: {x: 0, y: 0}
+      m_TagToTransformTo: 
+  m_Icon1: {fileID: 11400000, guid: f092704e580552b429a54023568eaa9c, type: 2}
+  m_Icon2: {fileID: 11400000, guid: f092704e580552b429a54023568eaa9c, type: 2}
   m_ActionsPowerUp: []

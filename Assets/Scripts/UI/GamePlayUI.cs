@@ -69,7 +69,26 @@ public class GamePlayUI : MonoBehaviour {
 
     [SerializeField]
     private Sprite m_BackGround_Grego;
-    
+
+    public enum PANELS
+    {
+        RESCUE,
+        DEACTIVATE_BOMB,
+        UNDER_THE_GORGONAS_EYES,
+        ONE_OF_TWELVE_WORKS,
+        NONE
+    }
+
+    [Header("Panels")]
+    [SerializeField]
+    private List<UIPanel> m_pPanel = new List<UIPanel>();
+
+    [System.Serializable]
+    public class UIPanel
+    {
+        public GameObject m_pPanelObject;
+        public PANELS m_pPanel;
+    }
 
     private void Awake()
     {
@@ -145,7 +164,27 @@ public class GamePlayUI : MonoBehaviour {
         m_bPause.onClick = new Button.ButtonClickedEvent();
         m_bPause.onClick.AddListener(BackMenu);
     }
-
+    public void OpenPanel(PANELS pPanel)
+    {
+        GetPanelObject(pPanel).SetActive(true);
+    }
+    public void ClosePanel(PANELS pPanel)
+    {
+        GetPanelObject(pPanel).SetActive(false);
+    }
+    public GameObject GetPanelObject(PANELS pPanel)
+    {
+        UIPanel UI = null;
+        for (int i = 0; i < m_pPanel.Count; i++)
+        {
+            if(pPanel == m_pPanel[i].m_pPanel)
+            {
+                UI = m_pPanel[i];
+                break;
+            }
+        }
+        return UI.m_pPanelObject;
+    }
     private void SelectPauseButton()
     {
         UIManager.Instance.OpenScreen(UIManager.SCREEN.PAUSE);
@@ -156,7 +195,7 @@ public class GamePlayUI : MonoBehaviour {
         if (Scenario == "APOCALIPTICO")
         {
             IBackground.sprite = BackGround_Apocaliptco;
-            Debug.Log("aqui");
+            //Debug.Log("aqui");
         }
         if (Scenario == "GREGO")
         {
@@ -251,15 +290,15 @@ public class GamePlayUI : MonoBehaviour {
         m_pMonsterAnimation.TryReviveMonster(true);
     }
 
-    public static void BackMenu()
+    public void BackMenu()
     {
         UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.GAMEPLAY);
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
-        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.RESCUE);
-        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
-        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
-        UIManagerBeta.Instance.ClosePanel(UIManagerBeta.PANELS.ONE_OF_TWELVE_WORKS);
+        ClosePanel(PANELS.RESCUE);
+        ClosePanel(PANELS.DEACTIVATE_BOMB);
+        ClosePanel(PANELS.UNDER_THE_GORGONAS_EYES);
+        ClosePanel(PANELS.ONE_OF_TWELVE_WORKS);
     }
 
     public void SetMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)

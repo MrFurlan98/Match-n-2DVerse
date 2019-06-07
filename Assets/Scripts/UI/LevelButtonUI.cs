@@ -28,28 +28,29 @@ public class LevelButtonUI : MonoBehaviour {
         m_armToSend = instanceRM.m_ArmRoadAvatar;
         #endregion
 
-        ScoreManager.Instance.Scenario = BoardManager.Instance.Nivel[i];
-        ScoreManager.Instance.Type = BoardManager.Instance.Type[i];
-        Debug.Log(BoardManager.Instance.Nivel[i]);
-        Debug.Log(BoardManager.Instance.Type[i]);
+        ScoreManager.Instance.Scenario = BoardManager.Instance.Levels[i].Scenario;
+        ScoreManager.Instance.Type = BoardManager.Instance.Levels[i].Type;
+        Debug.Log(BoardManager.Instance.Levels[i].Scenario);
+        Debug.Log(BoardManager.Instance.Levels[i].Type);
         
 
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
 
         ScoreManager.Instance.StartGame = false;
         BoardManager.Instance.CurrentLevel = i;
-        ScoreManager.Instance.MovesLeft = 100;
-        ScoreManager.Instance.TargetLeft = BoardManager.Instance.GetQtd(i);
-        ScoreManager.Instance.NumberToDestroy = ScoreManager.Instance.SetTargets(i);
-        ScoreManager.Instance.GoalPoints = 100;
+        ScoreManager.Instance.MovesLeft = BoardManager.Instance.Levels[i].MovesLeft;
+        ScoreManager.Instance.TargetLeft = BoardManager.Instance.Levels[i].TargetLeft;
+        ScoreManager.Instance.GoalPoints = BoardManager.Instance.Levels[i].GoalPoints;
         ScoreManager.Instance.Points = 0;
 
         GameManager.Instance.PBoard.ClearBoard();
         GameManager.Instance.PBoard.InitBoard(i);
 
-        ScoreManager.Instance.Timer = 30;
-        if (BoardManager.Instance.Type[i] == "Desativar_Bomba")
+        ScoreManager.Instance.Timer = BoardManager.Instance.Levels[i].Timer;
+
+        if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
         {
+            ScoreManager.Instance.SetTargets(ScoreManager.Instance.TargetLeft);
             ScoreManager.Instance.Stop = false;
             ScoreManager.Instance.StartClock();
         }
@@ -60,24 +61,24 @@ public class LevelButtonUI : MonoBehaviour {
         GamePlayUI.instance.SetBackground();
         //GamePlayUI.instance.SetBackground(BoardManager.Instance.Nivel[i]);
 
-        if (BoardManager.Instance.Type[i] == "Resgate")
+        if (BoardManager.Instance.Levels[i].Type == "Resgate")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.RESCUE);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.RESCUE);
         }
-        if (BoardManager.Instance.Type[i] == "Desativar_Bomba")
+        if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.DEACTIVATE_BOMB);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.DEACTIVATE_BOMB);
         }
-        if (BoardManager.Instance.Type[i] == "Sobre_O_Olhar_Da_Gorgona")
+        if (BoardManager.Instance.Levels[i].Type == "Sobre_O_Olhar_Da_Gorgona")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.UNDER_THE_GORGONAS_EYES);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.UNDER_THE_GORGONAS_EYES);
         }
-        if (BoardManager.Instance.Type[i] == "Um_Dos_Doze_Trabalhos")
+        if (BoardManager.Instance.Levels[i].Type == "Um_Dos_Doze_Trabalhos")
         {
-            UIManagerBeta.Instance.OpenPanel(UIManagerBeta.PANELS.ONE_OF_TWELVE_WORKS);
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.ONE_OF_TWELVE_WORKS);
         }
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
         ScoreManager.Instance.StartGame = true;
-
+        GameManager.Instance.PBoard.StartCoroutine(GameManager.Instance.PBoard.StartDalay());
     }
 }

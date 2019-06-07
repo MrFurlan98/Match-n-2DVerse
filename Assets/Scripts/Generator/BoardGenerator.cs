@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BoardGenerator  {
 
-    public static string PATH_MODEL = "/Data/Models/model.json";
-    public static string PATH_SCENARIO = "/Data/Models/scenario.json";
-    public static string PATH_Type = "/Data/Models/type.json";
+    public static string PATH_MODEL = "Data/Models/model";
+    public static string PATH_SCENARIO = "Data/Models/scenario.json";
+    public static string PATH_Type = "Data/Models/type.json";
     [SerializeField]
     private Board m_pBoard;
     [SerializeField]
@@ -36,24 +36,74 @@ public class BoardGenerator  {
         }
         return Mirror(modelBoard, true, true);
     }
-    public static List<int[,]> Models(int qtd ,bool vertical,bool horizontal)
+    public static List<Level> Models(int qtd ,bool vertical,bool horizontal)
     {
-        List<int[,]> models = new List<int[,]>();
+        List<Level> models = new List<Level>();
         int i = 0;
         int j = 0;
         while(i<qtd)
         {
             int[,] validation = GenerateBoard(j);
             if (Validador(validation))
-            {       
-                if (models.IndexOf(validation) == -1)
-                {
-                    models.Add(validation);
-                    i++;
-                }    
+            {
+                Level level = new Level();
+                models.Add(level);
+                models[i].Model = validation;
+                i++; 
             }
             j++;
         }
+        System.Random prng = new System.Random(seed);
+        for (int k = 0; k < qtd; k++)
+        {
+            if ((prng.Next(0, 2) == 0))
+            {
+                models[k].Scenario = "APOCALIPTICO";
+                if ((prng.Next(0, 2) == 0))
+                {
+                    models[k].Type = "Resgate";
+                }
+                else
+                {
+                    models[k].Type = "Desativar_Bomba";
+                }
+            }
+            else
+            {
+                models[k].Scenario = "GREGO";
+                if ((prng.Next(0, 2) == 0))
+                {
+                    models[k].Type = "Um_Dos_Doze_Trabalhos";
+                }
+                else
+                {
+                    models[k].Type = "Sobre_O_Olhar_Da_Gorgona";
+                }
+            }
+            models[k].GoalPoints = 10000;
+            models[k].MovesLeft = 12;
+            if (k <= qtd / 5)
+            {
+                models[k].TargetLeft = 1;
+            }
+            if (k <= qtd * 2 / 5 && k > qtd / 5)
+            {
+                models[k].TargetLeft= 2;
+            }
+            if (k <= qtd * 3 / 5 && k > qtd * 2 / 5)
+            {
+                models[k].TargetLeft = 3;
+            }
+            if (k <= qtd * 4 / 5 && k > qtd * 3 / 5)
+            {
+                models[k].TargetLeft = 4;
+            }
+            if (k <= qtd && k > qtd * 4 / 5)
+            {
+                models[k].TargetLeft = 5;
+            }
+        }
+
         return models;
     }
 

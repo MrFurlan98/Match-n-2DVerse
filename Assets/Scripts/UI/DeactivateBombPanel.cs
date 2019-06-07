@@ -15,6 +15,15 @@ public class DeactivateBombPanel : MonoBehaviour {
     [SerializeField]
     private List<Image> m_TargetSprites = new List<Image>();
 
+    private void OnEnable()
+    {
+        setSprites = true;
+        for (int i = 0; i < TargetSprites.Count; i++)
+        {
+            TargetSprites[i].enabled = true;
+        }
+    }
+
     private void Update()
     {
         if(ScoreManager.Instance.StartGame)
@@ -48,17 +57,19 @@ public class DeactivateBombPanel : MonoBehaviour {
                 {
                     
                     ScoreManager.Instance.StopTime(float.Parse(Timer.text));
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.BackMenu);
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", true, GamePlayUI.instance.BackMenu);
+                    
                 }
                 if (ScoreManager.Instance.Timer <= 0)
                 {
-                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
-                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.BackMenu);
                     ScoreManager.Instance.StartGame = false;
                     setSprites = true;
+                    UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.POPUP);
+                    PopUpUI.Instance.OpenPopUp("Fim de jogo", false, GamePlayUI.instance.BackMenu);
+                   
                 }
                 cont = 0;
             }

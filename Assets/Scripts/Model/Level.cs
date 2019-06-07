@@ -3,40 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Level{ 
 
-    [SerializeField]
-    private List<int[,]> model;
-    [SerializeField]
-    private string[] nivel;
+    private int[,] m_Model;
 
-    private string[] m_Type;
+    private string m_Type;
 
-    public List<int[,]> Model
+    private string m_Scenario;
+
+    private int m_GoalPoints;
+
+    private int m_MovesLeft;
+
+    private int m_TargetLeft;
+
+    private float timer = 45;
+
+    public int[,] Model
     {
         get
         {
-            return model;
+            return m_Model;
         }
 
         set
         {
-            model = value;
+            m_Model = value;
         }
     }
 
-    public string[] Nivel
-    {
-        get
-        {
-            return nivel;
-        }
-
-        set
-        {
-            nivel = value;
-        }
-    }
-
-    public string[] Type
+    public string Type
     {
         get
         {
@@ -46,6 +40,71 @@ public class Level{
         set
         {
             m_Type = value;
+        }
+    }
+
+    public string Scenario
+    {
+        get
+        {
+            return m_Scenario;
+        }
+
+        set
+        {
+            m_Scenario = value;
+        }
+    }
+
+    public int GoalPoints
+    {
+        get
+        {
+            return m_GoalPoints;
+        }
+
+        set
+        {
+            m_GoalPoints = value;
+        }
+    }
+
+    public int MovesLeft
+    {
+        get
+        {
+            return m_MovesLeft;
+        }
+
+        set
+        {
+            m_MovesLeft = value;
+        }
+    }
+
+    public int TargetLeft
+    {
+        get
+        {
+            return m_TargetLeft;
+        }
+
+        set
+        {
+            m_TargetLeft = value;
+        }
+    }
+
+    public float Timer
+    {
+        get
+        {
+            return timer;
+        }
+
+        set
+        {
+            timer = value;
         }
     }
 }
