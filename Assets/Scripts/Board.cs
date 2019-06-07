@@ -69,6 +69,9 @@ public class Board : MonoBehaviour {
     private Sprite shadow;
 
     [SerializeField]
+    private Sprite stone;
+
+    [SerializeField]
     private int m_Heigth;
 
     [SerializeField]
@@ -259,7 +262,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y) && m_Icons[firstIcon.x,firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -272,7 +275,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 secondIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y) && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -293,7 +296,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y);
+                return IsInBoardRange(pX: firstIcon.x, pY: firstIcon.y) && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -306,7 +309,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 secondIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y);
+                return IsInBoardRange(pX: secondIcon.x, pY: secondIcon.y) && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[secondIcon.x, secondIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -319,7 +322,7 @@ public class Board : MonoBehaviour {
             {
                 tPosition = MousePosition();
                 thirdIcon = FindIcon(tPosition);
-                return IsInBoardRange(pX: thirdIcon.x, pY: thirdIcon.y);
+                return IsInBoardRange(pX: thirdIcon.x, pY: thirdIcon.y) && m_Icons[thirdIcon.x, thirdIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY && m_Icons[thirdIcon.x, thirdIcon.y].StateIcon != BoardIcon.E_State.OBJECTIVE;
             }
             return false;
         });
@@ -360,7 +363,7 @@ public class Board : MonoBehaviour {
                 tPosition = MousePosition();
                 firstIcon = FindIcon(tPosition);
               
-                if(m_Icons[firstIcon.x,firstIcon.y].Type == BoardIcon.E_Type.SPECIAL)
+                if(m_Icons[firstIcon.x,firstIcon.y].Type == BoardIcon.E_Type.SPECIAL && m_Icons[firstIcon.x, firstIcon.y].StateIcon != BoardIcon.E_State.CANT_DESTROY)
                 {
                     SpecialIcon tCombo = IconManager.Instance.GetSpecialIcon((m_Icons[firstIcon.x, firstIcon.y]));
                     if (tCombo != null)
@@ -532,9 +535,41 @@ public class Board : MonoBehaviour {
                 {
                     Shadowy(pIconIndex);
                 }
+                if(level.Type == "Sobre_O_Olhar_Da_Gorgona")
+                {
+                    Petrify(pIconIndex);
+                }
             }
         }
         ReduceShadow();
+        ReducePetrify();
+    }
+    void Petrify(Vector2Int pIconIndex)
+    {
+        if(IsInBoardRange(pIconIndex.x, pIconIndex.y) && m_Icons[pIconIndex.x, pIconIndex.y] != null && m_Icons[pIconIndex.x, pIconIndex.y].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+        {
+            m_Icons[pIconIndex.x, pIconIndex.y].petrified = 3;
+            m_Icons[pIconIndex.x, pIconIndex.y].StateIcon = BoardIcon.E_State.CANT_DESTROY;
+            m_Icons[pIconIndex.x, pIconIndex.y].SetSprite(stone);
+        }
+    }
+    void ReducePetrify()
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if (m_Icons[i, j].SpriteRenderer.sprite == stone)
+                {
+                    m_Icons[i, j].petrified--;
+                    if (m_Icons[i, j].petrified == 0)
+                    {
+                        m_Icons[i, j].StateIcon = BoardIcon.E_State.STAND_BY;
+                        IconManager.Instance.ReturnOriginalSprite(m_Icons[i, j]);
+                    }
+                }
+            }
+        }
     }
     void ReduceShadow()
     {
@@ -562,7 +597,7 @@ public class Board : MonoBehaviour {
             {
                 m_Icons[i,pIconIndex.y].shadowy = 4;
                 m_Icons[i, pIconIndex.y].StateIcon = BoardIcon.E_State.SHADOW;
-                m_Icons[i, pIconIndex.y].SetShadow(shadow);
+                m_Icons[i, pIconIndex.y].SetSprite(shadow);
             }
         }
         for (int i = pIconIndex.y - 1; i < pIconIndex.y + 2; i++)
@@ -571,7 +606,7 @@ public class Board : MonoBehaviour {
             {
                 m_Icons[pIconIndex.x, i].shadowy = 4;
                 m_Icons[pIconIndex.x, i].StateIcon = BoardIcon.E_State.SHADOW;
-                m_Icons[pIconIndex.x, i].SetShadow(shadow);
+                m_Icons[pIconIndex.x, i].SetSprite(shadow);
             }
         }
     }
@@ -661,6 +696,7 @@ public class Board : MonoBehaviour {
                     if (m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
                     {
                         m_Icons[i, j].Durability--;
+                        m_Icons[i, j].StateIcon = BoardIcon.E_State.STAND_BY;
                         if (m_Icons[i,j].Durability==0)
                         {
                             ScoreManager.Instance.AddPoint(50);
@@ -764,6 +800,8 @@ public class Board : MonoBehaviour {
             {
                 SwapIcons(pTo, pFrom);
             }
+            ReduceShadow();
+            ReducePetrify();
         }
     }
 

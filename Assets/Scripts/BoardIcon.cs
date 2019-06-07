@@ -9,6 +9,7 @@ public class BoardIcon : MonoBehaviour {
         STAND_BY,
         MARK_TO_DESTROY,
         CANT_DESTROY,
+        OBJECTIVE,
         SHADOW,
         PETRIFIED
     }
@@ -37,6 +38,7 @@ public class BoardIcon : MonoBehaviour {
     public bool isIndestructable = false;
     public bool isSpecial = false;
     public int shadowy = 0;
+    public int petrified = 0;
 
     [SerializeField]
     public string m_sTag;
@@ -64,9 +66,9 @@ public class BoardIcon : MonoBehaviour {
 
         Theme = pIcon.Theme;
     }
-    public void SetShadow(Sprite shadow)
+    public void SetSprite(Sprite pSprite)
     {
-        SpriteRenderer.sprite = shadow;
+        SpriteRenderer.sprite = pSprite;
     }
     // Use this for initialization
     void Start () {

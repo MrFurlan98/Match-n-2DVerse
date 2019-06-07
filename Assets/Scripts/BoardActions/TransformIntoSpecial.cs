@@ -19,7 +19,7 @@ public class TransformIntoSpecial : BaseAction
         {
             for (int j = 0; j < pIcons.GetLength(1); j++)
             {
-                if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY)
+                if (pIcons[i, j].STag == TargetTag && pIcons[i, j].StateIcon != BoardIcon.E_State.CANT_DESTROY && pIcons[i, j].StateIcon != BoardIcon.E_State.OBJECTIVE)
                 {
                     Icon tIcon = IconManager.Instance.TransformIcon(i, j, TagToTransformTo);
                     if(tIcon!=null)
