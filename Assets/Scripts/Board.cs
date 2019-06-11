@@ -46,9 +46,6 @@ public class Board : MonoBehaviour {
     private BoardType m_CurrentType = BoardType.STANDBY;
 
 
-
-    //private string json_PATH = Application.dataPath + BoardGenerator.PATH_MODEL;
-
     private BoardIcon[,] m_Icons;
 
     private Level level;
@@ -80,6 +77,10 @@ public class Board : MonoBehaviour {
     [Range(0, 3)]
     [SerializeField]
     private float m_RefillDelay;
+
+    [Range(0, 3)]
+    [SerializeField]
+    private float m_DropDelay;
 
     [Range(0, 3)]
     [SerializeField]
@@ -170,7 +171,7 @@ public class Board : MonoBehaviour {
                 {
                     BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
 
-                    tIconItem.colunm = j;
+                    tIconItem.colunm = j + OffSet;
                     tIconItem.row = i;
                     m_Icons[i, j] = tIconItem;
                 }
@@ -178,7 +179,7 @@ public class Board : MonoBehaviour {
                 {
 
                     BoardIcon tIconIndestructItem = IconManager.Instance.GenerateIndestructableIcon(i, j);
-                    tIconIndestructItem.colunm = j;
+                    tIconIndestructItem.colunm = j + OffSet;
                     tIconIndestructItem.row = i;
                     m_Icons[i, j] = tIconIndestructItem;
                 }
@@ -197,6 +198,7 @@ public class Board : MonoBehaviour {
             BoostManager.Instance.ApplyEffects();
         }
         //m_CurrentState = GameState.STANDBY;
+        StartCoroutine(DropCollumnAnimator(m_RefillDelay));
     }
 
     private IEnumerator BoardRunning(Vector2Int pOriginIndex, E_Direction pDirection)
@@ -229,8 +231,9 @@ public class Board : MonoBehaviour {
         // the last state is refill board 
         DropCollumns();
 
-        // add time to collumn drop
-        yield return new WaitForSeconds(m_RefillDelay);
+        yield return DropCollumnAnimator(m_DropDelay);
+       // add time to collumn drop
+       //yield return new WaitForSeconds(m_RefillDelay);
 
         for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
@@ -243,6 +246,8 @@ public class Board : MonoBehaviour {
         }
 
         RefillBoard();
+
+        yield return DropCollumnAnimator(m_RefillDelay);
 
         m_InitPosition = -Vector2.one;
 
@@ -335,7 +340,7 @@ public class Board : MonoBehaviour {
         DropCollumns();
 
         // add time to collumn drop
-        yield return new WaitForSeconds(m_RefillDelay);
+        //yield return new WaitForSeconds(m_RefillDelay);
 
         for (int i = 0; i < m_Icons.GetLength(0); i++)
         {
@@ -503,7 +508,7 @@ public class Board : MonoBehaviour {
     {
         BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
  
-        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y, pOriginAmount, tIcon.m_sTag);
+        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y + OffSet, pOriginAmount, tIcon.m_sTag);
 
         if (tGenerateBoardIcon != null)
         {
@@ -675,7 +680,7 @@ public class Board : MonoBehaviour {
                 if (m_Icons[pX, i] != null)
                 {
                     m_Icons[pX, i].row = pX;
-                    m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
+                    m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable + OffSet;
                 }
             }
             
@@ -683,7 +688,35 @@ public class Board : MonoBehaviour {
 
         
     }
+    private IEnumerator DropCollumnAnimator(float timeDelay)
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if (m_Icons[i, j] != null)
+                {
+                    Vector2 tPosition = new Vector2(m_Icons[i, j].row, m_Icons[i, j].colunm);
+                    if (Vector2.Distance(m_Icons[i, j].transform.position, tPosition) > 0.5f)
+                    {
+                        Hashtable hash = new Hashtable();
+                        hash.Add("y", tPosition.y);
+                        hash.Add("x", tPosition.x);
+                        hash.Add("easetype", "EaseOutBounce");
+                        hash.Add("time", timeDelay);
+                        //iTween.MoveTo(m_Icons[i, j].gameObject, tPosition, timeDelay);
+                        iTween.MoveTo(m_Icons[i, j].gameObject,hash);
+                        Debug.Log("felipin viadin" + hash);
+                    }
+                }
+            }
+        }
+        yield return new WaitForSeconds(timeDelay);
+    }
+    void Bouncing()
+    {
 
+    }
     void DestroyIcons()
     {
         bool validMove = false;
@@ -730,16 +763,11 @@ public class Board : MonoBehaviour {
                 if (m_Icons[i, j] == null)
                 {
                     BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
-                    tIcon.colunm = j;
+                    tIcon.colunm = j + OffSet;
                     tIcon.row = i;
                     tIcon.transform.parent = transform;
                     m_Icons[i, j] = tIcon;
                 }
-                //else
-                //{
-                //    allicons[i, j].GetComponent<Icon>().previousColunm = j;
-                //    allicons[i, j].GetComponent<Icon>().previousRow = i;
-                //}
             }
         }
     }
@@ -1016,7 +1044,7 @@ public class Board : MonoBehaviour {
             {
                 Vector2 tCurrentPosition = Vector2.one;
                 tCurrentPosition.x *= i;
-                tCurrentPosition.y *= (j + OffSet - 1);
+                tCurrentPosition.y *= (j + OffSet);
                 float tDistance = Vector2.Distance(tCurrentPosition, pPosi);
                 if (tDistance < 0.5)
                     return new Vector2Int(i, j);

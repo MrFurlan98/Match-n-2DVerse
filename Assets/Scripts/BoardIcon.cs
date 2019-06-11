@@ -71,141 +71,45 @@ public class BoardIcon : MonoBehaviour {
         SpriteRenderer.sprite = pSprite;
     }
     // Use this for initialization
+    private void Awake()
+    {
+        targetY = colunm; //+ board.offSet;
+        targetX = row;
+    }
     void Start () {
         board = FindObjectOfType<Board>();
         previousRow = row;
         previousColunm = colunm;
+        targetY = colunm; //+ board.offSet;
+        targetX = row;
     }
 
     void Update()
     {
-        //if(isMatch)
-        //{
-        //    board.FindMatch(targetX, targetY);
-        //}
-        //if(isMatch && distance >=0.5)
-        //{
-        //    StartCoroutine(board.FinishMatch());
-        //    distance = 0;
-        //}
-
-
         targetY = colunm; //+ board.offSet;
         targetX = row;
-        if(Mathf.Abs(targetX-transform.position.x - board.OffSet) >.1)
+        /*if(Mathf.Abs(targetX-transform.position.x - board.OffSet) >.1)
         {
             tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
-            //if(board.allicons[row,colunm]!=this.gameObject)
-            //{
-            //    board.allicons[row, colunm] = this.gameObject;
-            //}
         }
         else
         {
             tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
             transform.position = tempPosition;
-            //board.allicons[row, colunm] = this.gameObject;
         }
         if (Mathf.Abs(targetY - transform.position.y - board.OffSet) > .1)
         {
             tempPosition = new Vector2(transform.position.x,targetY + board.OffSet);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
-            //if(board.allicons[row, colunm] != this.gameObject)
-            //{
-            //    board.allicons[row, colunm] = this.gameObject;
-            //}
         }
         else
         {
             tempPosition = new Vector2(transform.position.x, targetY + board.OffSet);
             transform.position = tempPosition;
-            //board.allicons[row, colunm] = this.gameObject;
-        }
+        }*/
     }
 
-    //private void OnMouseDown()
-    //{
-    //    if(board.m_CurrentState == GameState.RUNNING)
-    //    {
-    //        firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
-    //        {
-    //            if (!isSpecial)
-    //            {
-    //                isMatch = true;
-    //            }
-    //            board.currentX = targetX;
-    //            board.currentY = targetY;
-    //        }
-    //    } 
-    //}
-
-    //private void OnMouseUp()
-    //{
-    
-    //    finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //   // swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
-    //    distance = Vector2.Distance(firstTouchPosition, finalTouchPosition);
-  
-    //    if (distance < 0.5)
-    //    {
-    //        if (isSpecial)
-    //        {
-    //            board.SpecialEffect(targetX, targetY);
-    //        }
-    //        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0))
-    //        {
-    //            board.DestroyMatch();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (board.m_CurrentState == GameState.RUNNING)
-    //        {
-    //            board.m_CurrentState = GameState.STANDBY;
-    //           // SwapIcons();
-    //        }
-    //    }
-        
-      
-    //}
-
-    public IEnumerator CheckCombo()
-    {
-        yield return new WaitForSeconds(.2f);
-        //if(swapingIcon!=null)
-        //{
-        //    if(!isSpecial || !swapingIcon.GetComponent<Icon>().isSpecial)
-        //    {
-        //        swapingIcon.GetComponent<Icon>().row = swapingIcon.GetComponent<Icon>().previousRow;
-        //        swapingIcon.GetComponent<Icon>().colunm = swapingIcon.GetComponent<Icon>().previousColunm;
-
-        //        row = previousRow;
-        //        colunm = previousColunm;
-      
-        //    }
-        //    if(isSpecial && swapingIcon.GetComponent<Icon>().isSpecial)
-        //    {
-        //       board.m_CurrentState = GameState.onMatch;
-        //       board.DoCombo(swapingIcon.GetComponent<Icon>().row, swapingIcon.GetComponent<Icon>().colunm,targetX,targetY);
-        //    }
-        //}
-        //yield return new WaitUntil(() => board.m_CurrentState != GameState.onMatch);
-        //board.m_CurrentState = GameState.RUNNING;
-    }
-    private void OnDestroy()
-    {
-        IBoardAction[] tActions = GetComponentsInChildren<IBoardAction>();
-        if(tActions != null)
-        {
-            foreach(IBoardAction tAction in tActions)
-            {
-                // added to queue of actions to trigger when match has finish
-           //    GameManager.Instance.PBoard.Actions.Add(delegate { tAction.Invoke(targetX, targetY); });
-            }
-        }
-    }
 
     public string STag
     {
