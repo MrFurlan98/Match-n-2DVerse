@@ -86,6 +86,10 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private float m_SwapDelay;
 
+    [Range(0, 3)]
+    [SerializeField]
+    private float m_SpecialIconDelay;
+
     [SerializeField]
     private int m_OffSet = 0;
 
@@ -222,7 +226,7 @@ public class Board : MonoBehaviour {
 
         yield return RunIconsAnimations(0.3f);
 
-        GenerateSpecialIcon(pOriginIndex, tOriginMatchAmount);
+        yield return GenerateSpecialIcon(pOriginIndex, tOriginMatchAmount,m_SpecialIconDelay);
 
         // second state resolve tags 
         // first action of second state destroy all icons (with tag MARK_TO_DESTROY)
@@ -338,6 +342,7 @@ public class Board : MonoBehaviour {
         m_Icons[thirdIcon.x, thirdIcon.y].StateIcon = BoardIcon.E_State.MARK_TO_DESTROY;
         DestroyIcons();
         DropCollumns();
+        yield return DropCollumnAnimator(m_DropDelay);
 
         // add time to collumn drop
         //yield return new WaitForSeconds(m_RefillDelay);
@@ -353,6 +358,7 @@ public class Board : MonoBehaviour {
         }
 
         RefillBoard();
+        yield return DropCollumnAnimator(m_RefillDelay);
         m_CurrentState = GameState.STANDBY;
     }
     public IEnumerator PowerUp()
@@ -409,10 +415,10 @@ public class Board : MonoBehaviour {
         DropCollumns();
 
         // add time to collumn drop
-        yield return new WaitForSeconds(m_RefillDelay);
+        yield return DropCollumnAnimator(m_DropDelay);
 
         RefillBoard();
-
+        yield return DropCollumnAnimator(m_RefillDelay);
         m_InitPosition = -Vector2.one;
         m_CurrentState = GameState.STANDBY;
     }
@@ -504,18 +510,38 @@ public class Board : MonoBehaviour {
         yield return new WaitForSeconds(pAnimationTime);
     }
 
-    void GenerateSpecialIcon(Vector2Int pOriginIndex, int pOriginAmount)
+    private IEnumerator GenerateSpecialIcon(Vector2Int pOriginIndex, int pOriginAmount,float timeDelay)
     {
-        BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];   
- 
-        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y + OffSet, pOriginAmount, tIcon.m_sTag);
+        BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];
 
-        if (tGenerateBoardIcon != null)
+        Hashtable hash = new Hashtable();
+        hash.Add("y", pOriginIndex.y + OffSet);
+        hash.Add("x", pOriginIndex.x);
+        hash.Add("easetype", "EaseOutBounce");
+        hash.Add("time", timeDelay);
+
+        if (pOriginAmount>=6)
         {
+            for (int i = 0; i < m_Icons.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_Icons.GetLength(1); j++)
+                {
+                    if (m_Icons[i, j] != null && m_Icons[i, j].STag == tIcon.STag && m_Icons[i, j].StateIcon == BoardIcon.E_State.MARK_TO_DESTROY)
+                    {
+                        //iTween.MoveTo(m_Icons[i, j].gameObject, tPosition, timeDelay);
+                        iTween.MoveTo(m_Icons[i, j].gameObject, hash);
+                    }
+                }
+            }
+        }
+        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y + OffSet, pOriginAmount, tIcon.m_sTag);
+        if (tGenerateBoardIcon != null)
+        {     
+            yield return new WaitForSeconds(timeDelay);
             Destroy(tIcon.gameObject);
             m_Icons[pOriginIndex.x, pOriginIndex.y] = tGenerateBoardIcon;
-
         }
+        
     }
 
     void BoardStay(Vector2Int pIconIndex)
@@ -625,6 +651,7 @@ public class Board : MonoBehaviour {
                     DropCollumn(i, j);
             }
         }
+
     }
 
     void DropCollumn(int pX, int pY)
@@ -706,7 +733,6 @@ public class Board : MonoBehaviour {
                         hash.Add("time", timeDelay);
                         //iTween.MoveTo(m_Icons[i, j].gameObject, tPosition, timeDelay);
                         iTween.MoveTo(m_Icons[i, j].gameObject,hash);
-                        Debug.Log("felipin viadin" + hash);
                     }
                 }
             }
