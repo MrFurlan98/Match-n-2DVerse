@@ -7425,11 +7425,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7461,57 +7456,6 @@ Prefab:
     - target: {fileID: 4290020535463368, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
       propertyPath: m_RootOrder
       value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[1].m_IconPrefab
-      value: 
-      objectReference: {fileID: 1471670826069130, guid: b58679ae3a18b704cb522b8b03058043,
-        type: 2}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[1].m_MatchValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[2].m_IconPrefab
-      value: 
-      objectReference: {fileID: 1707404909606250, guid: 223fa98e0adf93b40b411b52eb50c98c,
-        type: 2}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[2].m_MatchValue
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SpecialIcons.Array.data[0].m_GeneratesTag
-      value: BluePotion
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_SwapDelay
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_RefillDelay
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1916596518678126, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_OffSet
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244296219888218, guid: a4bdf018635bf164a98d10489bb54609,
-        type: 2}
-      propertyPath: m_TimeToStart
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4bdf018635bf164a98d10489bb54609, type: 2}
@@ -9336,7 +9280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8755556, y: 0.8974996}
   m_AnchorMax: {x: 0.9655556, y: 0.96875}
-  m_AnchoredPosition: {x: -0.6999817, y: -1.8999939}
+  m_AnchoredPosition: {x: -0.6999512, y: -1.9000244}
   m_SizeDelta: {x: -5.5999985, y: -1.0999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706897087
@@ -16021,6 +15965,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171535189560632, guid: 5108b057be7089c4ba8c633f86ffae73, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5108b057be7089c4ba8c633f86ffae73, type: 2}
@@ -24482,6 +24430,9 @@ MonoBehaviour:
   textQtdBoostOne: {fileID: 1876342490}
   textQtdBoostTwo: {fileID: 855641656}
   textQtdBoostThree: {fileID: 1727751912}
+  m_Buttonlvl1: {fileID: 1637374640}
+  m_Buttonlvl2: {fileID: 520084006}
+  m_Buttonlvl3: {fileID: 1262717116}
 --- !u!114 &1686352278
 MonoBehaviour:
   m_ObjectHideFlags: 0

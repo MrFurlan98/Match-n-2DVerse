@@ -74,10 +74,21 @@ public class RoadMapUI : MonoBehaviour
 
     [SerializeField]
     private Text textQtdBoostOne;
+
     [SerializeField]
     private Text textQtdBoostTwo;
+
     [SerializeField]
     private Text textQtdBoostThree;
+
+    [SerializeField]
+    private Button m_Buttonlvl1;
+
+    [SerializeField]
+    private Button m_Buttonlvl2;
+
+    [SerializeField]
+    private Button m_Buttonlvl3;
 
 
 
@@ -205,6 +216,22 @@ public class RoadMapUI : MonoBehaviour
 
     private void openPopUp(Image boostToUse, int numberArrayBoost)
     {
+        switch (numberArrayBoost)
+        {
+            case 0:
+                SetButtons1(numberArrayBoost);
+                break;
+            case 1:
+                SetButtons2(numberArrayBoost);
+                break;
+            case 2:
+                SetButtons3(numberArrayBoost);
+                break;
+            default:
+                print("erro");
+                break;
+        }     
+        
         boostsPopUp.SetActive(true);
         boostImage1.sprite = boostToUse.sprite;
         boostImage2.sprite = boostToUse.sprite;
@@ -212,6 +239,136 @@ public class RoadMapUI : MonoBehaviour
         UpdateText(numberArrayBoost);
     }
 
+    private void SetButtons1(int numberArrayBoost)
+    {
+        m_Buttonlvl1.onClick.RemoveAllListeners();
+        m_Buttonlvl1.onClick.AddListener(delegate ()
+        {
+            //30min
+            if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("7Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
+                UpdateText(numberArrayBoost);
+            }
+        });
+
+            //1h
+        m_Buttonlvl2.onClick.RemoveAllListeners();
+        m_Buttonlvl2.onClick.AddListener(delegate ()
+        {
+            if (InventoryManager.instance.listBoosts[numberArrayBoost+3].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("7Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost+3].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+
+            //6h
+        m_Buttonlvl3.onClick.RemoveAllListeners();
+        m_Buttonlvl3.onClick.AddListener(delegate ()
+        {
+
+            if (InventoryManager.instance.listBoosts[numberArrayBoost+6].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("7Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost+6].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+    }
+    private void SetButtons2(int numberArrayBoost)
+    {
+        m_Buttonlvl1.onClick.RemoveAllListeners();
+        m_Buttonlvl1.onClick.AddListener(delegate ()
+        {
+        //30min
+        if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("6Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
+                UpdateText(numberArrayBoost);
+            }
+        });
+
+        //1h
+        m_Buttonlvl2.onClick.RemoveAllListeners();
+        m_Buttonlvl2.onClick.AddListener(delegate ()
+        {
+            if (InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("6Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+
+        //6h
+        m_Buttonlvl3.onClick.RemoveAllListeners();
+        m_Buttonlvl3.onClick.AddListener(delegate ()
+        {
+
+            if (InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("6Bomb");
+                InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+    }
+
+    private void SetButtons3(int numberArrayBoost)
+    {
+        m_Buttonlvl1.onClick.RemoveAllListeners();
+        m_Buttonlvl1.onClick.AddListener(delegate ()
+        {
+        //30min
+        if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("Super");
+                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
+                UpdateText(numberArrayBoost);
+            }
+        });
+
+        //1h
+        m_Buttonlvl2.onClick.RemoveAllListeners();
+        m_Buttonlvl2.onClick.AddListener(delegate ()
+        {
+            if (InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("Super");
+                InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+
+        //6h
+        m_Buttonlvl3.onClick.RemoveAllListeners();
+        m_Buttonlvl3.onClick.AddListener(delegate ()
+        {
+
+            if (InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem > 0)
+            {
+                BoostManager.Instance.StarBoostEffect("Super");
+                InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem--;
+                UpdateText(numberArrayBoost);
+
+            }
+
+        });
+    }
 
     public void UpdateText(int numberArrayToUptade)
     {

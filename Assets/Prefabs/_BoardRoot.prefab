@@ -55,7 +55,7 @@ MonoBehaviour:
   stone: {fileID: 21300000, guid: 15b2d452818f25a4b82068bf19efb1df, type: 3}
   m_Heigth: 10
   m_Width: 7
-  m_RefillDelay: 1.2
+  m_RefillDelay: 0.18
   m_DropDelay: 1.2
   m_SwapDelay: 0.2
   m_OffSet: -3
