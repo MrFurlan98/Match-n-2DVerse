@@ -58,5 +58,6 @@ MonoBehaviour:
   m_RefillDelay: 0.18
   m_DropDelay: 1.2
   m_SwapDelay: 0.2
+  m_SpecialIconDelay: 0.5
   m_OffSet: -3
   m_TimeToStart: 1

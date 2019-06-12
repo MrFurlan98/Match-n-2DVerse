@@ -14,7 +14,10 @@ public partial class Backend : MonoBehaviour {
             .Send((response) =>
             { 
                 SaveAuthenticationToken(response.AuthToken);
-
+                if(response.HasErrors)
+                {
+                    Debug.Log(response.Errors.JSON);
+                }
                 pResponse(!response.HasErrors, response.DisplayName);
             });
     }
