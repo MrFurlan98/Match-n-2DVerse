@@ -129,6 +129,7 @@ public class GamePlayUI : MonoBehaviour {
             StopAllCoroutines();
             StartCoroutine(GameManager.Instance.PBoard.ZeusThunder());
             InventoryManager.instance.listConsumables[2].qtdItem--;
+            return;
         }
     }
     public void Switch()
@@ -138,6 +139,7 @@ public class GamePlayUI : MonoBehaviour {
             StopAllCoroutines();
             StartCoroutine(GameManager.Instance.PBoard.SwitchIcons());
             InventoryManager.instance.listConsumables[0].qtdItem--;
+            return;
         }
     }
     public void Upgrade()
@@ -147,7 +149,9 @@ public class GamePlayUI : MonoBehaviour {
             StopAllCoroutines();
             StartCoroutine(GameManager.Instance.PBoard.PowerUp());
             InventoryManager.instance.listConsumables[1].qtdItem--;
+            return;
         }
+        print("ue");
     }
 
     public void UpgradeGrego()
@@ -157,7 +161,9 @@ public class GamePlayUI : MonoBehaviour {
             StopAllCoroutines();
             StartCoroutine(GameManager.Instance.PBoard.PowerUp());
             InventoryManager.instance.listConsumables[3].qtdItem--;
+            return;
         }
+        print("ue");
     }
     private void UpdateMenuButton()
     {
@@ -195,11 +201,17 @@ public class GamePlayUI : MonoBehaviour {
         if (Scenario == "APOCALIPTICO")
         {
             IBackground.sprite = BackGround_Apocaliptco;
-            //Debug.Log("aqui");
-        }
+            m_qtdUpApText.text = InventoryManager.instance.listConsumables[1].qtdItem + "x"; ;
+            m_qtdSwitchText.text = InventoryManager.instance.listConsumables[0].qtdItem + "x"; ;
+
+
+    //Debug.Log("aqui");
+}
         if (Scenario == "GREGO")
         {
             IBackground.sprite = BackGround_Grego;
+            m_qtdZeusText.text=InventoryManager.instance.listConsumables[2].qtdItem+"x";
+            m_qtdUpGregText.text= InventoryManager.instance.listConsumables[3].qtdItem + "x";
         }
     }
 

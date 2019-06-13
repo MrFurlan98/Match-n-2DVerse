@@ -32,7 +32,6 @@ public class LevelButtonUI : MonoBehaviour {
         ScoreManager.Instance.Type = BoardManager.Instance.Levels[i].Type;
         Debug.Log(BoardManager.Instance.Levels[i].Scenario);
         Debug.Log(BoardManager.Instance.Levels[i].Type);
-        
 
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
 
