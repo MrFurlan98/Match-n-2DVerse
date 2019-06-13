@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour
 {
-    private static StoreUI m_Instance;
+    public static StoreUI instance;
 
     public Text m_HCText;
 
@@ -32,7 +32,16 @@ public class StoreUI : MonoBehaviour
     private GameObject InGameItensScreen;
 
     [SerializeField]
+    private GameObject popUpInfo;
+
+    [SerializeField]
     private Button m_addHCButton;
+
+    [SerializeField]
+    private Button m_closePopUpButton;
+
+    [SerializeField]
+    private Image m_imageInfo;
 
     private GameObject AtualScreen;
 
@@ -40,18 +49,18 @@ public class StoreUI : MonoBehaviour
     {
         get
         {
-            return m_Instance;
+            return instance;
         }
 
         set
         {
-            m_Instance = value;
+            instance = value;
         }
     }
 
     public void Awake()
     {
-        m_Instance = this;
+        instance = this;
     }
 
     private void Start()
@@ -100,11 +109,23 @@ public class StoreUI : MonoBehaviour
                 InventoryManager.instance.hardCurrency += 1000;
                 SetHCText();
             });
+        m_closePopUpButton.onClick = new Button.ButtonClickedEvent();
+        m_closePopUpButton.onClick.AddListener(
+            delegate
+            {
+                popUpInfo.SetActive(false);
+            });
 
     }
 
     public void SetHCText()
     {
         m_HCText.text = "Gold: " + InventoryManager.instance.hardCurrency;
+    }
+
+    public void attPopUp(Image spriteToSet, string title, string descriptiu)
+    {
+        popUpInfo.SetActive(true);
+        m_imageInfo.sprite = spriteToSet.sprite;
     }
 }

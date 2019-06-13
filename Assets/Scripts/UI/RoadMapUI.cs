@@ -148,19 +148,19 @@ public class RoadMapUI : MonoBehaviour
         m_BoostCross.onClick.AddListener(
             delegate
             {
-                openPopUp(m_BoostCross.GetComponent<Image>(), 0);
+                openPopUp();
             });
         m_BoostExplosion.onClick = new Button.ButtonClickedEvent();
         m_BoostExplosion.onClick.AddListener(
             delegate
             {
-                openPopUp(m_BoostExplosion.GetComponent<Image>(), 1);
+                openPopUp();
             });
         m_BoostSuper.onClick = new Button.ButtonClickedEvent();
         m_BoostSuper.onClick.AddListener(
             delegate
             {
-                openPopUp(m_BoostSuper.GetComponent<Image>(), 2);
+                openPopUp();
             });
 
         m_ClosePopUp.onClick = new Button.ButtonClickedEvent();
@@ -171,85 +171,25 @@ public class RoadMapUI : MonoBehaviour
             });
     }
 
-    /*public void setRoadMapMembers(Image m_HeadButton, Image m_LegsButton, Image m_ArmButton, Image m_BodyButton)
+
+    private void openPopUp()
     {
-        m_HeadRoadAvatar.sprite = m_HeadButton.GetComponent<Image>().sprite;
-        m_LegRoadAvatar.sprite = m_LegsButton.GetComponent<Image>().sprite;
-        m_ArmRoadAvatar.sprite = m_ArmButton.GetComponent<Image>().sprite;
-        m_BodyRoadAvatar.sprite = m_BodyButton.GetComponent<Image>().sprite;
-    }*/
-
-
-    /*m_BoostCross.onClick = new Button.ButtonClickedEvent();
-        m_BoostCross.onClick.AddListener(
-            delegate
-            {
-
-                if (InventoryManager.instance.listBoosts[0].qtdItem > 0) { 
-                    BoostManager.Instance.StarBoostEffect("7Bomb");
-                    InventoryManager.instance.listBoosts[0].qtdItem--;
-                    UpdateText();
-}
-            });
-        m_BoostExplosion.onClick = new Button.ButtonClickedEvent();
-        m_BoostExplosion.onClick.AddListener(
-            delegate
-            {
-                if (InventoryManager.instance.listBoosts[1].qtdItem > 0) { 
-                    BoostManager.Instance.StarBoostEffect("6Bomb");
-                    InventoryManager.instance.listBoosts[1].qtdItem--;
-                    UpdateText();
-                }
-            });
-        m_BoostSuper.onClick = new Button.ButtonClickedEvent();
-        m_BoostSuper.onClick.AddListener(
-            delegate
-            {
-                if (InventoryManager.instance.listBoosts[2].qtdItem > 0) { 
-                    BoostManager.Instance.StarBoostEffect("Super");
-                    InventoryManager.instance.listBoosts[2].qtdItem--;
-                    UpdateText();
-                }
-            });
-
-    */
-
-    private void openPopUp(Image boostToUse, int numberArrayBoost)
-    {
-        switch (numberArrayBoost)
-        {
-            case 0:
-                SetButtons1(numberArrayBoost);
-                break;
-            case 1:
-                SetButtons2(numberArrayBoost);
-                break;
-            case 2:
-                SetButtons3(numberArrayBoost);
-                break;
-            default:
-                print("erro");
-                break;
-        }     
-        
+        UpdateText();
         boostsPopUp.SetActive(true);
-        boostImage1.sprite = boostToUse.sprite;
-        boostImage2.sprite = boostToUse.sprite;
-        boostImage3.sprite = boostToUse.sprite;
-        UpdateText(numberArrayBoost);
+        SetButtons();
     }
 
-    private void SetButtons1(int numberArrayBoost)
+    private void SetButtons()
     {
         m_Buttonlvl1.onClick.RemoveAllListeners();
         m_Buttonlvl1.onClick.AddListener(delegate ()
         {
             //30min
-            if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
+            if (InventoryManager.instance.listBoosts[0].qtdItem > 0)
             {
-                BoostManager.Instance.StarBoostEffect("7Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
-                UpdateText(numberArrayBoost);
+                BoostManager.Instance.StarBoostEffect("6Bomb");
+                InventoryManager.instance.listBoosts[0].qtdItem--;
+                UpdateText();
             }
         });
 
@@ -257,11 +197,11 @@ public class RoadMapUI : MonoBehaviour
         m_Buttonlvl2.onClick.RemoveAllListeners();
         m_Buttonlvl2.onClick.AddListener(delegate ()
         {
-            if (InventoryManager.instance.listBoosts[numberArrayBoost+3].qtdItem > 0)
+            if (InventoryManager.instance.listBoosts[1].qtdItem > 0)
             {
                 BoostManager.Instance.StarBoostEffect("7Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost+3].qtdItem--;
-                UpdateText(numberArrayBoost);
+                InventoryManager.instance.listBoosts[1].qtdItem--;
+                UpdateText();
 
             }
 
@@ -272,109 +212,23 @@ public class RoadMapUI : MonoBehaviour
         m_Buttonlvl3.onClick.AddListener(delegate ()
         {
 
-            if (InventoryManager.instance.listBoosts[numberArrayBoost+6].qtdItem > 0)
+            if (InventoryManager.instance.listBoosts[2].qtdItem > 0)
             {
-                BoostManager.Instance.StarBoostEffect("7Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost+6].qtdItem--;
-                UpdateText(numberArrayBoost);
-
-            }
-
-        });
-    }
-    private void SetButtons2(int numberArrayBoost)
-    {
-        m_Buttonlvl1.onClick.RemoveAllListeners();
-        m_Buttonlvl1.onClick.AddListener(delegate ()
-        {
-        //30min
-        if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("6Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
-                UpdateText(numberArrayBoost);
-            }
-        });
-
-        //1h
-        m_Buttonlvl2.onClick.RemoveAllListeners();
-        m_Buttonlvl2.onClick.AddListener(delegate ()
-        {
-            if (InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("6Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem--;
-                UpdateText(numberArrayBoost);
-
-            }
-
-        });
-
-        //6h
-        m_Buttonlvl3.onClick.RemoveAllListeners();
-        m_Buttonlvl3.onClick.AddListener(delegate ()
-        {
-
-            if (InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("6Bomb");
-                InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem--;
-                UpdateText(numberArrayBoost);
+                BoostManager.Instance.StarBoostEffect("Super");
+                InventoryManager.instance.listBoosts[2].qtdItem--;
+                UpdateText();
 
             }
 
         });
     }
 
-    private void SetButtons3(int numberArrayBoost)
+
+    public void UpdateText()
     {
-        m_Buttonlvl1.onClick.RemoveAllListeners();
-        m_Buttonlvl1.onClick.AddListener(delegate ()
-        {
-        //30min
-        if (InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("Super");
-                InventoryManager.instance.listBoosts[numberArrayBoost].qtdItem--;
-                UpdateText(numberArrayBoost);
-            }
-        });
-
-        //1h
-        m_Buttonlvl2.onClick.RemoveAllListeners();
-        m_Buttonlvl2.onClick.AddListener(delegate ()
-        {
-            if (InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("Super");
-                InventoryManager.instance.listBoosts[numberArrayBoost + 3].qtdItem--;
-                UpdateText(numberArrayBoost);
-
-            }
-
-        });
-
-        //6h
-        m_Buttonlvl3.onClick.RemoveAllListeners();
-        m_Buttonlvl3.onClick.AddListener(delegate ()
-        {
-
-            if (InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem > 0)
-            {
-                BoostManager.Instance.StarBoostEffect("Super");
-                InventoryManager.instance.listBoosts[numberArrayBoost + 6].qtdItem--;
-                UpdateText(numberArrayBoost);
-
-            }
-
-        });
-    }
-
-    public void UpdateText(int numberArrayToUptade)
-    {
-        textQtdBoostOne.text = InventoryManager.instance.listBoosts[numberArrayToUptade].qtdItem + "x";
-        textQtdBoostTwo.text = InventoryManager.instance.listBoosts[numberArrayToUptade + 3].qtdItem + "x";
-        textQtdBoostThree.text = InventoryManager.instance.listBoosts[numberArrayToUptade + 6].qtdItem + "x";
+        textQtdBoostOne.text = InventoryManager.instance.listBoosts[0].qtdItem + "x";
+        textQtdBoostTwo.text = InventoryManager.instance.listBoosts[1].qtdItem + "x";
+        textQtdBoostThree.text = InventoryManager.instance.listBoosts[2].qtdItem + "x";
     }
 
 

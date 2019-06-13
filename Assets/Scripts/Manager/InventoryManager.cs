@@ -74,7 +74,7 @@ public class InventoryManager : MonoBehaviour {
 
         if (arrayNumber == 2)
         {
-            listBoosts[idItem].qtdItem++;
+            listBoosts[idItem].qtdItem += quant;
         }
 
         if (arrayNumber != 1 && arrayNumber != 2)
