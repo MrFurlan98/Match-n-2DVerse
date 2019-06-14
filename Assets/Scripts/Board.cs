@@ -783,10 +783,9 @@ public class Board : MonoBehaviour {
             {
                 if (m_Icons[i, j] == null)
                 {
-                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
+                    BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j + 10,level.Scenario);
                     tIcon.colunm = j;
                     tIcon.row = i;
-
                     tIcon.transform.parent = transform;
                     m_Icons[i, j] = tIcon;
                 }
