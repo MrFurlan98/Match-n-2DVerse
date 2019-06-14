@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class LevelButtonUI : MonoBehaviour {
 
     RoadMapUI instanceRM;
@@ -14,11 +13,24 @@ public class LevelButtonUI : MonoBehaviour {
     private Image m_legToSend;
     private Image m_bodyToSend;
 
-    private int m_IndexButton;
+    private int m_indexButton;
 
     private Vector2Int m_BoardAspect = new Vector2Int(7, 7);
 
-    public void OpenBoard(int i)
+    public int IndexButton
+    {
+        get
+        {
+            return m_indexButton;
+        }
+
+        set
+        {
+            m_indexButton = value;
+        }
+    }
+
+    public void OpenBoard()
     {
         #region SET AVATAR TO SEND
         instanceRM = RoadMapUI.instance;
@@ -28,26 +40,26 @@ public class LevelButtonUI : MonoBehaviour {
         m_armToSend = instanceRM.m_ArmRoadAvatar;
         #endregion
 
-        ScoreManager.Instance.Scenario = BoardManager.Instance.Levels[i].Scenario;
-        ScoreManager.Instance.Type = BoardManager.Instance.Levels[i].Type;
-        Debug.Log(BoardManager.Instance.Levels[i].Scenario);
-        Debug.Log(BoardManager.Instance.Levels[i].Type);
+        ScoreManager.Instance.Scenario = BoardManager.Instance.Levels[m_indexButton].Scenario;
+        ScoreManager.Instance.Type = BoardManager.Instance.Levels[m_indexButton].Type;
+        Debug.Log(BoardManager.Instance.Levels[m_indexButton].Scenario);
+        Debug.Log(BoardManager.Instance.Levels[m_indexButton].Type);
 
         UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
 
         ScoreManager.Instance.StartGame = false;
-        BoardManager.Instance.CurrentLevel = i;
-        ScoreManager.Instance.MovesLeft = BoardManager.Instance.Levels[i].MovesLeft;
-        ScoreManager.Instance.TargetLeft = BoardManager.Instance.Levels[i].TargetLeft;
-        ScoreManager.Instance.GoalPoints = BoardManager.Instance.Levels[i].GoalPoints;
+        BoardManager.Instance.CurrentLevel = m_indexButton;
+        ScoreManager.Instance.MovesLeft = BoardManager.Instance.Levels[m_indexButton].MovesLeft;
+        ScoreManager.Instance.TargetLeft = BoardManager.Instance.Levels[m_indexButton].TargetLeft;
+        ScoreManager.Instance.GoalPoints = BoardManager.Instance.Levels[m_indexButton].GoalPoints;
         ScoreManager.Instance.Points = 0;
 
         GameManager.Instance.PBoard.ClearBoard();
-        GameManager.Instance.PBoard.InitBoard(i);
+        GameManager.Instance.PBoard.InitBoard(m_indexButton);
 
-        ScoreManager.Instance.Timer = BoardManager.Instance.Levels[i].Timer;
+        ScoreManager.Instance.Timer = BoardManager.Instance.Levels[m_indexButton].Timer;
 
-        if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
+        if (BoardManager.Instance.Levels[m_indexButton].Type == "Desativar_Bomba")
         {
             ScoreManager.Instance.SetTargets(ScoreManager.Instance.TargetLeft);
             ScoreManager.Instance.Stop = false;
@@ -56,23 +68,22 @@ public class LevelButtonUI : MonoBehaviour {
 
         UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.GAMEPLAY);
 
-        GamePlayUI.instance.SetMembers(m_headToSend, m_legToSend, m_armToSend, m_bodyToSend);
         GamePlayUI.instance.SetBackground();
         //GamePlayUI.instance.SetBackground(BoardManager.Instance.Nivel[i]);
 
-        if (BoardManager.Instance.Levels[i].Type == "Resgate")
+        if (BoardManager.Instance.Levels[m_indexButton].Type == "Resgate")
         {
             GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.RESCUE);
         }
-        if (BoardManager.Instance.Levels[i].Type == "Desativar_Bomba")
+        if (BoardManager.Instance.Levels[m_indexButton].Type == "Desativar_Bomba")
         {
             GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.DEACTIVATE_BOMB);
         }
-        if (BoardManager.Instance.Levels[i].Type == "Sobre_O_Olhar_Da_Gorgona")
+        if (BoardManager.Instance.Levels[m_indexButton].Type == "Sobre_O_Olhar_Da_Gorgona")
         {
             GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.UNDER_THE_GORGONAS_EYES);
         }
-        if (BoardManager.Instance.Levels[i].Type == "Um_Dos_Doze_Trabalhos")
+        if (BoardManager.Instance.Levels[m_indexButton].Type == "Um_Dos_Doze_Trabalhos")
         {
             GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.ONE_OF_TWELVE_WORKS);
         }

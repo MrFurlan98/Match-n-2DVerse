@@ -90,8 +90,6 @@ public class Board : MonoBehaviour {
     [SerializeField]
     private float m_SpecialIconDelay;
 
-    [SerializeField]
-    private int m_OffSet = 0;
 
     [SerializeField]
     private float m_TimeToStart;
@@ -175,7 +173,7 @@ public class Board : MonoBehaviour {
                 {
                     BoardIcon tIconItem = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
 
-                    tIconItem.colunm = j + OffSet;
+                    tIconItem.colunm = j;
                     tIconItem.row = i;
                     m_Icons[i, j] = tIconItem;
                 }
@@ -183,7 +181,7 @@ public class Board : MonoBehaviour {
                 {
 
                     BoardIcon tIconIndestructItem = IconManager.Instance.GenerateIndestructableIcon(i, j);
-                    tIconIndestructItem.colunm = j + OffSet;
+                    tIconIndestructItem.colunm = j;
                     tIconIndestructItem.row = i;
                     m_Icons[i, j] = tIconIndestructItem;
                 }
@@ -515,7 +513,7 @@ public class Board : MonoBehaviour {
         BoardIcon tIcon = m_Icons[pOriginIndex.x, pOriginIndex.y];
 
         Hashtable hash = new Hashtable();
-        hash.Add("y", pOriginIndex.y + OffSet);
+        hash.Add("y", pOriginIndex.y);
         hash.Add("x", pOriginIndex.x);
         hash.Add("easetype", "EaseOutBounce");
         hash.Add("time", timeDelay);
@@ -534,7 +532,7 @@ public class Board : MonoBehaviour {
                 }
             }
         }
-        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y + OffSet, pOriginAmount, tIcon.m_sTag);
+        BoardIcon tGenerateBoardIcon = IconManager.Instance.GenerateSpecialIconByMatch(pOriginIndex.x, pOriginIndex.y, pOriginAmount, tIcon.m_sTag);
         if (tGenerateBoardIcon != null)
         {     
             yield return new WaitForSeconds(timeDelay);
@@ -707,7 +705,7 @@ public class Board : MonoBehaviour {
                 if (m_Icons[pX, i] != null)
                 {
                     m_Icons[pX, i].row = pX;
-                    m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable + OffSet;
+                    m_Icons[pX, i].colunm = tAboveIndex - tDropCount - indestructable;
                 }
             }
             
@@ -739,10 +737,7 @@ public class Board : MonoBehaviour {
         }
         yield return new WaitForSeconds(timeDelay);
     }
-    void Bouncing()
-    {
 
-    }
     void DestroyIcons()
     {
         bool validMove = false;
@@ -789,8 +784,9 @@ public class Board : MonoBehaviour {
                 if (m_Icons[i, j] == null)
                 {
                     BoardIcon tIcon = IconManager.Instance.GenerateRandomIcon(i, j,level.Scenario);
-                    tIcon.colunm = j + OffSet;
+                    tIcon.colunm = j;
                     tIcon.row = i;
+
                     tIcon.transform.parent = transform;
                     m_Icons[i, j] = tIcon;
                 }
@@ -849,14 +845,16 @@ public class Board : MonoBehaviour {
                 tReSwap = false;
             }
 
-
+            yield return new WaitForSeconds(m_SwapDelay);
             if (tReSwap)
             {
                 SwapIcons(pTo, pFrom);
+                ReduceShadow();
+                ReducePetrify();
             }
-            ReduceShadow();
-            ReducePetrify();
+            
         }
+        m_CurrentState = GameState.STANDBY;
     }
 
     private IEnumerator CheckChain(int a)
@@ -899,6 +897,7 @@ public class Board : MonoBehaviour {
 
     private void SwapIcons(Vector2Int pFrom, Vector2Int pTo)
     {
+
         m_Icons[pFrom.x, pFrom.y].row = pTo.x;
         m_Icons[pFrom.x, pFrom.y].colunm = pTo.y;
 
@@ -1070,7 +1069,7 @@ public class Board : MonoBehaviour {
             {
                 Vector2 tCurrentPosition = Vector2.one;
                 tCurrentPosition.x *= i;
-                tCurrentPosition.y *= (j + OffSet);
+                tCurrentPosition.y *= j;
                 float tDistance = Vector2.Distance(tCurrentPosition, pPosi);
                 if (tDistance < 0.5)
                     return new Vector2Int(i, j);
@@ -1149,19 +1148,6 @@ public class Board : MonoBehaviour {
         set
         {
             m_TriggerMatch = value;
-        }
-    }
-
-    public int OffSet
-    {
-        get
-        {
-            return m_OffSet;
-        }
-
-        set
-        {
-            m_OffSet = value;
         }
     }
 

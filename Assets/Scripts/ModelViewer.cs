@@ -5,21 +5,15 @@ using UnityEngine;
 
 public class ModelViewer : MonoBehaviour {
 
-    List<int[,]> m_levels;
+    public List<Level> m_levels;
     [SerializeField]
     public int index=0;
 
-    private void Start()
-    {
-        string model = File.ReadAllText(Application.dataPath + BoardGenerator.PATH_MODEL);
-        
-        m_levels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int[,]>>(model);
-    }
     private void OnDrawGizmosSelected()
     {
-        if (m_levels == null)
+        if (BoardManager.Instance.Levels[index] == null)
             return;
-        int[,] currentModel = m_levels[index];
+        int[,] currentModel = BoardManager.Instance.Levels[index].Model;
         for (int i = 0; i < currentModel.GetLength(0); i++)
         {
             for (int j = 0; j < currentModel.GetLength(1); j++)

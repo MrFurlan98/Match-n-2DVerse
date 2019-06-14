@@ -88,26 +88,26 @@ public class BoardIcon : MonoBehaviour {
     {
         targetY = colunm; //+ board.offSet;
         targetX = row;
-        /*if(Mathf.Abs(targetX-transform.position.x - board.OffSet) >.1)
+        if(Mathf.Abs(targetX-transform.position.x) >.1)
         {
-            tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
+            tempPosition = new Vector2(targetX, transform.position.y);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
         }
         else
         {
-            tempPosition = new Vector2(targetX, transform.position.y + board.OffSet);
+            tempPosition = new Vector2(targetX, transform.position.y);
             transform.position = tempPosition;
         }
-        if (Mathf.Abs(targetY - transform.position.y - board.OffSet) > .1)
+        if (Mathf.Abs(targetY - transform.position.y) > .1)
         {
-            tempPosition = new Vector2(transform.position.x,targetY + board.OffSet);
+            tempPosition = new Vector2(transform.position.x,targetY);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
         }
         else
         {
-            tempPosition = new Vector2(transform.position.x, targetY + board.OffSet);
+            tempPosition = new Vector2(transform.position.x, targetY);
             transform.position = tempPosition;
-        }*/
+        }
     }
 
 

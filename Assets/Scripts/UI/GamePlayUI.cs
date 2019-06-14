@@ -100,26 +100,21 @@ public class GamePlayUI : MonoBehaviour {
 
         UpdateMenuButton();
     }
-
+    private void OnEnable()
+    {
+        m_HeadGamePlayAvatar.sprite = MinionAvatar.instance.m_headMemberUsing;
+        m_LegGamePlayAvatar.sprite = MinionAvatar.instance.m_legMemberUsing;
+        m_ArmGamePlayAvatar.sprite = MinionAvatar.instance.m_armMemberUsing;
+        m_BodyGamePlayAvatar.sprite = MinionAvatar.instance.m_bodyMemberUsing;
+    }
     private void Update()
     {
         SetBackground();
-        //m_tModulos.text = ScoreManager.Instance.TargetLeft.ToString();
-      
-        //m_tScore.text =  ScoreManager.Instance.Points.ToString();
 
-       // m_tMoves.text = ScoreManager.Instance.MovesLeft.ToString();
-
-        //m_TargetSprite.sprite = ScoreManager.Instance.IconToDestroy;
-
-       // m_ObjectivePoint.text = ScoreManager.Instance.GoalPoints.ToString();
 
         Scenario = ScoreManager.Instance.Scenario;
 
         Type = ScoreManager.Instance.Type;
-
-        //Timer.text = ScoreManager.Instance.Timer.ToString("0");
-        
 
     }
     public void ZeusThunder()
@@ -204,8 +199,6 @@ public class GamePlayUI : MonoBehaviour {
             m_qtdUpApText.text = InventoryManager.instance.listConsumables[1].qtdItem + "x"; ;
             m_qtdSwitchText.text = InventoryManager.instance.listConsumables[0].qtdItem + "x"; ;
 
-
-    //Debug.Log("aqui");
 }
         if (Scenario == "GREGO")
         {
