@@ -248,9 +248,12 @@ public class Board : MonoBehaviour {
         }
 
         RefillBoard();
-
+        
         yield return DropCollumnAnimator(m_RefillDelay);
 
+        ShuffleBoard();
+
+        yield return SwapAnimator(m_SwapDelay);
         m_InitPosition = -Vector2.one;
 
         m_CurrentState = GameState.STANDBY;
@@ -289,6 +292,7 @@ public class Board : MonoBehaviour {
         Debug.Log("Segundo");
         // trocar as pecas
         SwapIcons(firstIcon, secondIcon);
+        yield return SwapAnimator(m_SwapDelay);
         m_CurrentState = GameState.STANDBY;
     }
     public IEnumerator ZeusThunder()
@@ -357,6 +361,9 @@ public class Board : MonoBehaviour {
 
         RefillBoard();
         yield return DropCollumnAnimator(m_RefillDelay);
+
+        ShuffleBoard();
+        yield return SwapAnimator(m_SwapDelay);
         m_CurrentState = GameState.STANDBY;
     }
     public IEnumerator PowerUp()
@@ -417,6 +424,8 @@ public class Board : MonoBehaviour {
 
         RefillBoard();
         yield return DropCollumnAnimator(m_RefillDelay);
+        ShuffleBoard();
+        yield return SwapAnimator(m_SwapDelay);
         m_InitPosition = -Vector2.one;
         m_CurrentState = GameState.STANDBY;
     }
@@ -737,7 +746,30 @@ public class Board : MonoBehaviour {
         }
         yield return new WaitForSeconds(timeDelay);
     }
-
+    private IEnumerator SwapAnimator(float timeDelay)
+    {
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                if (m_Icons[i, j] != null)
+                {
+                    Vector2 tPosition = new Vector2(m_Icons[i, j].row, m_Icons[i, j].colunm);
+                    if (Vector2.Distance(m_Icons[i, j].transform.position, tPosition) > 0.5f)
+                    {
+                        Hashtable hash = new Hashtable();
+                        hash.Add("y", tPosition.y);
+                        hash.Add("x", tPosition.x);
+                        hash.Add("easetype", "Linear");
+                        hash.Add("time", timeDelay);
+                        //iTween.MoveTo(m_Icons[i, j].gameObject, tPosition, timeDelay);
+                        iTween.MoveTo(m_Icons[i, j].gameObject, hash);
+                    }
+                }
+            }
+        }
+        yield return new WaitForSeconds(timeDelay);
+    }
     void DestroyIcons()
     {
         bool validMove = false;
@@ -772,9 +804,52 @@ public class Board : MonoBehaviour {
         }
         if (validMove)
             ScoreManager.Instance.MovesLeft -= 1;
-
     }
-
+    private void ShuffleBoard()
+    {
+        
+        bool shuffle = true;
+        for (int i = 0; i < m_Icons.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Icons.GetLength(1); j++)
+            {
+                List<Vector2Int> tIcons = null;
+                
+                GetRegionIcons(i, j, ref tIcons);
+                if (m_Icons[i,j]!=null && !(m_Icons[i,j].StateIcon == BoardIcon.E_State.CANT_DESTROY))
+                {
+                    if (IsAMatch(tIcons) || IsSpecialIcon(m_Icons[i,j]))
+                    {
+                        shuffle = false;
+                        break;
+                    }
+                    
+                }
+            }
+        }
+        if(shuffle)
+        {
+            System.Random prng = new System.Random();
+            for (int i = 0; i < m_Icons.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_Icons.GetLength(1); j++)
+                {
+                   if(m_Icons[i,j].StateIcon==BoardIcon.E_State.STAND_BY)
+                   {
+                        Vector2Int tposition = new Vector2Int();
+                        do
+                        {
+                            tposition.x = i + prng.Next(0,m_Icons.GetLength(0) - i);
+                            tposition.y = j + prng.Next(0,m_Icons.GetLength(1) - j);
+                        } while (!(m_Icons[tposition.x, tposition.y].StateIcon == BoardIcon.E_State.STAND_BY));
+                       
+                        SwapIcons(new Vector2Int(i, j), tposition);
+                   }
+                }
+            }
+            ShuffleBoard();
+        }
+    }
     private void RefillBoard()
     {
         for (int i = 0; i < Width; i++)
@@ -799,7 +874,7 @@ public class Board : MonoBehaviour {
         {
             SwapIcons(pFrom, pTo);
 
-            yield return new WaitForSeconds(m_SwapDelay);
+            yield return SwapAnimator(m_SwapDelay);
 
 
             //Clicked Icon
@@ -844,10 +919,11 @@ public class Board : MonoBehaviour {
                 tReSwap = false;
             }
 
-            yield return new WaitForSeconds(m_SwapDelay);
+            
             if (tReSwap)
             {
                 SwapIcons(pTo, pFrom);
+                yield return SwapAnimator(m_SwapDelay);
                 ReduceShadow();
                 ReducePetrify();
             }
@@ -909,36 +985,6 @@ public class Board : MonoBehaviour {
 
         m_Icons[pTo.x, pTo.y] = tIcon;
     }
-
-    /*public void GetBoardScenario(int level)
-    {
-        string scenario = BoardManager.Instance.Nivel[level];
-        string type = BoardManager.Instance.Type[level];
-        if(scenario=="APOCALIPTICO")
-        {
-            m_CurrentScenario = BoardScenario.APOCALIPTICO;
-            if(type == "Resgate")
-            {
-                m_CurrentType = BoardType.RESGATE;
-            }
-            else
-            {
-                m_CurrentType = BoardType.DESATIVAR_BOMBA;
-            }
-        }
-        else
-        {
-            m_CurrentScenario = BoardScenario.GREGO;
-            if(type == "Um_Dos_Doze_Trabalhos")
-            {
-                m_CurrentType = BoardType.UM_DOS_DOZE_TRABALHOS;
-            }
-            else
-            {
-                m_CurrentType = BoardType.SOB_O_OLHAR_DA_GORGONA;
-            }
-        }
-    }*/
     #endregion
 
     #region Board Methods 

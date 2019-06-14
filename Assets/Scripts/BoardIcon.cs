@@ -88,7 +88,7 @@ public class BoardIcon : MonoBehaviour {
     {
         targetY = colunm; //+ board.offSet;
         targetX = row;
-        if(Mathf.Abs(targetX-transform.position.x) >.1)
+        /*if(Mathf.Abs(targetX-transform.position.x) >.1)
         {
             tempPosition = new Vector2(targetX, transform.position.y);
             transform.position = Vector2.Lerp(transform.position, tempPosition, .4f);
@@ -107,7 +107,7 @@ public class BoardIcon : MonoBehaviour {
         {
             tempPosition = new Vector2(transform.position.x, targetY);
             transform.position = tempPosition;
-        }
+        }*/
     }
 
 
