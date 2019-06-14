@@ -39,27 +39,15 @@ public class BoardGenerator  {
     public static List<Level> Models(int qtd ,bool vertical,bool horizontal)
     {
         List<Level> models = new List<Level>();
-        int i = 0;
-        int j = 0;
-        while(i<qtd)
-        {
-            int[,] validation = GenerateBoard(j);
-            if (Validador(validation))
-            {
-                Level level = new Level();
-                models.Add(level);
-                models[i].Model = validation;
-                i++; 
-            }
-            j++;
-        }
         System.Random prng = new System.Random(seed);
         int a = 0;
         int[] array = { 1, 2, 3, 4 };
         shuffleArray(array);
         for (int w = 0; w < qtd; w++)
         {
-            if(a==4)
+            Level level = new Level();
+            models.Add(level);
+            if (a==4)
             {
                 shuffleArray(array);
                 a = 0;
@@ -89,31 +77,6 @@ public class BoardGenerator  {
         }
         for (int k = 0; k < qtd; k++)
         {
-            
-            /*if ((prng.Next(0, 2) == 0))
-            {
-                models[k].Scenario = "APOCALIPTICO";
-                if ((prng.Next(0, 2) == 0))
-                {
-                    models[k].Type = "Resgate";
-                }
-                else
-                {
-                    models[k].Type = "Desativar_Bomba";
-                }
-            }
-            else
-            {
-                models[k].Scenario = "GREGO";
-                if ((prng.Next(0, 2) == 0))
-                {
-                    models[k].Type = "Um_Dos_Doze_Trabalhos";
-                }
-                else
-                {
-                    models[k].Type = "Sobre_O_Olhar_Da_Gorgona";
-                }
-            }*/
             models[k].GoalPoints = 10000;
             models[k].MovesLeft = 12;
             if (k <= qtd / 5)
@@ -137,7 +100,19 @@ public class BoardGenerator  {
                 models[k].TargetLeft = 5;
             }
         }
+        int i = 0;
+        int j = 0;
+        while (i < qtd)
+        {
+            int[,] validation = GenerateBoard(j);
+            if (Validador(validation,models[i]))
+            {
 
+                models[i].Model = validation;
+                i++;
+            }
+            j++;
+        }
         return models;
     }
 
@@ -199,7 +174,7 @@ public class BoardGenerator  {
         array[a] = array[b];
         array[b] = temp;
     }
-    public static bool Validador(int[,] model)
+    public static bool Validador(int[,] model,Level level)
     {
         int cont0 = 0;
         for (int i = 0; i < model.GetLength(0); i++)
@@ -212,7 +187,30 @@ public class BoardGenerator  {
                 }
             }
         }
-        if(cont0 >= 0.6f * model.GetLength(0) * model.GetLength(1))
+        if(level.Type == "Um_Dos_Doze_Trabalhos")
+        {
+            
+            for (int i = 0; i < model.GetLength(0); i++)
+            {
+                if(model[i,0]==0)
+                {
+                    return false;
+                }
+            }
+            int cont = 0;
+            for (int i = 0; i < model.GetLength(0); i++)
+            {
+                if(model[i,model.GetLength(1)-1]==0)
+                {
+                    cont++;
+                }
+            }
+            if(model.GetLength(1)-cont < 5)
+            {
+                return false;
+            }
+        }
+        if (cont0 >= 0.6f * model.GetLength(0) * model.GetLength(1))
         {
             int newcont0 = 0;
             for (int i = 0; i < model.GetLength(0); i++)
