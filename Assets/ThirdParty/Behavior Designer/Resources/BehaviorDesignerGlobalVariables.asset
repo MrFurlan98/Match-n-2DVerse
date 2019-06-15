@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mVariableData:
     variableStartIndex: 
-    JSONSerialization: 
+    JSONSerialization: "{\n\t\"Variables\":[{\n\t\t\"Type\":\"BehaviorDesigner.Runtime.SharedBool\",\n\t\t\"Name\":\"OnlineGame\",\n\t\t\"IsShared\":true,\n\t\t\"IsGlobal\":true,\n\t\t\"BooleanmValue\":false\n\t}]\n}"
     fieldSerializationData:
       typeName: []
       fieldNameHash: 
@@ -22,4 +22,4 @@ MonoBehaviour:
       unityObjects: []
       byteData: 
       byteDataArray: 
-  mVersion: 
+  mVersion: 1.5.11

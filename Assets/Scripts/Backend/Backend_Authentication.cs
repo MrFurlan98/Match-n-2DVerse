@@ -7,10 +7,9 @@ using GameSparks.Api.Responses;
 public partial class Backend : MonoBehaviour {
 
     ///<summary> That's request to server to a new guest player using a hash id of player guest username </summary>
-    public void GuestLogin(Action<bool, string> pResponse, string pDisplayName = "")
+    public void GuestLogin(Action<bool, string> pResponse)
     {
         new DeviceAuthenticationRequest()
-            .SetDisplayName(pDisplayName)
             .Send((response) =>
             { 
                 SaveAuthenticationToken(response.AuthToken);

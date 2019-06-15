@@ -28,8 +28,7 @@ public class AuthenticationUI : MonoBehaviour {
 
     void Init()
     {
-        UnityEngine.Events.UnityAction GuestLoginAction = delegate { Backend.Instance.GuestLogin(LoginGuest, pDisplayName: "Guest_" + UnityEngine.Random.Range(0, 100000)); };
-        m_GuestLoginButton.onClick.AddListener(GuestLoginAction);
+        m_GuestLoginButton.onClick.AddListener( delegate { Backend.Instance.GuestLogin(LoginGuest); });
     }
 
     void LoginGuest(bool pSuccess, string pUsername)
@@ -37,8 +36,6 @@ public class AuthenticationUI : MonoBehaviour {
         if (pSuccess)
         {
             Debug.Log("Welcome: " + pUsername);
-
-            PipelineManager.Instance.RestartFlow();
         }
         else
         {

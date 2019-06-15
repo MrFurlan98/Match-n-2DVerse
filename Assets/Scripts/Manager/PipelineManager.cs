@@ -22,8 +22,8 @@ public class PipelineManager : MonoBehaviour {
     }
 
     void Start () {
-        InitSteps();
-        StartCoroutine(CheckPipeline());
+    //    InitSteps();
+     //   StartCoroutine(CheckPipeline());
     }
 
     public void RestartFlow()
@@ -108,6 +108,12 @@ public class PipelineManager : MonoBehaviour {
         yield return 0;
     }
     #endregion
+
+    public IEnumerator OpenAuthenticationScene()
+    {
+        yield return LoadScene("AuthenticationScene");
+        yield return SceneManager.UnloadSceneAsync("ServerSetup");
+    }
 
     IEnumerator Connection()
     {

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23f08d2ae4cba14087c1ed36193d82b, type: 3}
+  m_Name: Initial Game Flow
+  m_EditorClassIdentifier: 
+  mBehaviorSource:
+    behaviorName: Behavior
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: "{\n\t\"EntryTask\":{\n\t\t\"Type\":\"BehaviorDesigner.Runtime.Tasks.EntryTask\",\n\t\t\"NodeData\":{\n\t\t\t\"Offset\":\"(-2497.07666,29)\"\n\t\t},\n\t\t\"ID\":0,\n\t\t\"Name\":\"Entry\",\n\t\t\"Instant\":true\n\t},\n\t\"RootTask\":{\n\t\t\"Type\":\"BehaviorDesigner.Runtime.Tasks.Sequence\",\n\t\t\"NodeData\":{\n\t\t\t\"Offset\":\"(1.42333984,125)\"\n\t\t},\n\t\t\"ID\":1,\n\t\t\"Name\":\"Sequence\",\n\t\t\"Instant\":true,\n\t\t\"AbortTypeabortType\":\"None\",\n\t\t\"Children\":[{\n\t\t\t\"Type\":\"BehaviorDesigner.Runtime.Tasks.BehaviorTreeReference\",\n\t\t\t\"NodeData\":{\n\t\t\t\t\"Offset\":\"(-545.833252,160)\"\n\t\t\t},\n\t\t\t\"ID\":2,\n\t\t\t\"Name\":\"Server
+        Verification\",\n\t\t\t\"Instant\":true,\n\t\t\t\"ExternalBehavior[]externalBehaviors\":[0],\n\t\t\t\"SharedNamedVariable[]variables\":[],\n\t\t\t\"Booleancollapsed\":false\n\t\t},{\n\t\t\t\"Type\":\"BehaviorDesigner.Runtime.Tasks.BehaviorTreeReference\",\n\t\t\t\"NodeData\":{\n\t\t\t\t\"Offset\":\"(-5.5530386,171.113876)\"\n\t\t\t},\n\t\t\t\"ID\":3,\n\t\t\t\"Name\":\"Update
+        Verification\",\n\t\t\t\"Instant\":true,\n\t\t\t\"ExternalBehavior[]externalBehaviors\":[1],\n\t\t\t\"SharedNamedVariable[]variables\":[],\n\t\t\t\"Booleancollapsed\":false\n\t\t},{\n\t\t\t\"Type\":\"BehaviorDesigner.Runtime.Tasks.BehaviorTreeReference\",\n\t\t\t\"NodeData\":{\n\t\t\t\t\"Offset\":\"(456.060547,160.245178)\"\n\t\t\t},\n\t\t\t\"ID\":4,\n\t\t\t\"Name\":\"Start
+        Game\",\n\t\t\t\"Instant\":true,\n\t\t\t\"ExternalBehavior[]externalBehaviors\":[2],\n\t\t\t\"SharedNamedVariable[]variables\":[],\n\t\t\t\"Booleancollapsed\":false\n\t\t}]\n\t}\n}"
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects:
+        - {fileID: 11400000, guid: 1980ac30b8f5c064eb122feb7b1f262e, type: 2}
+        - {fileID: 11400000, guid: f4c445615ea0bdd4884f0ff51eeb8d82, type: 2}
+        - {fileID: 11400000, guid: 938e33cffd3ec22429aab95c591ab808, type: 2}
+        byteData: 
+        byteDataArray: 
+      Version: 1.5.11

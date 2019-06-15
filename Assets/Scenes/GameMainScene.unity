@@ -121,9 +121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 150030179}
-  - component: {fileID: 150030180}
+  - component: {fileID: 150030181}
   m_Layer: 0
-  m_Name: PipelineManager
+  m_Name: BehaviorManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &150030180
+--- !u!114 &150030181
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,9 +150,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 150030178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 108be608165490f438a71effd9ba9942, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  pauseWhenDisabled: 0
+  restartWhenComplete: 0
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 0
+  externalBehavior: {fileID: 11400000, guid: 2da7aa263f264224e9e1823319bcb424, type: 2}
+  mBehaviorSource:
+    behaviorName: Initial Game Flow
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: "{\n\t\n}"
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 1.5.11
 --- !u!1 &857265168
 GameObject:
   m_ObjectHideFlags: 0
