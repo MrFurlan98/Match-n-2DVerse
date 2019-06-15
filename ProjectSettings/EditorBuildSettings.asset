@@ -17,4 +17,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Beta.unity
     guid: 80bfba782297d9448a8d951f331eea69
+  - enabled: 1
+    path: Assets/Scenes/Screens/ConfigUISubScene.unity
+    guid: ab0b53cdc1995b44cbd5ebcf96ada4ce
+  - enabled: 1
+    path: Assets/Scenes/Screens/GamePlaySubScene.unity
+    guid: 5e1d5c8ef5790b84ab3f1413795ea206
+  - enabled: 1
+    path: Assets/Scenes/Screens/LabUISubScene.unity
+    guid: d22ac22c5cc13544fb2aa0ca8084f412
+  - enabled: 1
+    path: Assets/Scenes/Screens/PerfilUISubScene.unity
+    guid: d4bd2320b118e6c4ea80e6ac3711f3d1
+  - enabled: 1
+    path: Assets/Scenes/Screens/StoreUISubScene.unity
+    guid: 1f07f3746a37ffd448ecc0565a9d6c87
+  - enabled: 1
+    path: Assets/Scenes/Screens/RoadMapUISubScene.unity
+    guid: c111046b51a0b29478731e1931ebd7c6
+  - enabled: 1
+    path: Assets/Scenes/Screens/RoadMapVortexUISubScene.unity
+    guid: b6c89949f8886e040b8f701b26dbbcde
   m_configObjects: {}

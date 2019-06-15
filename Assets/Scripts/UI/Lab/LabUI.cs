@@ -74,7 +74,7 @@ public class LabUI : MonoBehaviour {
     {
         instanceRoad = RoadMapUI.instance;
         partsManager = PartsManager.instance;
-        instanceMA = MinionAvatar.instance;
+        instanceMA = MinionAvatar.m_Instance;
         lengthArray = partsManager.headParts.Count;
 
         bodyPart.sprite = partsManager.headParts[atualPart].memberSprite;
@@ -87,8 +87,8 @@ public class LabUI : MonoBehaviour {
             delegate
             {
                 openOrClose = 0;
-                //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.EDITPARTSGO);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.LAB);
+                //ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.EDITPARTSGO);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.LAB);
             });
 
         m_HeadButton.onClick = new Button.ButtonClickedEvent();
@@ -213,7 +213,7 @@ public class LabUI : MonoBehaviour {
         m_ConfirmAvatarButton.onClick.AddListener(
             delegate
             {
-                MinionAvatar.instance.setMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
+                MinionAvatar.m_Instance.setMembers(m_HeadButton.GetComponent<Image>(), m_LegsButton.GetComponent<Image>(), m_ArmButton.GetComponent<Image>(), m_BodyButton.GetComponent<Image>());
             });
     }
 

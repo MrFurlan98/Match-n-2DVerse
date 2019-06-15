@@ -10,14 +10,11 @@ public class GameManager : MonoBehaviour {
         Instance = this;
     }
 
-    [SerializeField]
-    private Board m_pBoard;
-
     public List<Icon> m_IconToDestroy;
 
     public bool CheckSurvivors()
     {
-        BoardIcon[,] tBoardIcons = PBoard.GetBoardIcons();
+        BoardIcon[,] tBoardIcons = GamePlayManager.Instance.BoardReference.GetBoardIcons();
         for (int i = 0; i < tBoardIcons.GetLength(0); i++)
         {
             for (int j = 0; j < tBoardIcons.GetLength(1); j++)
@@ -34,19 +31,6 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public void ResetBoard()
-    {
-        GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
-
-        // Reset Board
-        //PBoard.moves = 14;
-
-        //PBoard.UpdateMoveScore();
-
-        //set all events to invoke when player do a match
-        PBoard.TriggerMatch = new System.Action(tGamePlayUI.SetEvents);
-    }
-
     public static GameManager Instance
     {
         get
@@ -60,16 +44,4 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public Board PBoard
-    {
-        get
-        {
-            return m_pBoard;
-        }
-
-        set
-        {
-            m_pBoard = value;
-        }
-    }
 }

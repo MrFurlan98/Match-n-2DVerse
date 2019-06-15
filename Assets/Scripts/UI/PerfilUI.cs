@@ -25,18 +25,25 @@ public class PerfilUI : MonoBehaviour {
         instance = this;
     }
 
+    private void OnEnable()
+    {
+        MinionAvatar tMinion = MinionAvatar.m_Instance;
+
+        SetPerfilMembers(tMinion.m_headMemberUsing, tMinion.m_legMemberUsing, tMinion.m_armMemberUsing, tMinion.m_bodyMemberUsing);
+    }
+
     private void Start()
     {
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PERFIL);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.PERFIL);
             });
 
     }
 
-    public void setPerfilMembers(Sprite m_HeadButton, Sprite m_LegsButton, Sprite m_ArmButton, Sprite m_BodyButton)
+    public void SetPerfilMembers(Sprite m_HeadButton, Sprite m_LegsButton, Sprite m_ArmButton, Sprite m_BodyButton)
     {
         m_HeadPerfilAvatar.sprite = m_HeadButton;
         m_LegPerfilAvatar.sprite = m_LegsButton;

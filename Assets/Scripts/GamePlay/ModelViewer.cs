@@ -11,9 +11,9 @@ public class ModelViewer : MonoBehaviour {
 
     private void OnDrawGizmosSelected()
     {
-        if (BoardManager.Instance.Levels[index] == null)
+        if (LevelManager.Instance.Levels[index] == null)
             return;
-        int[,] currentModel = BoardManager.Instance.Levels[index].Model;
+        int[,] currentModel = LevelManager.Instance.Levels[index].Model;
         for (int i = 0; i < currentModel.GetLength(0); i++)
         {
             for (int j = 0; j < currentModel.GetLength(1); j++)

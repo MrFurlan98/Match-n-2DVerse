@@ -163,7 +163,7 @@ public class Board : MonoBehaviour {
         StopAllCoroutines();
         //StartCoroutine(StartDalay());
 
-        level = BoardManager.Instance.Levels[levelSelect];
+        level = LevelManager.Instance.Levels[levelSelect];
 
         for (int i = 0; i < Width; i++)
         {
@@ -189,11 +189,11 @@ public class Board : MonoBehaviour {
         }
         if(level.Type == "Resgate")
         {       
-            BoardManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
+            LevelManager.Instance.SetBoardRescue(levelSelect, Heigth, Width, m_Icons);
         }
         if(level.Type == "Um_Dos_Doze_Trabalhos")
         {
-            BoardManager.Instance.SetBoardWorks(levelSelect, Heigth, Width, m_Icons);
+            LevelManager.Instance.SetBoardWorks(levelSelect, Heigth, Width, m_Icons);
         }
         if (BoostManager.Instance.IsBoostOn())
         {

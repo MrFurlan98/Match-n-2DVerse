@@ -32,11 +32,61 @@ public class ScoreManager : MonoBehaviour {
 
     private void Start()
     {
+        int tCurrentLevelIndex = LevelManager.Instance.CurrentLevel;
+
+        Debug.Log(LevelManager.Instance.Levels[tCurrentLevelIndex].Scenario);
+        Debug.Log(LevelManager.Instance.Levels[tCurrentLevelIndex].Type);
+
+        PopUpUI.Instance.ClosePopUp();
+
+        Scenario = LevelManager.Instance.Levels[tCurrentLevelIndex].Scenario;
+        Type = LevelManager.Instance.Levels[tCurrentLevelIndex].Type;
         StartGame = false;
+        MovesLeft = LevelManager.Instance.Levels[tCurrentLevelIndex].MovesLeft;
+        TargetLeft = LevelManager.Instance.Levels[tCurrentLevelIndex].TargetLeft;
+        GoalPoints = LevelManager.Instance.Levels[tCurrentLevelIndex].GoalPoints;
+        Points = 0;
+
+        Timer = LevelManager.Instance.Levels[tCurrentLevelIndex].Timer;
+        if (LevelManager.Instance.Levels[tCurrentLevelIndex].Type == "Desativar_Bomba")
+        {
+            SetTargets(TargetLeft);
+            Stop = false;
+            StartClock();
+        }
+
+        GamePlayManager.Instance.BoardReference.ClearBoard();
+
+        GamePlayManager.Instance.BoardReference.InitBoard(tCurrentLevelIndex);
+
+        GamePlayUI.instance.SetBackground();
+
+        //GamePlayUI.instance.SetBackground(BoardManager.Instance.Nivel[i]);
+
+        if (LevelManager.Instance.Levels[tCurrentLevelIndex].Type == "Resgate")
+        {
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.RESCUE);
+        }
+        if (LevelManager.Instance.Levels[tCurrentLevelIndex].Type == "Desativar_Bomba")
+        {
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.DEACTIVATE_BOMB);
+        }
+        if (LevelManager.Instance.Levels[tCurrentLevelIndex].Type == "Sobre_O_Olhar_Da_Gorgona")
+        {
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.UNDER_THE_GORGONAS_EYES);
+        }
+        if (LevelManager.Instance.Levels[tCurrentLevelIndex].Type == "Um_Dos_Doze_Trabalhos")
+        {
+            GamePlayUI.instance.OpenPanel(GamePlayUI.PANELS.ONE_OF_TWELVE_WORKS);
+        }
+        ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.ROADMAP);
+        StartGame = true;
+        GamePlayManager.Instance.BoardReference.StartCoroutine(GamePlayManager.Instance.BoardReference.StartDalay());
     }
     private void OnEnable()
     {
         StartGame = false;
+
     }
     private void Awake()
     {

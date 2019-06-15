@@ -110,9 +110,13 @@ public class PopUpUI : MonoBehaviour {
 
         });
 
-        //GameManager.Instance.PBoard.ClearBoard();
+        //GamePlayManager.Instance.BoardReference.ClearBoard();
     }
     
+    public void ClosePopUp()
+    {
+        m_Content.SetActive(false);
+    }
 
     private void RollRandomNumber()
     {

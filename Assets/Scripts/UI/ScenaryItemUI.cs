@@ -11,15 +11,15 @@ public class ScenaryItemUI : MonoBehaviour {
     public void SelectedItem()
     {
         // get component game play UI to set background UI
-        GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
+        //GamePlayUI tGamePlayUI = UIManager.Instance.GetScreenObject(UIManager.SCREEN.GAMEPLAY).GetComponent<GamePlayUI>();
         
 
-        GameManager.Instance.ResetBoard();
+        //GameManager.Instance.ResetBoard();
 
         //Open UI game play and close menu UI
-        UIManager.Instance.OpenScreen(UIManager.SCREEN.GAMEPLAY);
+        //ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.GAMEPLAY);
 
-        UIManager.Instance.CloseScreen(UIManager.SCREEN.MENU);
+        //UIManager.Instance.CloseScreen(UIManager.SCREEN.MENU);
     }
 
     public void SetScenarySprite(Sprite pScenary)

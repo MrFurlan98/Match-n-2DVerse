@@ -51,40 +51,32 @@ public class ScenaryItemUIBeta : MonoBehaviour {
             case U_Button.LAB:
                 // open lab screen
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.LAB);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.LAB);
 
                 break;
             case U_Button.STORE:
                 // open store screen
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.STORE);
 
                 break;
             case U_Button.TOVORTEX:
                 // open vortex map 
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.TOVORTEX);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.ROADMAP_VORTEX);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.ROADMAP);
 
                 break;
             case U_Button.ROADMAP:
                 // open road map 
 
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.ROADMAP);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.ROADMAP_VORTEX);
 
                 break;
             case U_Button.CONFIGURATIONS:
                 // open config screen
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
-
-                break;
-
-            case U_Button.CHANGEVORTEXMAP:
-                // change theme map
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CHANGEVORTEXMAP);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.TOVORTEX);
-
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.CONFIG);
 
                 break;
 

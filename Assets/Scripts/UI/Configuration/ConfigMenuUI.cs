@@ -13,7 +13,7 @@ public class ConfigMenuUI : MonoBehaviour {
         m_ExitButton.onClick.RemoveAllListeners();
         m_ExitButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.CONFIG);
             });
 
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MinionAvatar : MonoBehaviour {
     
-    public static MinionAvatar instance;
+    public static MinionAvatar m_Instance;
 
     public Sprite m_headMemberUsing;
 
@@ -17,7 +17,7 @@ public class MinionAvatar : MonoBehaviour {
 
     private void Awake()
     {
-        instance = this;
+        m_Instance = this;
     }
 
 

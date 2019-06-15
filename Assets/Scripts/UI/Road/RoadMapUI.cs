@@ -18,7 +18,6 @@ public class RoadMapUI : MonoBehaviour
     #region Instances
     public static RoadMapUI instance;
     PerfilUI instancePerf;
-    MinionAvatar instanceMA;
     #endregion
 
     [SerializeField]
@@ -95,7 +94,6 @@ public class RoadMapUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        instanceMA = MinionAvatar.instance;
     }
 
     private void Start()
@@ -104,45 +102,43 @@ public class RoadMapUI : MonoBehaviour
         m_ConfigButton.onClick = new Button.ButtonClickedEvent();
         m_ConfigButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.CONFIGURATIONS);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.CONFIG);
             });
 
 
         m_LabButton.onClick = new Button.ButtonClickedEvent();
         m_LabButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.LAB);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.LAB);
             });
 
         m_StoreButton.onClick = new Button.ButtonClickedEvent();
         m_StoreButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
-                StoreUI.Instance.SetHCText();
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.STORE);
+              
             });
 
         m_VortexButton.onClick = new Button.ButtonClickedEvent();
         m_VortexButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.TOVORTEX);
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.ROADMAP);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.ROADMAP_VORTEX);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.ROADMAP);
             });
 
         m_PerfilButton.onClick = new Button.ButtonClickedEvent();
         m_PerfilButton.onClick.AddListener(
             delegate {
-                UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.PERFIL);
-                instancePerf = PerfilUI.instance;
-                instancePerf.setPerfilMembers(instanceMA.m_headMemberUsing, instanceMA.m_legMemberUsing, instanceMA.m_armMemberUsing, instanceMA.m_bodyMemberUsing);
+                ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.PERFIL);
             });
 
         m_PlayButton.onClick = new Button.ButtonClickedEvent();
         m_PlayButton.onClick.AddListener(
             delegate {
-                //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.MENUROADB);
+                //ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.MENUROADB);
                 mapButtonsScreen.SetActive(true);
                 startGameScreen.SetActive(false);
-                //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.PLAYB);
+                //ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.PLAYB);
             });
         m_BoostCross.onClick = new Button.ButtonClickedEvent();
         m_BoostCross.onClick.AddListener(

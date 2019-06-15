@@ -21,7 +21,7 @@ public class SetAvatar : MonoBehaviour {
 
     void Start()
     {
-        instanceMA = MinionAvatar.instance;
+        instanceMA = MinionAvatar.m_Instance;
     }
 
     // Update is called once per frame

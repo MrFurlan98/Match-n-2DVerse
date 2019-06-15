@@ -66,12 +66,12 @@ public class StoreUI : MonoBehaviour
     private void Start()
     {
         AtualScreen = InGameItensScreen;
-
+        SetHCText();
         m_ExitButton.onClick = new Button.ButtonClickedEvent();
         m_ExitButton.onClick.AddListener(
             delegate
             {
-                UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.STORE);
+                ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.STORE);
             });
 
         m_InGameScreenButton.onClick = new Button.ButtonClickedEvent();

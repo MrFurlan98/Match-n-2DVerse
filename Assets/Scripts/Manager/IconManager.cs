@@ -18,16 +18,14 @@ public class IconManager : MonoBehaviour {
     [SerializeField]
     private List<Combo> m_Combos;
 
-    private Transform m_BoardRoot;
-
     [SerializeField]
     private List<Sprite> m_Modulos = new List<Sprite>();
 
     private void Start()
     {
-        if(m_BoardRoot == null)
+        if(GamePlayManager.Instance.BoardReference.transform == null)
         {
-            m_BoardRoot = GameManager.Instance.PBoard.transform;
+           // GamePlayManager.Instance.BoardReference.transform = GamePlayManager.Instance.BoardReference.transform;
         }
     }
 
@@ -82,7 +80,7 @@ public class IconManager : MonoBehaviour {
             }
         }
 
-        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, GamePlayManager.Instance.BoardReference.transform);
 
         tNewIcon.name = tIcon.Tag;
 
@@ -111,7 +109,7 @@ public class IconManager : MonoBehaviour {
     }
     public BoardIcon GenerateIcon(int pX, int pY, Icon pIconData)
     {
-        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, GamePlayManager.Instance.BoardReference.transform);
 
         tNewIcon.name = pIconData.Tag;
 
@@ -123,7 +121,7 @@ public class IconManager : MonoBehaviour {
     }
     public BoardIcon GenerateIndestructableIcon(int pX, int pY)
     {
-        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, GamePlayManager.Instance.BoardReference.transform);
 
         tNewIcon.name = "Indestructable";
 
@@ -137,7 +135,7 @@ public class IconManager : MonoBehaviour {
     }
     public BoardIcon GenerateRescueIcon(int pX, int pY)
     {
-        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, m_BoardRoot);
+        GameObject tNewIcon = Instantiate(m_PrefabBaseIconSetting, GamePlayManager.Instance.BoardReference.transform);
 
         tNewIcon.name = "Rescue";
 

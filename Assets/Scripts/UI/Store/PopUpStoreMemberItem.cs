@@ -54,7 +54,7 @@ public class PopUpStoreMemberItem : MonoBehaviour {
         m_Button.onClick.AddListener(delegate () {
             m_Content.SetActive(false);
             m_imgPart.sprite = null;
-            //UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.STORE);
+            //ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.STORE);
         });
     }
 
@@ -64,7 +64,7 @@ public class PopUpStoreMemberItem : MonoBehaviour {
         m_Content.SetActive(true);
         numberRarityChest = numberChest;
         CheckNumberArray(numberChest);
-        //UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.STORE);
+        //ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.STORE);
 
     }
 

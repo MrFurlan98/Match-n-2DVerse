@@ -4,14 +4,12 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class BoardManager : MonoBehaviour {
-    private static BoardManager m_Instance;
-
-    [SerializeField]
-    private Board m_pBoard;
+public class LevelManager : MonoBehaviour {
+    private static LevelManager m_Instance;
 
     [SerializeField]
     private List<Level> m_levels;
+
 
     private int currentLevel;
 
@@ -43,6 +41,7 @@ public class BoardManager : MonoBehaviour {
             }
         }
     }
+
     public void SetBoardWorks(int level, int heigth, int width, BoardIcon[,] tBoardIcons)
     {
         int qtd = GetQtd(level);
@@ -87,7 +86,8 @@ public class BoardManager : MonoBehaviour {
         }
         return 6;
     }
-    public static BoardManager Instance
+
+    public static LevelManager Instance
     {
         get
         {
@@ -97,19 +97,6 @@ public class BoardManager : MonoBehaviour {
         set
         {
             m_Instance = value;
-        }
-    }
-
-    public Board PBoard
-    {
-        get
-        {
-            return m_pBoard;
-        }
-
-        set
-        {
-            m_pBoard = value;
         }
     }
 

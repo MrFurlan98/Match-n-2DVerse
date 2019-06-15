@@ -102,10 +102,10 @@ public class GamePlayUI : MonoBehaviour {
     }
     private void OnEnable()
     {
-        m_HeadGamePlayAvatar.sprite = MinionAvatar.instance.m_headMemberUsing;
-        m_LegGamePlayAvatar.sprite = MinionAvatar.instance.m_legMemberUsing;
-        m_ArmGamePlayAvatar.sprite = MinionAvatar.instance.m_armMemberUsing;
-        m_BodyGamePlayAvatar.sprite = MinionAvatar.instance.m_bodyMemberUsing;
+        m_HeadGamePlayAvatar.sprite = MinionAvatar.m_Instance.m_headMemberUsing;
+        m_LegGamePlayAvatar.sprite = MinionAvatar.m_Instance.m_legMemberUsing;
+        m_ArmGamePlayAvatar.sprite = MinionAvatar.m_Instance.m_armMemberUsing;
+        m_BodyGamePlayAvatar.sprite = MinionAvatar.m_Instance.m_bodyMemberUsing;
     }
     private void Update()
     {
@@ -122,7 +122,7 @@ public class GamePlayUI : MonoBehaviour {
         if (InventoryManager.instance.listConsumables[2].qtdItem > 0)
         {
             StopAllCoroutines();
-            StartCoroutine(GameManager.Instance.PBoard.ZeusThunder());
+            StartCoroutine(GamePlayManager.Instance.BoardReference.ZeusThunder());
             InventoryManager.instance.listConsumables[2].qtdItem--;
             return;
         }
@@ -132,7 +132,7 @@ public class GamePlayUI : MonoBehaviour {
         if (InventoryManager.instance.listConsumables[0].qtdItem > 0)
         {
             StopAllCoroutines();
-            StartCoroutine(GameManager.Instance.PBoard.SwitchIcons());
+            StartCoroutine(GamePlayManager.Instance.BoardReference.SwitchIcons());
             InventoryManager.instance.listConsumables[0].qtdItem--;
             return;
         }
@@ -142,7 +142,7 @@ public class GamePlayUI : MonoBehaviour {
         if (InventoryManager.instance.listConsumables[1].qtdItem > 0)
         {
             StopAllCoroutines();
-            StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+            StartCoroutine(GamePlayManager.Instance.BoardReference.PowerUp());
             InventoryManager.instance.listConsumables[1].qtdItem--;
             return;
         }
@@ -154,7 +154,7 @@ public class GamePlayUI : MonoBehaviour {
         if (InventoryManager.instance.listConsumables[3].qtdItem > 0)
         {
             StopAllCoroutines();
-            StartCoroutine(GameManager.Instance.PBoard.PowerUp());
+            StartCoroutine(GamePlayManager.Instance.BoardReference.PowerUp());
             InventoryManager.instance.listConsumables[3].qtdItem--;
             return;
         }
@@ -188,7 +188,7 @@ public class GamePlayUI : MonoBehaviour {
     }
     private void SelectPauseButton()
     {
-        UIManager.Instance.OpenScreen(UIManager.SCREEN.PAUSE);
+      //  ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.PAUSE);
     }
 
     public void SetBackground()
@@ -297,9 +297,9 @@ public class GamePlayUI : MonoBehaviour {
 
     public void BackMenu()
     {
-        UIManagerBeta.Instance.OpenScreen(UIManagerBeta.SCREENS.ROADMAP);
-        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.GAMEPLAY);
-        UIManagerBeta.Instance.CloseScreen(UIManagerBeta.SCREENS.POPUP);
+        ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.ROADMAP);
+        ScreenManager.Instance.CloseScreen(ScreenManager.SCREEN.GAMEPLAY);
+        PopUpUI.Instance.ClosePopUp();
         ClosePanel(PANELS.RESCUE);
         ClosePanel(PANELS.DEACTIVATE_BOMB);
         ClosePanel(PANELS.UNDER_THE_GORGONAS_EYES);

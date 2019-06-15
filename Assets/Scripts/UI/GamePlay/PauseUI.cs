@@ -30,13 +30,13 @@ public class PauseUI : MonoBehaviour {
 
     private void SelectMenuButton()
     {
-        UIManager.Instance.OpenScreen(UIManager.SCREEN.MENU);
-        UIManager.Instance.CloseScreen(UIManager.SCREEN.PAUSE);
+        //ScreenManager.Instance.OpenScreen(ScreenManager.SCREEN.MENU);
+        //UIManager.Instance.CloseScreen(UIManager.SCREEN.PAUSE);
     }
 
     private void SelectResumeButton()
     {
-        UIManager.Instance.CloseScreen(UIManager.SCREEN.PAUSE);
+     //   UIManager.Instance.CloseScreen(UIManager.SCREEN.PAUSE);
     }
 
 
