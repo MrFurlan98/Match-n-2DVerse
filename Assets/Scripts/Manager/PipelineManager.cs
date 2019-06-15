@@ -160,7 +160,7 @@ public class PipelineManager : MonoBehaviour {
         yield return 0;
     }
 
-    AsyncOperation LoadScene(string pName)
+    public AsyncOperation LoadScene(string pName)
     {
         if (!SceneManager.GetSceneByName(pName).isLoaded)
             return SceneManager.LoadSceneAsync(pName, LoadSceneMode.Additive);

@@ -18,6 +18,16 @@ public partial class Backend: MonoBehaviour {
 
     }
 
+    public bool ServerAvailable()
+    {
+        return GS.Available;
+    }
+
+    public bool WasAuthenticated()
+    {
+        return GS.Authenticated;
+    }
+
     public static Backend Instance
     {
         get
