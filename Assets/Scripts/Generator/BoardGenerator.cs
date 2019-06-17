@@ -10,9 +10,9 @@ public class BoardGenerator  {
     [SerializeField]
     private Board m_pBoard;
     [SerializeField]
-    private static int Width = 7;
+    private static int Width = 9;
     [SerializeField]
-    private static int Heigth = 10;
+    private static int Heigth = 9;
 
     public static float noiseScale= 4f;
 

@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadow: {fileID: 21300000, guid: dd97e891d2e3ff547949f492ca9b00f8, type: 3}
   stone: {fileID: 21300000, guid: 15b2d452818f25a4b82068bf19efb1df, type: 3}
-  m_Heigth: 10
-  m_Width: 7
+  m_Heigth: 9
+  m_Width: 9
   m_RefillDelay: 1.2
   m_DropDelay: 0
   m_SwapDelay: 0.5
